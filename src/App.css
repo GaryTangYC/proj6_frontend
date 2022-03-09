@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
+/* color palette  */
+:root {
+  --primary-color: #ffe66d;
+  --accent-color: #ff6b6b;
+  --fillin-color: #f7fff7;
+}
+
+/* general bckgrd color  */
+body {
+  background-color: #f5f4ef;
+}
