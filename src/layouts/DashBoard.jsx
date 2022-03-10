@@ -65,7 +65,7 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const mdTheme = createTheme();
+
 
 export default function DashboardContent() {
   const [open, setOpen] = React.useState(true);
@@ -74,7 +74,7 @@ export default function DashboardContent() {
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
+
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -85,7 +85,7 @@ export default function DashboardContent() {
           >
             <IconButton
               edge="start"
-              color="inherit"
+              color="secondary"
               aria-label="open drawer"
               onClick={toggleDrawer}
               sx={{
@@ -98,13 +98,13 @@ export default function DashboardContent() {
             <Typography
               component="h1"
               variant="h6"
-              color="inherit"
+              color="secondary"
               noWrap
               sx={{ flexGrow: 1 }}
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
+            <IconButton color="secondary">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -134,10 +134,6 @@ export default function DashboardContent() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
@@ -147,7 +143,6 @@ export default function DashboardContent() {
           This is from layout dashboard.
         </Box>
       </Box>
-    </ThemeProvider>
   );
 }
 

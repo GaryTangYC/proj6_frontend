@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
+import LogInTest from "./pages/LogInTest";
 
 /* mui imports */
 import ThemeConfig from "./theme";
@@ -15,6 +16,7 @@ function App() {
       <ThemeConfig>
         <Routes>
           <Route path="/" element={<SignIn />} />
+          <Route path="/test" element={<LogInTest/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
         </Routes>

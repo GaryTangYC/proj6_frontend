@@ -9,7 +9,6 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatIcon from '@mui/icons-material/Chat';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
 
 
 export const mainListItems = (
