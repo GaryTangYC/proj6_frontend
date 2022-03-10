@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState } from "react";
 import DashboardContent from "../layouts/DashBoard";
 
+const title = "Requests";
+
 export default function RequestPage() {
   let [reqType, setReqType] = useState();
 
@@ -24,13 +26,13 @@ export default function RequestPage() {
   if (reqType) {
     return (
       <>
-        <DashboardContent render={renderOne} />;
+        <DashboardContent title={title} render={renderOne} />;
       </>
     );
   } else {
     return (
       <>
-        <DashboardContent render={renderTwo} />;
+        <DashboardContent title={title} render={renderTwo} />;
       </>
     );
   }
