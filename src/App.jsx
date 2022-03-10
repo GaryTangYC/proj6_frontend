@@ -16,7 +16,6 @@ function App() {
       <ThemeConfig>
         <Routes>
           <Route path="/" element={<SignIn />} />
-          <Route path="/test" element={<LogInTest/>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/addtask" element={<AddTaskPage />} />
