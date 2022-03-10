@@ -31,8 +31,6 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
-
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,7 +43,6 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -78,6 +75,12 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}                                    
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -88,6 +91,12 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}                     
                 />
               </Grid>
               <Grid item xs={12}>
@@ -98,6 +107,12 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}                     
                 />
               </Grid>
               <Grid item xs={12}>
@@ -139,6 +154,5 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }
