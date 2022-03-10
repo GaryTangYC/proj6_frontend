@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,8 +7,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ChatIcon from '@mui/icons-material/Chat';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import BarChartIcon from '@mui/icons-material/BarChart';
-
 
 export const mainListItems = (
   <>
@@ -50,12 +47,6 @@ export const secondaryListItems = (
         <AccountCircleIcon />
       </ListItemIcon>
       <ListItemText primary="Profile" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon/>
-      </ListItemIcon>
-      <ListItemText primary="TBC" />
     </ListItemButton>
   </>
 );
