@@ -15,3 +15,5 @@ export default function ThemeConfig({ children }) {
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
+
+// Login and signin page TextField (InputProps & InpuLabelProps) color are currently hardcoded. If we want to change it via Theme, will need to use override in this page: https://stackoverflow.com/questions/70405734/material-ui-v5-theming-customization
