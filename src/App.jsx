@@ -3,7 +3,9 @@ import "./App.css";
 /* react imports */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./pages/LogIn";
-import DashboardContent from "./pages/DashBoard"; 
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import DashboardContent from "./pages/DashBoard";
 
 /* mui imports */
 import ThemeConfig from "./theme";
@@ -13,8 +15,9 @@ function App() {
     <Router>
       <ThemeConfig>
         <Routes>
-          <Route path="/" element={<LogIn />} />
-          <Route path="/home" element={<DashboardContent />} />          
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/home" element={<DashboardContent />} />
         </Routes>
       </ThemeConfig>
     </Router>
