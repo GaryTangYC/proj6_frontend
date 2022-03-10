@@ -1,4 +1,3 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,27 +10,6 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -59,7 +37,7 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h1" color="text.disabled">
             Sign in
           </Typography>
           <Box
@@ -77,6 +55,12 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              InputProps={{
+              style: { color: '#ffe66d' },
+              }}
+              InputLabelProps={{
+              style: { color: '#ffe66d' },
+              }}              
             />
             <TextField
               margin="normal"
@@ -87,10 +71,16 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              InputProps={{
+              style: { color: '#ffe66d' },
+              }}              
+              InputLabelProps={{
+              style: { color: '#ffe66d' },
+              }}              
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              control={<Checkbox value="remember" color="secondary" />}
+              label={<Typography color="primary">Remember me</Typography>}              
             />
             <Button
               type="submit"
@@ -113,8 +103,7 @@ export default function SignIn() {
               </Grid>
             </Grid>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Box>        
       </Container>
 
   );

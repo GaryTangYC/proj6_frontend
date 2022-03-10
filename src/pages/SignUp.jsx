@@ -1,51 +1,31 @@
-import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// Team to decide if want to use submitBtn for this page or leave as default
+import SubmitBtn from "../widgets/SubmitBtn";
 
-const theme = createTheme();
 
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+    console.log({      
+      name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -69,27 +49,23 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Name"
                   autoFocus
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}     
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+              </Grid>              
               <Grid item xs={12}>
                 <TextField
                   required
@@ -98,6 +74,12 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}                     
                 />
               </Grid>
               <Grid item xs={12}>
@@ -109,16 +91,14 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  InputProps={{
+                  style: { color: '#ffe66d' },
+                  }}
+                  InputLabelProps={{
+                  style: { color: '#ffe66d' },
+                  }}                     
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+              </Grid>             
             </Grid>
             <Button
               type="submit"
@@ -137,8 +117,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
-    </ThemeProvider>
   );
 }
