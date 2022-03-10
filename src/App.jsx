@@ -6,6 +6,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import HomePage from "./pages/Home";
 import AddTaskPage from "./pages/AddTask";
+import ProfilePage from "./pages/Profile";
+import RequestPage from "./pages/Requests";
 
 /* mui imports */
 import ThemeConfig from "./theme";
@@ -19,6 +21,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/addtask" element={<AddTaskPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/requests" element={<RequestPage />} />
         </Routes>
       </ThemeConfig>
     </Router>
