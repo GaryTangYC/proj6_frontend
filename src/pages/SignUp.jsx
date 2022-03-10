@@ -9,6 +9,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
+// Team to decide if want to use submitBtn for this page or leave as default
+import SubmitBtn from "../widgets/SubmitBtn";
+
 
 export default function SignUp() {
   const handleSubmit = (event) => {
@@ -16,8 +19,7 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     console.log({      
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
+      name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
     });
@@ -47,39 +49,23 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Name"
                   autoFocus
                   InputProps={{
                   style: { color: '#ffe66d' },
                   }}
                   InputLabelProps={{
                   style: { color: '#ffe66d' },
-                  }}                                    
+                  }}     
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  InputProps={{
-                  style: { color: '#ffe66d' },
-                  }}
-                  InputLabelProps={{
-                  style: { color: '#ffe66d' },
-                  }}                     
-                />
-              </Grid>
+              </Grid>              
               <Grid item xs={12}>
                 <TextField
                   required
