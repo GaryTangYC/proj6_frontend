@@ -67,7 +67,7 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-export default function DashboardContent() {
+export default function DashboardContent({ render }) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -145,12 +145,9 @@ export default function DashboardContent() {
         >
           <Toolbar />
           This is from layout dashboard.
+          {render}
         </Box>
       </Box>
     </ThemeProvider>
   );
 }
-
-// export default function Dashboard() {
-//   return <DashboardContent />;
-// }

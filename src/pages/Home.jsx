@@ -1,6 +1,8 @@
 import * as React from "react";
 import DashboardContent from "../layouts/DashBoard";
 
+const render = "This is from home page.";
+
 export default function HomePage() {
-  return <DashboardContent />;
+  return <DashboardContent render={render} />;
 }
