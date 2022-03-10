@@ -2,10 +2,9 @@
 import "./App.css";
 /* react imports */
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LogIn from "./pages/LogIn";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import DashboardContent from "./pages/DashBoard";
+import DashboardContent from "./layouts/DashBoard";
 
 /* mui imports */
 import ThemeConfig from "./theme";
