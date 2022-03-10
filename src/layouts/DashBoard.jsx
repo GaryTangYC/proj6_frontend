@@ -1,5 +1,5 @@
-import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -10,13 +10,9 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { mainListItems, secondaryListItems } from "../components/NavBar";
 
 const drawerWidth = 240;
@@ -65,16 +61,13 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-
-
 export default function DashboardContent({ render }) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
-
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -104,10 +97,8 @@ export default function DashboardContent({ render }) {
             >
               Dashboard
             </Typography>
-            <IconButton color="secondary">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+            <IconButton color="secondary" >
+                <AccountCircleIcon fontSize="large" />
             </IconButton>
           </Toolbar>
         </AppBar>

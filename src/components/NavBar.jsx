@@ -1,14 +1,12 @@
-import * as React from "react";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import ChatIcon from "@mui/icons-material/Chat";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ChatIcon from '@mui/icons-material/Chat';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from "@mui/material/Link";
 
 export const mainListItems = (
@@ -66,13 +64,5 @@ export const secondaryListItems = (
       </ListItemButton>
     </Link>
 
-    <Link href="#">
-      <ListItemButton>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="TBC" />
-      </ListItemButton>
-    </Link>
   </>
 );
