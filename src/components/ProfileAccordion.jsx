@@ -6,6 +6,13 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import NameDetail from "./ProfileAccordionNameDetail";
+import EmailDetail from "./ProfileAccordionEmailDetail";
+import PasswordDetail from "./ProfileAccordionPasswordDetail";
+import BiographyDetail from "./ProfileAccordionBiographyDetail";
+import PostalCodeDetail from "./ProfileAccordionPostalCodeDetail";
+import PaymentDetail from "./ProfileAccordionPaymentDetail";
+import HistoryDetail from "./ProfileAccordionHistoryDetail";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -52,7 +59,7 @@ export default function ProfileAccordions() {
 
   return (
     <div>
-      <Container maxWidth="md">
+      <Container maxWidth="xl">
         <Accordion
           expanded={expanded === "panel1"}
           onChange={handleChange("panel1")}
@@ -61,13 +68,7 @@ export default function ProfileAccordions() {
             <Typography>Name</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <NameDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -78,13 +79,7 @@ export default function ProfileAccordions() {
             <Typography>Email</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <EmailDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -95,13 +90,7 @@ export default function ProfileAccordions() {
             <Typography>Password</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <PasswordDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -112,13 +101,7 @@ export default function ProfileAccordions() {
             <Typography>Biography</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <BiographyDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -129,13 +112,7 @@ export default function ProfileAccordions() {
             <Typography>Payment</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <PaymentDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -146,13 +123,7 @@ export default function ProfileAccordions() {
             <Typography>Postal Code</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <PostalCodeDetail />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -163,13 +134,7 @@ export default function ProfileAccordions() {
             <Typography>History</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
+            <HistoryDetail />
           </AccordionDetails>
         </Accordion>
       </Container>
