@@ -1,17 +1,21 @@
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import ChatIcon from '@mui/icons-material/Chat';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Link from "@mui/material/Link";
+/* react imports */
+import { Link as RouterLink } from "react-router-dom";
+/* mui imports */
+import {
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Link,
+} from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ChatIcon from "@mui/icons-material/Chat";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export const mainListItems = (
   <>
-    <Link href="/home">
+    <Link underline="none" component={RouterLink} to="/home">
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
@@ -20,7 +24,7 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    <Link href="/addtask">
+    <Link underline="none" component={RouterLink} to="/addtask">
       <ListItemButton>
         <ListItemIcon>
           <AddBoxIcon />
@@ -29,7 +33,7 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    <Link href="/requests">
+    <Link underline="none" component={RouterLink} to="/requests">
       <ListItemButton>
         <ListItemIcon>
           <PeopleAltIcon />
@@ -38,7 +42,7 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    <Link href="/chats">
+    <Link underline="none" component={RouterLink} to="/chats">
       <ListItemButton>
         <ListItemIcon>
           <ChatIcon />
@@ -51,11 +55,7 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <>
-    <ListSubheader component="div" inset>
-      Settings
-    </ListSubheader>
-
-    <Link href="/profile">
+    <Link underline="none" component={RouterLink} to="/profile">
       <ListItemButton>
         <ListItemIcon>
           <AccountCircleIcon />
@@ -63,6 +63,5 @@ export const secondaryListItems = (
         <ListItemText primary="Profile" />
       </ListItemButton>
     </Link>
-
   </>
 );
