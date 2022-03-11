@@ -131,7 +131,7 @@ export default function DashboardContent({ title, children }) {
         }}
       >
         <Toolbar />
-        This is from layout dashboard without typography.
+        {/* This is from layout dashboard without typography.
         <Typography variant="h1">
           {" "}
           This is H1 from within typography{" "}
@@ -139,7 +139,7 @@ export default function DashboardContent({ title, children }) {
         <Typography variant="body1">
           {" "}
           This is body1 from within typography{" "}
-        </Typography>
+        </Typography> */}
         {children}
       </Box>
     </Box>
