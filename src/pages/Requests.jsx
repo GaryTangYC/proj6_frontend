@@ -1,15 +1,14 @@
-import * as React from "react";
+/* react imports */
 import { useState } from "react";
+/* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 
-const title = "Requests";
-
 export default function RequestPage() {
-  let [reqType, setReqType] = useState();
+  let [reqType, setReqType] = useState(null);
 
   const renderOne = (
     <>
-      <button type="button" onClick={(setReqType = false)}>
+      <button type="button" onClick={()=>{setReqType(true)}}>
         request type 1
       </button>
     </>
@@ -17,23 +16,19 @@ export default function RequestPage() {
 
   const renderTwo = (
     <>
-      <button type="button" onClick={(setReqType = true)}>
+      <button type="button" onClick={()=>{setReqType(null)}}>
         request type 2
       </button>
     </>
   );
 
-  if (reqType) {
-    return (
-      <>
-        <DashboardContent title={title} render={renderOne} />;
-      </>
-    );
-  } else {
-    return (
-      <>
-        <DashboardContent title={title} render={renderTwo} />;
-      </>
-    );
-  }
+  return (
+    <DashboardContent title="Requests">
+      {reqType === null ? renderOne : renderTwo}
+    </DashboardContent>
+  );
 }
+
+/* 
+shld be using mui <Button> component above rather than vanilla html <button> above 
+*/

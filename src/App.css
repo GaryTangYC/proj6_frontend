@@ -5,9 +5,24 @@
   --primary-color: #ffe66d;
   --accent-color: #ff6b6b;
   --fillin-color: #f7fff7;
+  font-family: "Quicksand", sans-serif;
 }
 
 /* general bckgrd color  */
 body {
   background-color: #f5f4ef;
 }
+
+/* 
+General
+- css here injected into head section of html file
+- the colors in :root are just a reminder of the color palette chosen
+- placed color palette here cos there's a color picker to facilitate changing color unlike in ./theme/palette.js where the colors are actually used   
+Typography
+- since :root fontFamily using Quicksand, any text inside or outside of a mui Typopgraphy component will still use Quicksand
+- stil cos we defined specific css for Typopgraphy  in ./theme/typography.js for the different headers, body text etc, best to place any text within Typopgraphy component tag
+Bckground color
+- default bckgrd color of html body is the color above
+- hwever default bckgrd color of mui components controlled by ./theme/palette.js
+- for details, see palette.js  
+*/

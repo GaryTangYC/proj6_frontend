@@ -1,15 +1,9 @@
 import { Button } from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-export default function SubmitBtn() {
+export default function SubmitBtn({ text }) {
   return (
-    <Button
-      type="submit"
-      color="secondary"
-      variant="contained"
-      endIcon={<KeyboardArrowRightIcon />}
-    >
-      Submit
+    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+      {text}
     </Button>
   );
 }
