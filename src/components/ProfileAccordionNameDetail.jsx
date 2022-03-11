@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
 export default function NameDetail() {
+  const str = "happy string value?";
+
   return (
     <>
       <Grid container spacing={2}>
@@ -22,6 +24,7 @@ export default function NameDetail() {
             color="grey"
             fullWidth
             focused
+            value={str}
           />
         </Grid>
         <Grid item xs={12}>
