@@ -1,10 +1,8 @@
-import * as React from "react";
+/* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 
-const title = "Chats";
-
-const render = "This is from chats page.";
-
 export default function ChatsPage() {
-  return <DashboardContent title={title} render={render} />;
+  return (
+    <DashboardContent title="Chats">This is from chats page.</DashboardContent>
+  );
 }

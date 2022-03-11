@@ -1,10 +1,10 @@
-import * as React from "react";
+/* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 
-const title = "Add Task";
-
-const render = "This is from add-task page.";
-
 export default function AddTaskPage() {
-  return <DashboardContent title={title} render={render} />;
+  return (
+    <DashboardContent title="Add Task">
+      This is from add-task page
+    </DashboardContent>
+  );
 }

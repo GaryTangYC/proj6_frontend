@@ -61,3 +61,8 @@ const typography = {
 };
 
 export default typography;
+
+/* 
+- allVariants: { color: blueGrey[800] } sets color for all Typography components to blueGrey[800]
+- ./palette.js offers other colors if we want to change from the default color
+*/
