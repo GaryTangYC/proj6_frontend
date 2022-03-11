@@ -1,10 +1,10 @@
-import * as React from "react";
+/* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 
-const title = "Home";
-
-const render = "This is from home page again w/o typography.";
-
 export default function HomePage() {
-  return <DashboardContent title={title} render={render} />;
+  return (
+    <DashboardContent title="Home">
+      This is from home page again w/o typography.
+    </DashboardContent>
+  );
 }
