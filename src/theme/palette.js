@@ -10,7 +10,7 @@ const palette = {
     secondary: blueGrey[500],
     disabled: blueGrey.A100,
   },
-  background: { paper: "#fff", default: blueGrey[800], neutral: blueGrey[100] },
+  background: { paper: "#f5f4ef", default: "#f5f4ef", neutral: blueGrey[100] },
 };
 
 export default palette;

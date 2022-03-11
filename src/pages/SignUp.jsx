@@ -1,24 +1,15 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-
-// Team to decide if want to use submitBtn for this page or leave as default
+/* mui imports */
+import { TextField, Grid, Link, Box, Typography } from "@mui/material";
+/* widget imports */
 import SubmitBtn from "../widgets/SubmitBtn";
-
+import SignContainer from "../components/SignContainer";
 
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({      
+    console.log({
       name: data.get("name"),
       email: data.get("email"),
       password: data.get("password"),
@@ -26,97 +17,50 @@ export default function SignUp() {
   };
 
   return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Name"
-                  autoFocus
-                  InputProps={{
-                  style: { color: '#ffe66d' },
-                  }}
-                  InputLabelProps={{
-                  style: { color: '#ffe66d' },
-                  }}     
-                />
-              </Grid>              
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  InputProps={{
-                  style: { color: '#ffe66d' },
-                  }}
-                  InputLabelProps={{
-                  style: { color: '#ffe66d' },
-                  }}                     
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  InputProps={{
-                  style: { color: '#ffe66d' },
-                  }}
-                  InputLabelProps={{
-                  style: { color: '#ffe66d' },
-                  }}                     
-                />
-              </Grid>             
-            </Grid>
-            <Button
-              type="submit"
+    <SignContainer text="Sign Up">
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              required
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
+              color="secondary"
+              label="Name"
+              name="name"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              color="secondary"
+              label="Email Address"
+              name="email"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              fullWidth
+              color="secondary"
+              label="Password"
+              name="password"
+              type="password"
+            />
+          </Grid>
+        </Grid>
+        <SubmitBtn text="Sign Up" />
+        <Grid container justifyContent="flex-end">
+          <Grid item>
+            <Link href="/" variant="body2">
+              Already have an account? Sign in (outside typography)
+              <Typography variant="body2">
+                Already have an account? Sign in
+              </Typography>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </SignContainer>
   );
 }
