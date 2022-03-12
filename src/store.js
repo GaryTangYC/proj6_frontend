@@ -11,7 +11,7 @@ const NAV_BAR_OPEN = 'NAV_BAR_OPEN'
 
 /* useReducer initial state  */
 const initialState = {
-	navBar: false
+	navBarStatus: false
 	// user: null,
 	// provider: null,
 	// signer: null,
@@ -29,7 +29,7 @@ export const globalStateReducer = (state, action) => {
 		case NAV_BAR_OPEN:
 			newGlobalState = {
 				...state,
-				navBar: true
+				navBarStatus: true
 			};
 			return newGlobalState;
 		default:
