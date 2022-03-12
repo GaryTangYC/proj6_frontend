@@ -3,8 +3,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { useContext } from "react";
+import { DataContext } from "../../pages/Profile";
 
 export default function PostalCodeDetail() {
+  const { data, setData } = useContext(DataContext);
+  const { postal } = data;
+
   return (
     <>
       <Grid container spacing={2}>
@@ -23,6 +28,8 @@ export default function PostalCodeDetail() {
             type="number"
             fullWidth
             focused
+            value={postal}
+            onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>

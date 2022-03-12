@@ -3,8 +3,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { useContext } from "react";
+import { DataContext } from "../../pages/Profile";
 
 export default function BiographyDetail() {
+  const { data, setData } = useContext(DataContext);
+  const { bio } = data;
+
   return (
     <>
       <Grid container spacing={2}>
@@ -24,6 +29,8 @@ export default function BiographyDetail() {
             fullWidth
             focused
             multiline
+            value={bio}
+            onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
