@@ -3,7 +3,7 @@ import DashboardContent from "../layouts/DashBoard";
 
 export default function AddTaskPage() {
   return (
-    <DashboardContent title="Add Task">
+    <DashboardContent>
       This is from add-task page
     </DashboardContent>
   );
