@@ -38,6 +38,12 @@ const typography = {
     textTransform: "capitalize",
     lineHeight: 1.5,
   },
+  h6: {
+    fontSize: 22,
+    fontWeight: 600,
+    textTransform: "uppercase",
+    lineHeight: 1.5,
+  },
 
   body1: {
     fontSize: 14,

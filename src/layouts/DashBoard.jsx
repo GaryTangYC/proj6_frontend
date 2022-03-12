@@ -1,6 +1,6 @@
 /* react imports */
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 /* mui imports */
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -65,7 +65,16 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const MyAppBar = ({ open, title, toggleDrawer }) => {
+
+export default function DashboardContent({ children }) {
+  const [open, setOpen] = useState(false);
+  const location = useLocation()
+  const title = location.pathname.substring(1)
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  const MyAppBar = () => {
   return (
     <AppBar position="absolute" open={open}>
       <Toolbar>
@@ -99,7 +108,7 @@ const MyAppBar = ({ open, title, toggleDrawer }) => {
   );
 };
 
-const MyDrawer = ({ open, toggleDrawer }) => {
+const MyDrawer = () => {
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -123,16 +132,10 @@ const MyDrawer = ({ open, toggleDrawer }) => {
   );
 };
 
-export default function DashboardContent({ title, children }) {
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
-      <MyAppBar open={open} toggleDrawer={toggleDrawer} title={title} />
-      <MyDrawer open={open} toggleDrawer={toggleDrawer} />
+      <MyAppBar />
+      <MyDrawer />
       <Box
         component="main"
         sx={{
