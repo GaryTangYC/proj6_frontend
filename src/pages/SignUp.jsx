@@ -54,7 +54,7 @@ export default function SignUp() {
           <Grid item>
             <Link href="/" variant="body2">
               Already have an account? Sign in (outside typography)
-              <Typography variant="body2">
+              <Typography variant="body2" color="text">
                 Already have an account? Sign in
               </Typography>
             </Link>

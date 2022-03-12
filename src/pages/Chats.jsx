@@ -3,6 +3,6 @@ import DashboardContent from "../layouts/DashBoard";
 
 export default function ChatsPage() {
   return (
-    <DashboardContent title="Chats">This is from chats page.</DashboardContent>
+    <DashboardContent>This is from chats page.</DashboardContent>
   );
 }
