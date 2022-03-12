@@ -4,7 +4,7 @@ import ProfileAccordions from "../components/ProfileAccordion";
 
 export default function ProfilePage() {
   return (
-    <DashboardContent title="Profile">
+    <DashboardContent>
       <ProfileAccordions />
     </DashboardContent>
   );

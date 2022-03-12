@@ -23,7 +23,7 @@ export default function RequestPage() {
   );
 
   return (
-    <DashboardContent title="Requests">
+    <DashboardContent>
       {reqType === null ? renderOne : renderTwo}
     </DashboardContent>
   );
