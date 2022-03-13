@@ -1,14 +1,19 @@
 /* react imports */
-import { Link as RouterLink } from "react-router-dom";
+import { useContext } from "react";
+import { Context, userSignUp } from "./../store";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
 import { TextField, Grid, Link, Box, Typography } from "@mui/material";
 /* widget imports */
 import SubmitBtn from "../widgets/SubmitBtn";
 import SignContainer from "../components/SignContainer";
 /* other imports */
-import axios from 'axios';
+import axios from "axios";
 
 export default function SignUp() {
+  const { dispatch } = useContext(Context);
+  const navigate = useNavigate();
+
   const doSignUp = async (evt) => {
     evt.preventDefault();
     const data = new FormData(evt.currentTarget);
@@ -16,7 +21,7 @@ export default function SignUp() {
     const email = data.get("email").toLowerCase();
     const postal = data.get("postal");
     const password = data.get("password");
-    const bckendBaseUrl = process.env.REACT_APP_BCKEND_BASE_URI
+    const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/signup`;
     if (
       name === "" ||
       /[<>=@{};]/.test(name) ||
@@ -28,8 +33,25 @@ export default function SignUp() {
     ) {
       return alert("dude u left a field empty or filled it out incorrectly");
     }
-    const user = await axios.post(bckendBaseUrl, { name, email, postal, password }) 
-    
+    const user = await axios.post(bckendUrl, {
+      name,
+      email,
+      postal,
+      password,
+    });
+    if (user.data.err) {
+      return alert(user.data.err);
+    }
+    dispatch(
+      userSignUp(
+        user.data.id,
+        user.data.name,
+        user.data.email,
+        user.data.postal,
+        user.data.token
+      )
+    );
+    navigate("/home");
   };
 
   const GridItem = ({ label, name, type, placeholder }) => {

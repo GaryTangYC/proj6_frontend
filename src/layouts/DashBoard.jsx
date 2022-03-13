@@ -1,6 +1,7 @@
 /* react imports */
-import { useState } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Context, userLogOut } from "./../store";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 /* mui imports */
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -12,10 +13,14 @@ import {
   Typography,
   IconButton,
   Link,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 /* widget/component imports */
 import { mainListItems, secondaryListItems } from "../components/NavBar";
 
@@ -65,72 +70,84 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-
 export default function DashboardContent({ children }) {
+  const { dispatch } = useContext(Context);
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
-  const location = useLocation()
-  const title = location.pathname.substring(1)
+  const location = useLocation();
+  const title = location.pathname.substring(1);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const doLogOut = () => {
+    dispatch(userLogOut());
+    navigate("/");
+  };
   const MyAppBar = () => {
-  return (
-    <AppBar position="absolute" open={open}>
-      <Toolbar>
-        <IconButton
-          edge="start"
-          color="secondary"
-          onClick={toggleDrawer}
+    return (
+      <AppBar position="absolute" open={open}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="secondary"
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: "28px",
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="secondary"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            {title}
+          </Typography>
+          <Link component={RouterLink} to="/profile">
+            <IconButton color="secondary">
+              <AccountCircleIcon fontSize="large" />
+            </IconButton>
+          </Link>
+        </Toolbar>
+      </AppBar>
+    );
+  };
+
+  const MyDrawer = () => {
+    return (
+      <Drawer variant="permanent" open={open}>
+        <Toolbar
           sx={{
-            marginRight: "28px",
-            ...(open && { display: "none" }),
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            px: [1],
           }}
         >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="secondary"
-          noWrap
-          sx={{ flexGrow: 1 }}
-        >
-          {title}
-        </Typography>
-        <Link component={RouterLink} to="/profile">
-          <IconButton color="secondary">
-            <AccountCircleIcon fontSize="large" />
+          <IconButton onClick={toggleDrawer}>
+            <ChevronLeftIcon color="secondary" />
           </IconButton>
-        </Link>
-      </Toolbar>
-    </AppBar>
-  );
-};
+        </Toolbar>
 
-const MyDrawer = () => {
-  return (
-    <Drawer variant="permanent" open={open}>
-      <Toolbar
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: [1],
-        }}
-      >
-        <IconButton onClick={toggleDrawer}>
-          <ChevronLeftIcon color="secondary" />
-        </IconButton>
-      </Toolbar>
-
-      <List component="nav">
-        {mainListItems}
-        {secondaryListItems}
-      </List>
-    </Drawer>
-  );
-};
+        <List component="nav">
+          {mainListItems}
+          {secondaryListItems}
+          <ListItemButton onClick={doLogOut}>
+            <ListItemIcon>
+              <PowerSettingsNewIcon />
+            </ListItemIcon>
+            <ListItemText primary="Log Out" />
+          </ListItemButton>
+        </List>
+      </Drawer>
+    );
+  };
 
   return (
     <Box sx={{ display: "flex" }}>

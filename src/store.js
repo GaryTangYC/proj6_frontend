@@ -1,112 +1,88 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useReducer } from "react";
 
 /* action type constants */
-const USER_SIGNED_IN = 'USER_SIGNED_IN';
-// const PROVIDERS_UPDATED = 'PROVIDERS_UPDATED';
-// const UPDATE_PROFILE = 'UPDATE_PROFILE';
-// const RETRIEVED_ITEMS = 'RETRIEVED_ITEMS';
-// const SET_NOTIFICATION = 'SET_NOTIFICATION';
-
+const USER_SIGNED_UP = "USER_SIGNED_UP";
+const USER_SIGNED_IN = "USER_SIGNED_IN";
+const LOGOUT = "LOGOUT";
 
 /* useReducer initial state  */
 const initialState = {
-	user: null,
-	// provider: null,
-	// signer: null,
-	// nftContract: null,
-	// mktContract: null,
-	// items: [],
-	// notification: null,
+  user: null,
+  token: null,
 };
 
 /* useReducer reducer function */
 export const appReducer = (state, action) => {
-let newState;
-switch (action.type) {
-	case USER_SIGNED_IN:
-		newState = {
-			...state,
-			user: {id: action.id, name: action.name, postal: action.postal},
-			};
-		return newState;
-		default:
-		return state}}
-// 	case PROVIDERS_UPDATED:
-// 		newUserState = {
-// 			...state,
-// 			provider: action.provider,
-// 			nftContract: action.nftContract,
-// 			mktContract: action.mktContract,
-// 		};
-// 		return newUserState;
-// 	case UPDATE_PROFILE:
-// 		newUserState = {
-// 			...state,
-// 			user: action.userDetails,
-// 		};
-// 		return newUserState;
-// 	case RETRIEVED_ITEMS:
-// 		newUserState = {
-// 			...state,
-// 			items: action.items,
-// 		};
-// 		return newUserState;
-// 	case SET_NOTIFICATION:
-//     console.log("setting notification")
-// 		newUserState = {
-// 			...state,
-// 			notification: { message: action.message, status: action.status },
-// 		};
-//     return newUserState
-// 	default:
-// 		return state;
-
-
-/* functions to pass action object to useReducer dispatch function */
-
-export const userSignIn = (id, name, postal) => {
-	return {
-		type: USER_SIGNED_IN,
-		id, name, postal
-	};
+  let newState;
+  switch (action.type) {
+    case USER_SIGNED_IN:
+      newState = {
+        ...state,
+        user: {
+          id: action.id,
+          name: action.name,
+					email: action.email,
+          postal: action.postal,
+          pic: action.pic,
+          bio: action.bio,
+          requests: action.requests,
+        },
+        token: action.token,
+      };
+      return newState;
+    case USER_SIGNED_UP:
+      newState = {
+        ...state,
+        user: { id: action.id, name: action.name, email: action.email, postal: action.postal },
+        token: action.token,
+      };
+      return newState;
+    case LOGOUT:
+      newState = initialState;
+      return newState;
+    default:
+      return state;
+  }
 };
 
-// export const createContracts = (nftContract, mktContract) => {
-// 	return {
-// 		type: PROVIDERS_UPDATED,
-// 		nftContract,
-// 		mktContract,
-// 	};
-// };
+/* functions to pass action object to useReducer dispatch function */
+export const userSignUp = (id, name, email, postal, token) => {
+  return {
+    type: USER_SIGNED_UP,
+    id,
+    name,
+		email,
+    postal,
+    token,
+  };
+};
 
-// export const createProfile = (userDetails) => {
-// 	return {
-// 		type: UPDATE_PROFILE,
-// 		userDetails,
-// 	};
-// };
+export const userSignIn = (id, name, email, postal, pic, bio, requests, token) => {
+  return {
+    type: USER_SIGNED_IN,
+    id,
+    name,
+		email,
+    postal,
+    pic,
+    bio,
+    requests,
+    token,
+  };
+};
 
-// export const getItems = (items) => {
-// 	return {
-// 		type: RETRIEVED_ITEMS,
-// 		items,
-// 	};
-// };
+export const userLogOut = () => {
+  return {
+    type: LOGOUT,
+  };
+};
 
-// export const setNotification = (message, status) => {
-// 	return {
-// 		type: SET_NOTIFICATION,
-// 		message,
-// 		status,
-// 	};
-// };
-
-/* single context instance to encapsulate marketplace reducer */
+/* single context instance to encapsulate app reducer */
 export const Context = createContext();
 
 export const AppProvider = ({ children }) => {
-	const [store, dispatch] = useReducer(appReducer, initialState);
-	return (
-		<Context.Provider value={{ store, dispatch }}>{children}</Context.Provider>
-	);
+  const [store, dispatch] = useReducer(appReducer, initialState);
+  return (
+    <Context.Provider value={{ store, dispatch }}>{children}</Context.Provider>
+  );
 };
