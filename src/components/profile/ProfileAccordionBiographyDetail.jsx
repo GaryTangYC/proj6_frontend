@@ -1,14 +1,13 @@
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { DataContext } from "../../pages/Profile";
+import { Context } from "./../../store";
 
 export default function BiographyDetail() {
-  const { data, setData } = useContext(DataContext);
-  const { bio } = data;
+  const { store, dispatch } = useContext(Context);
+  const { bio } = store.user;
 
   return (
     <>
@@ -30,7 +29,8 @@ export default function BiographyDetail() {
             focused
             multiline
             value={bio}
-            onChange={(e) => setData(e.target.value)}
+            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when bio is edited...  
+            // onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>

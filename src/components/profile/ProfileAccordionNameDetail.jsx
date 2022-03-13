@@ -1,15 +1,15 @@
+/* no need to use import * as React from "react" cos we r alr destructing stuff we need frm react in line 7 below */ 
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { DataContext } from "../../pages/Profile";
-import { textTransform } from "@mui/system";
+import { Context } from "./../../store";
 
 export default function NameDetail() {
-  const { data, setData } = useContext(DataContext);
-  const { name } = data;
+  const { store, dispatch } = useContext(Context);
+  const { name } = store.user;
 
   return (
     <>
@@ -29,7 +29,8 @@ export default function NameDetail() {
             fullWidth
             focused
             value={name}
-            onChange={(e) => setData(e.target.value)}
+            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when name is edited... 
+            // onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
