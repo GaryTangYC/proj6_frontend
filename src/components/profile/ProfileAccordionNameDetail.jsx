@@ -3,9 +3,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { useContext } from "react";
+import { DataContext } from "../../pages/Profile";
+import { textTransform } from "@mui/system";
 
 export default function NameDetail() {
-  const str = "happy string value?";
+  const { data, setData } = useContext(DataContext);
+  const { name } = data;
 
   return (
     <>
@@ -24,7 +28,8 @@ export default function NameDetail() {
             color="grey"
             fullWidth
             focused
-            value={str}
+            value={name}
+            onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>

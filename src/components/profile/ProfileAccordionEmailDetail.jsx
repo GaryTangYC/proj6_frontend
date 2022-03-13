@@ -3,8 +3,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { useContext } from "react";
+import { DataContext } from "../../pages/Profile";
 
 export default function EmailDetail() {
+  const { data, setData } = useContext(DataContext);
+  const { email } = data;
+
   return (
     <>
       <Grid container spacing={2}>
@@ -19,6 +24,8 @@ export default function EmailDetail() {
             color="grey"
             fullWidth
             focused
+            value={email}
+            onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
