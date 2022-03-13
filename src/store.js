@@ -1,8 +1,7 @@
 import { createContext, useReducer } from 'react';
 
 /* action type constants */
-const NAV_BAR_OPEN = 'NAV_BAR_OPEN'
-// const USER_SIGNED_IN = 'USER_SIGNED_IN';
+const USER_SIGNED_IN = 'USER_SIGNED_IN';
 // const PROVIDERS_UPDATED = 'PROVIDERS_UPDATED';
 // const UPDATE_PROFILE = 'UPDATE_PROFILE';
 // const RETRIEVED_ITEMS = 'RETRIEVED_ITEMS';
@@ -11,8 +10,7 @@ const NAV_BAR_OPEN = 'NAV_BAR_OPEN'
 
 /* useReducer initial state  */
 const initialState = {
-	navBar: false
-	// user: null,
+	user: null,
 	// provider: null,
 	// signer: null,
 	// nftContract: null,
@@ -22,32 +20,17 @@ const initialState = {
 };
 
 /* useReducer reducer function */
-export const globalStateReducer = (state, action) => {
-	console.log('running');
-	let newGlobalState;
-	switch (action.type) {
-		case NAV_BAR_OPEN:
-			newGlobalState = {
-				...state,
-				navBar: true
+export const appReducer = (state, action) => {
+let newState;
+switch (action.type) {
+	case USER_SIGNED_IN:
+		newState = {
+			...state,
+			user: {id: action.id, name: action.name, postal: action.postal},
 			};
-			return newGlobalState;
+		return newState;
 		default:
-			return state;
-	}
-};
-
-// let newUserState;
-// switch (action.type) {
-// 	case USER_SIGNED_IN:
-// 		newUserState = {
-// 			...state,
-// 			user: action.userDetails,
-// 			signer: action.signer,
-// 			nftContract: action.nftContract,
-// 			mktContract: action.mktContract,
-// 		};
-// 		return newUserState;
+		return state}}
 // 	case PROVIDERS_UPDATED:
 // 		newUserState = {
 // 			...state,
@@ -80,22 +63,13 @@ export const globalStateReducer = (state, action) => {
 
 
 /* functions to pass action object to useReducer dispatch function */
-export const navBarStatus = (navBarStatus) => {
+
+export const userSignIn = (id, name, postal) => {
 	return {
-		type: NAV_BAR_OPEN,
-		navBarStatus,
+		type: USER_SIGNED_IN,
+		id, name, postal
 	};
 };
-
-// export const userSignIn = (userDetails, signer, nftContract, mktContract) => {
-// 	return {
-// 		type: USER_SIGNED_IN,
-// 		signer,
-// 		userDetails,
-// 		nftContract,
-// 		mktContract,
-// 	};
-// };
 
 // export const createContracts = (nftContract, mktContract) => {
 // 	return {
@@ -130,8 +104,8 @@ export const navBarStatus = (navBarStatus) => {
 /* single context instance to encapsulate marketplace reducer */
 export const Context = createContext();
 
-export const GlobalStateProvider = ({ children }) => {
-	const [store, dispatch] = useReducer(globalStateReducer, initialState);
+export const AppProvider = ({ children }) => {
+	const [store, dispatch] = useReducer(appReducer, initialState);
 	return (
 		<Context.Provider value={{ store, dispatch }}>{children}</Context.Provider>
 	);

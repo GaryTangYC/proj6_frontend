@@ -1,3 +1,5 @@
+/* react imports */
+import { Link as RouterLink } from "react-router-dom";
 /* mui imports */
 import {
   TextField,
@@ -12,10 +14,11 @@ import {
 import SubmitBtn from "../widgets/SubmitBtn";
 import SignContainer from "../components/SignContainer";
 
+
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const data = new FormData(evt.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
@@ -50,12 +53,11 @@ export default function SignIn() {
         <Grid container>
           <Grid item xs>
             <Link href="#" underline="none">
-              Forgot password? (outside of typography)
               <Typography variant="body2">Forgot password?</Typography>
             </Link>
           </Grid>
           <Grid item>
-            <Link href="/signup" underline="none">
+            <Link component={RouterLink} to="/signup" underline="none">
               <Typography variant="body2">
                 Don't have an account? Sign Up
               </Typography>
