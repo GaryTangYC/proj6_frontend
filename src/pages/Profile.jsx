@@ -15,7 +15,7 @@ export default function ProfilePage() {
     const { store, dispatch } = useContext(Context);
     const { user, token } = store;
     const fileInput = useRef();
-
+    console.log("This is user in profile page", user);
     const doUpload = async (evt) => {
       evt.preventDefault();
       const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -40,7 +40,7 @@ export default function ProfilePage() {
       try {
         const result = await axios.put(bckendUrl, formData, auth);
         console.log(result.data);
-        dispatch(updatePic(result.data))
+        dispatch(updatePic(result.data));
       } catch (err) {
         let msg;
         if (err.toString().includes("403")) {
@@ -51,7 +51,7 @@ export default function ProfilePage() {
         alert(msg);
       }
     };
-    console.log("This is user in profile page",user)
+
     return (
       <Box component="form" onSubmit={doUpload} noValidate>
         <TextField
