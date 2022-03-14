@@ -43,7 +43,7 @@ export default function AddTaskForm() {
   const { store } = useContext(Context);
   const { user, token } = store;
 
-  const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/addTask`;
+  const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/addNewTask`;
   const navigate = useNavigate();
 
   // Submit button functionality to backend
@@ -112,9 +112,7 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <Typography color={"secondary"}>
-                  <TextField {...params} label="Task Tag" />
-                </Typography>
+                <TextField {...params} label="Task Tag" />
               )}
             />
             {/* Financial Penalty Selection */}
