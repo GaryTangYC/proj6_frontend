@@ -18,6 +18,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Avatar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -73,8 +74,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function DashboardContent({ children }) {
-  const { dispatch } = useContext(Context);
+  const { store, dispatch } = useContext(Context);
+  const { user } = store;
   const navigate = useNavigate();
+  const imageUrl = `${process.env.REACT_APP_IMAGE_BASE_URI}${user.pic}`;
 
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -118,7 +121,11 @@ export default function DashboardContent({ children }) {
               setMenuAnchor(evt.currentTarget);
             }}
           >
-            <AccountCircleIcon fontSize="large" />
+            {user.pic ? (
+              <Avatar alt={user.name} src={imageUrl} />
+            ) : (
+              <AccountCircleIcon fontSize="large" />
+            )}
           </IconButton>
           <Menu
             anchorEl={menuAnchor}
