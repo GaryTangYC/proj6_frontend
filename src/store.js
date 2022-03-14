@@ -21,7 +21,7 @@ export const appReducer = (state, action) => {
         user: {
           id: action.id,
           name: action.name,
-					email: action.email,
+          email: action.email,
           postal: action.postal,
           pic: action.pic,
           bio: action.bio,
@@ -51,7 +51,7 @@ export const userSignUp = (id, name, email, postal, token) => {
     type: USER_SIGNED_UP,
     id,
     name,
-		email,
+    email,
     postal,
     token,
   };
@@ -62,7 +62,7 @@ export const userSignIn = (id, name, email, postal, pic, bio, requests, token) =
     type: USER_SIGNED_IN,
     id,
     name,
-		email,
+    email,
     postal,
     pic,
     bio,

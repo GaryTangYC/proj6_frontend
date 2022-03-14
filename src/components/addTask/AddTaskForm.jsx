@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Context } from "./../../store";
+import axios from "axios";
 /* mui imports */
 import {
   TextField,
@@ -36,26 +39,48 @@ export default function AddTaskForm() {
     "Creativity",
   ];
 
-   // Submit button functionality to backend
-  const handleSubmit = (event) => {
+  // useContext to obtain user and partner
+  const { store } = useContext(Context);
+  const { user, token } = store;
+
+  const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/addTask`;
+  const navigate = useNavigate();
+
+  // Submit button functionality to backend
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
+    const taskTagTest = getFormData.get("taskTag");
+    console.log("tasktagTest", taskTagTest);
     const data = {
+      owner: user.id,
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
-      taskTag: getFormData.get("taskDescription"),
+      taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
+      partner: user.id, // TO BE CHANGE once partner functionality setup
     };
-
     console.log("this is getformdata", getFormData);
-    console.log("this is data1", data);
+    console.log("this is data", data);
+
+    const postTask = await axios.post(bckendUrl, data);
+    console.log(postTask.data);
+    // navigate("/home");
+    if (postTask.data.err) {
+      return alert(postTask.data.err);
+    }
+  };
+
+  const handleChange = (e, value) => {
+    setTaskTag(value);
+    console.log("taskTag cahnge", taskTag);
   };
 
   return (
     <>
       <Container maxWidth="xl">
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <FormControl fullWidth sx={{ my: 1 }}>
             {/* Task Description Component */}
             <TaskFieldComponent
@@ -63,7 +88,7 @@ export default function AddTaskForm() {
                 setTaskDescription(newValue);
               }}
             />
-              {/* Date Time Picker - to refactor */}
+            {/* Date Time Picker - to refactor */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
                 value={dateTime}
@@ -83,23 +108,22 @@ export default function AddTaskForm() {
               id="task-tag-autocomplete"
               sx={{ my: 1 }}
               defaultValue="None"
-              onChange={(e, value) => {
-                setTaskTag(value);
-              }}
+              onChange={handleChange}
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <Typography color={'secondary'}>
-                <TextField {...params} label="Task Tag" />
+                <Typography color={"secondary"}>
+                  <TextField {...params} label="Task Tag" />
                 </Typography>
               )}
             />
             {/* Financial Penalty Selection */}
-            < FinancialPenaltyComponent />
+            <FinancialPenaltyComponent />
 
             {/* Rewards/Penalty Description */}
             <RewardsPenaltyComponent
-              onChange={(newValue) => {
+              onInputChange={(newValue) => {
+                console.log(newValue);
                 setRewardsPenalty(newValue);
               }}
             />
