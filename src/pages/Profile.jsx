@@ -1,6 +1,6 @@
 /* react imports */
 import { useRef, useContext } from "react";
-import { Context } from "./../store";
+import { Context, updatePic } from "./../store";
 /* mui imports */
 import { Box, TextField } from "@mui/material";
 /* widget/component imports */
@@ -31,23 +31,27 @@ export default function ProfilePage() {
       const blob = file.slice(0, file.size, file.type);
       const newFile = new File(
         [blob],
-        `${file.name.split(".")[0]}-${file.lastModified}.${
-          file.name.split(".")[1]
-        }`,
+        `${file.name.split(".")[0]}-${Date.now()}.${file.name.split(".")[1]}`,
         { type: file.type }
       );
-      console.log(newFile);
       const formData = new FormData();
-      formData.append("profilePic", newFile);
+      formData.append("profilePic", newFile, newFile.name);
       formData.append("id", user.id);
-      const result = await axios.post(bckendUrl, formData, auth);
-      // if (user.data.err) {
-      //   return alert(user.data.err);
-      // }
-
-      console.log(result);
+      try {
+        const result = await axios.put(bckendUrl, formData, auth);
+        console.log(result.data);
+        dispatch(updatePic(result.data))
+      } catch (err) {
+        let msg;
+        if (err.toString().includes("403")) {
+          msg = "You have to be logged in to do this";
+        } else {
+          msg = "Something went wrong with the upload, pls try again";
+        }
+        alert(msg);
+      }
     };
-
+    console.log("This is user in profile page",user)
     return (
       <Box component="form" onSubmit={doUpload} noValidate>
         <TextField
