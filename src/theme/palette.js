@@ -6,7 +6,7 @@ const palette = {
   secondary: { main: "#ff6b6b" },
   error: { main: "#fb8b24" },
   text: {
-    primary: blueGrey[900],
+    primary: blueGrey[800],
     secondary: blueGrey[500],
     disabled: blueGrey.A100,
   },

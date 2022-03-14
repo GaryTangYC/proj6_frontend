@@ -4,6 +4,7 @@ import { createContext, useReducer } from "react";
 const USER_SIGNED_UP = "USER_SIGNED_UP";
 const USER_SIGNED_IN = "USER_SIGNED_IN";
 const LOGOUT = "LOGOUT";
+const UPDATE_PIC = "UPDATE_PIC";
 
 /* useReducer initial state  */
 const initialState = {
@@ -21,7 +22,7 @@ export const appReducer = (state, action) => {
         user: {
           id: action.id,
           name: action.name,
-					email: action.email,
+          email: action.email,
           postal: action.postal,
           pic: action.pic,
           bio: action.bio,
@@ -33,8 +34,19 @@ export const appReducer = (state, action) => {
     case USER_SIGNED_UP:
       newState = {
         ...state,
-        user: { id: action.id, name: action.name, email: action.email, postal: action.postal },
+        user: {
+          id: action.id,
+          name: action.name,
+          email: action.email,
+          postal: action.postal,
+        },
         token: action.token,
+      };
+      return newState;
+    case UPDATE_PIC:
+      newState = {
+        ...state,
+        user: { ...state.user, pic: action.picPath },
       };
       return newState;
     case LOGOUT:
@@ -51,18 +63,27 @@ export const userSignUp = (id, name, email, postal, token) => {
     type: USER_SIGNED_UP,
     id,
     name,
-		email,
+    email,
     postal,
     token,
   };
 };
 
-export const userSignIn = (id, name, email, postal, pic, bio, requests, token) => {
+export const userSignIn = (
+  id,
+  name,
+  email,
+  postal,
+  pic,
+  bio,
+  requests,
+  token
+) => {
   return {
     type: USER_SIGNED_IN,
     id,
     name,
-		email,
+    email,
     postal,
     pic,
     bio,
@@ -74,6 +95,13 @@ export const userSignIn = (id, name, email, postal, pic, bio, requests, token) =
 export const userLogOut = () => {
   return {
     type: LOGOUT,
+  };
+};
+
+export const updatePic = (picPath) => {
+  return {
+    type: UPDATE_PIC,
+    picPath,
   };
 };
 

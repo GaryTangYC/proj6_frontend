@@ -32,12 +32,14 @@ const typography = {
     textTransform: "capitalize",
     lineHeight: 1.5,
   },
+  /* using h5 for avatar pop out menu */
   h5: {
-    fontSize: 14,
-    fontWeight: 400,
+    fontSize: 16,
+    fontWeight: 600,
     textTransform: "capitalize",
     lineHeight: 1.5,
   },
+  /* using h6 for appbar title */
   h6: {
     fontSize: 22,
     fontWeight: 600,
