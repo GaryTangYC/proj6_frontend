@@ -5,6 +5,10 @@ const USER_SIGNED_UP = "USER_SIGNED_UP";
 const USER_SIGNED_IN = "USER_SIGNED_IN";
 const LOGOUT = "LOGOUT";
 const UPDATE_PIC = "UPDATE_PIC";
+const UPDATE_NAME = "UPDATE_NAME";
+const UPDATE_EMAIL = "UPDATE_EMAIL";
+const UPDATE_BIO = "UPDATE_BIO";
+const UPDATE_POSTAL = "UPDATE_POSTAL";
 
 /* useReducer initial state  */
 const initialState = {
@@ -52,6 +56,28 @@ export const appReducer = (state, action) => {
     case LOGOUT:
       newState = initialState;
       return newState;
+    case UPDATE_NAME:
+      newState = {
+        ...state,
+        user: { ...state.user, name: action.newDetail },
+      };
+      return newState;
+    case UPDATE_EMAIL:
+      newState = {
+        ...state, user: { ...state.user, email: action.newDetail },
+      }
+      return newState;
+    case UPDATE_BIO:
+      newState = {
+        ...state, user: { ...state.user, bio: action.newDetail},
+      }
+      return newState
+    case UPDATE_POSTAL:
+      newState = {
+        ...state, user: { ...state.user, postal: action.newDetail},
+      }
+      return newState
+      
     default:
       return state;
   }
@@ -104,6 +130,35 @@ export const updatePic = (picPath) => {
     picPath,
   };
 };
+
+export const updateDetail = (field, newDetail) => {
+  console.log("detailing run")
+  let obj;
+
+  if (field === "name") {
+    obj = {
+      type: UPDATE_NAME,
+      newDetail,
+    }
+  } else if (field === "email") {
+    obj = {
+      type: UPDATE_EMAIL,
+      newDetail,
+    }
+  } else if (field === "bio") {
+    obj = {
+      type: UPDATE_BIO,
+      newDetail,
+    }
+  } else if (field === "postal") {
+    obj = {
+      type: UPDATE_POSTAL,
+      newDetail,
+    }
+  }
+
+  return obj
+}
 
 /* single context instance to encapsulate app reducer */
 export const Context = createContext();

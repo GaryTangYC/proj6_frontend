@@ -7,7 +7,8 @@ import DashboardContent from "../layouts/DashBoard";
 export default function HomePage() {
   const { store } = useContext(Context);
   const { user, token } = store;
-    return (
+
+  return (
     <DashboardContent>
       {`This is user name after signing in ${user.name}`}
       <br></br>

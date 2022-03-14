@@ -1,11 +1,11 @@
-/* no need to use import * as React from "react" cos we r alr destructing stuff we need frm react in line 7 below */ 
+/* no need to use import * as React from "react" cos we r alr destructing stuff we need frm react in line 7 below */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { Context } from "./../../store";
+import { Context, updateDetail } from "./../../store";
 
 export default function PostalCodeDetail() {
   const { store, dispatch } = useContext(Context);
@@ -30,8 +30,8 @@ export default function PostalCodeDetail() {
             fullWidth
             focused
             value={postal}
+            onChange={(e) => dispatch(updateDetail("postal", e.target.value))}
             // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when postal is edited...
-            // onChange={(e) => setData(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>

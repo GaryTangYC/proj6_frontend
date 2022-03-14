@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
-import { Context } from "./../../store";
+import { Context, updateDetail } from "./../../store";
 
 export default function BiographyDetail() {
   const { store, dispatch } = useContext(Context);
@@ -29,8 +29,8 @@ export default function BiographyDetail() {
             focused
             multiline
             value={bio}
-            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when bio is edited...  
-            // onChange={(e) => setData(e.target.value)}
+            onChange={(e) => dispatch(updateDetail("bio", e.target.value))}
+            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when bio is edited...
           />
         </Grid>
         <Grid item xs={12}>
