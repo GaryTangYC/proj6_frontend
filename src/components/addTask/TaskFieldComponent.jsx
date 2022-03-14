@@ -12,8 +12,7 @@ export default function TaskFieldComponent() {
               label="Task Description"
               name="taskDescription"
               multiline
-              maxRows={7}
-              sx={{ my: 1 }}              
+              maxRows={7}              
             /> 
     </>
   );
