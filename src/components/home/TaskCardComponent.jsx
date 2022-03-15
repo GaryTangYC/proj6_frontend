@@ -1,39 +1,24 @@
 import { Card, CardContent } from "@mui/material";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Context } from "./../../store";
-
-
-
 
 export default function TaskCardComponent() {
   const { store } = useContext(Context);
-  const { user, token } = store
-  const [ allTask, setAllTask ] = useState([]);
-
-//   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask`;
-//   const id = user.id
-//   console.log('id', id)
-// useEffect( () => {
-//   const getTask = axios.get(bckendUrl, id, token)
-//   .then((result) => {
-//     setAllTask(result.data)
-//     console.log('axios call data',result.data)
-//   })
-// }, []);
-//   console.log('setstate alltask',allTask)  
+  const { tasks } = store;
 
   return (
     <>
-      <Card>
-{/* <CardContent /> */}
-<CardContent>
-  <div>
-    <h2>Wassup</h2>
-                <p>Tryy</p>
-  </div>
-  </CardContent> 
-</Card>
+      {tasks.map((task) => {
+        return (
+          <Card key={task._id}>
+            {/* <CardContent /> */}
+            <CardContent>
+              <h4>{task.description}</h4>
+              <p>{task.endText}</p>
+            </CardContent>
+          </Card>
+        );
+      })}
     </>
   );
 }
