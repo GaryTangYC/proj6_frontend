@@ -18,24 +18,13 @@ export default function HomePage() {
 
   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${userId}`;
 
-  useEffect(() => {
-    
 
-   (async () => {
+  useEffect(() => {
+       (async () => {
       const result = await axios.get(bckendUrl);
       console.log(result);
       setAllTask(result.data)
     })();
-    // axios
-    //   .get(bckendUrl)
-    //   .then((res) => {
-    //     setAllTask(res.data);
-    //     console.log("setstate alltask inside ueseffect", allTask);
-    //   });
-
-    // // console.log('axios call data',fetchTask)
-    // console.log("setstate alltask inside ueseffect", allTask);
-
   }, []);
 
   console.log("setstate alltask", allTask);
@@ -52,6 +41,12 @@ export default function HomePage() {
         console.log('this is err', err)
       });
   };
+
+  const loadTasks = allTask.forEach((task) => {
+    <TaskCardComponent>
+      {task}
+    </TaskCardComponent>
+  })
 
   return (
     <DashboardContent>
