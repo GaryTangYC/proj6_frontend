@@ -59,7 +59,6 @@ export default function AddTaskForm() {
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
-      partner: user.id, // TO BE CHANGE once partner functionality setup
     };
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);

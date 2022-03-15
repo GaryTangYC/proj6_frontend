@@ -9,11 +9,15 @@ const UPDATE_NAME = "UPDATE_NAME";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_BIO = "UPDATE_BIO";
 const UPDATE_POSTAL = "UPDATE_POSTAL";
+const GET_OWN_TASKS = "GET_OWN_TASKS";
+const GET_PARTNER_TASKS = "GET_PARTNER_TASKS";
 
 /* useReducer initial state  */
 const initialState = {
   user: null,
   token: null,
+  tasks: [],
+  partnerTasks: [],
 };
 
 /* useReducer reducer function */
@@ -56,6 +60,18 @@ export const appReducer = (state, action) => {
     case LOGOUT:
       newState = initialState;
       return newState;
+    case GET_OWN_TASKS:
+      newState = {
+        ...state,
+        tasks: action.tasks,
+      };
+      return newState;
+    case GET_PARTNER_TASKS:
+      newState = {
+        ...state,
+        partnerTasks: action.tasks,
+      };
+      return newState;
     case UPDATE_NAME:
       newState = {
         ...state,
@@ -64,20 +80,23 @@ export const appReducer = (state, action) => {
       return newState;
     case UPDATE_EMAIL:
       newState = {
-        ...state, user: { ...state.user, email: action.newDetail },
-      }
+        ...state,
+        user: { ...state.user, email: action.newDetail },
+      };
       return newState;
     case UPDATE_BIO:
       newState = {
-        ...state, user: { ...state.user, bio: action.newDetail},
-      }
-      return newState
+        ...state,
+        user: { ...state.user, bio: action.newDetail },
+      };
+      return newState;
     case UPDATE_POSTAL:
       newState = {
-        ...state, user: { ...state.user, postal: action.newDetail},
-      }
-      return newState
-      
+        ...state,
+        user: { ...state.user, postal: action.newDetail },
+      };
+      return newState;
+
     default:
       return state;
   }
@@ -132,33 +151,47 @@ export const updatePic = (picPath) => {
 };
 
 export const updateDetail = (field, newDetail) => {
-  console.log("detailing run")
+  console.log("detailing run");
   let obj;
 
   if (field === "name") {
     obj = {
       type: UPDATE_NAME,
       newDetail,
-    }
+    };
   } else if (field === "email") {
     obj = {
       type: UPDATE_EMAIL,
       newDetail,
-    }
+    };
   } else if (field === "bio") {
     obj = {
       type: UPDATE_BIO,
       newDetail,
-    }
+    };
   } else if (field === "postal") {
     obj = {
       type: UPDATE_POSTAL,
       newDetail,
-    }
+    };
   }
 
-  return obj
-}
+  return obj;
+};
+
+export const getOwnTasks = (tasks) => {
+  return {
+    type: GET_OWN_TASKS,
+    tasks,
+  };
+};
+
+export const getPartnerTasks = (tasks) => {
+  return {
+    type: GET_PARTNER_TASKS,
+    tasks,
+  };
+};
 
 /* single context instance to encapsulate app reducer */
 export const Context = createContext();
