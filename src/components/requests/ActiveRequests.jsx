@@ -1,10 +1,17 @@
+/* react imports */
+import { useContext } from "react";
+import { Context } from "./../../store";
 /* mui imports */
-import { Typography } from "@mui/material";
+import TaskCardComponent from "../home/TaskCardComponent";
+
 
 export default function ActiveRequests() {
+  const { store } = useContext(Context);
+  const { tasks } = store;
+
   return (
-    <div>
-    <Typography variant="body1">This is active requests page</Typography>
-    </div>
+    
+    <TaskCardComponent tasks={tasks}/>
+    
   );
 }

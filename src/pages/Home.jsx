@@ -40,7 +40,7 @@ export default function HomePage() {
           {`This is user id after signing in ${user.id}`}
           <br></br>
           {`This is token after signing in ${token}`}
-          <TaskCardComponent />
+          <TaskCardComponent tasks={tasks}/>
         </Grid>
       </Grid>
     </DashboardContent>
