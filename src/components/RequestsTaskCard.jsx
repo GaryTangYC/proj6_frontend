@@ -1,11 +1,6 @@
 import { Card, CardContent } from "@mui/material";
-import { useContext } from "react";
-import { Context } from "./../../store";
 
-export default function TaskCardComponent() {
-  const { store } = useContext(Context);
-  const { tasks } = store;
-
+export default function RequestTaskCard({ tasks }) {
   return (
     <>
       {tasks.map((task) => {
@@ -15,6 +10,7 @@ export default function TaskCardComponent() {
             <CardContent>
               <h4>{task.description}</h4>
               <p>{task.endText}</p>
+              <p>Owner: {task.owner.name}</p>
             </CardContent>
           </Card>
         );
