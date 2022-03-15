@@ -9,7 +9,7 @@ import TaskCardComponent from "../components/home/TaskCardComponent";
 
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
-  const { user, token } = store;
+  const { user, token, tasks } = store;
 
   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${user.id}`;
 
@@ -34,7 +34,7 @@ export default function HomePage() {
           {`This is user id after signing in ${user.id}`}
           <br></br>
           {`This is token after signing in ${token}`}
-          <TaskCardComponent />
+          <TaskCardComponent tasks={tasks}/>
         </Grid>
       </Grid>
     </DashboardContent>
