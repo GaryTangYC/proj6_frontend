@@ -26,6 +26,12 @@ export default function HomePage() {
 
   console.log("This is store in home.jsx", store);
 
+  // const loadTasks = allTask.forEach((task) => {
+  //   <TaskCardComponent>
+  //     {task}
+  //   </TaskCardComponent>
+  // })
+
   return (
     <DashboardContent>
       <h2>Outstanding Tasks</h2>
@@ -41,6 +47,8 @@ export default function HomePage() {
           <TaskCardComponent tasks={tasks} />
         </Grid>
       </Grid>
+      <hr></hr>
+      <h2>Pending Accountability Tasks</h2>
     </DashboardContent>
   );
 }

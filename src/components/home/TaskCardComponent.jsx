@@ -1,11 +1,13 @@
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, Stack, Grid } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "./../../store";
+import CompleteBtn from "../../widgets/CompleteBtn";
+import ChatBtn from "../../widgets/ChatBtn";
+import AddPartnerBtn from "../../widgets/AddPartnerBtn";
 
 export default function TaskCardComponent() {
   const { store } = useContext(Context);
   const { tasks } = store;
-
   return (
     <>
       {tasks.map((task) => {
@@ -16,6 +18,11 @@ export default function TaskCardComponent() {
               <h4>{task.description}</h4>
               <p>{task.endText}</p>
             </CardContent>
+             <Stack container spacing ={2}>
+            < CompleteBtn text="Complete" / >
+            < AddPartnerBtn text="Add Partner" / >
+            < ChatBtn text="Chat" / >
+            </Stack>
           </Card>
         );
       })}
