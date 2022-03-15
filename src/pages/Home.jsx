@@ -14,7 +14,7 @@ export default function HomePage() {
   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${user.id}`;
 
   useEffect(() => {
-       (async () => {
+    (async () => {
       const result = await axios.get(bckendUrl);
       dispatch(getTasks(result.data));
     })();
@@ -40,9 +40,11 @@ export default function HomePage() {
           {`This is user id after signing in ${user.id}`}
           <br></br>
           {`This is token after signing in ${token}`}
-          <TaskCardComponent tasks={tasks}/>
+          <TaskCardComponent tasks={tasks} />
         </Grid>
       </Grid>
+      <hr></hr>
+      <h2>Pending Accountability Tasks</h2>
     </DashboardContent>
   );
 }
