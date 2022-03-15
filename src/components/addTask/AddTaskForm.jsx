@@ -25,8 +25,7 @@ export default function AddTaskForm() {
   // State to track form inputs
   const [dateTime, setDateTime] = useState(new Date());
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState();
-  const [partner, setPartner] = useState("");
+  const [rewardsPenalty, setRewardsPenalty] = useState();  
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -50,8 +49,8 @@ export default function AddTaskForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
-    const taskTagTest = getFormData.get("taskTag");
-    console.log("tasktagTest", taskTagTest);
+    // const taskTagTest = getFormData.get("taskTag");
+    
     const data = {
       owner: user.id,
       dateTime,
@@ -59,7 +58,6 @@ export default function AddTaskForm() {
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
-      partner: user.id, // TO BE CHANGE once partner functionality setup
     };
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);
@@ -126,7 +124,7 @@ export default function AddTaskForm() {
               }}
             />
             {/* Accountability Partner Selection - Placeholder to be replaced with axios call later on  */}
-            <TextField
+            {/* <TextField
               margin="normal"
               fullWidth
               color="secondary"
@@ -135,7 +133,7 @@ export default function AddTaskForm() {
               onChange={(newValue) => {
                 setPartner(newValue);
               }}
-            />
+            /> */}
           </FormControl>
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
