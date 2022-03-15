@@ -9,11 +9,13 @@ const UPDATE_NAME = "UPDATE_NAME";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_BIO = "UPDATE_BIO";
 const UPDATE_POSTAL = "UPDATE_POSTAL";
+const GET_TASKS = "GET_TASKS"; 
 
 /* useReducer initial state  */
 const initialState = {
   user: null,
   token: null,
+  tasks: [],
 };
 
 /* useReducer reducer function */
@@ -55,6 +57,12 @@ export const appReducer = (state, action) => {
       return newState;
     case LOGOUT:
       newState = initialState;
+      return newState;
+      case GET_TASKS:
+      newState = {
+        ...state,
+        tasks: action.tasks,
+      };
       return newState;
     case UPDATE_NAME:
       newState = {
@@ -159,6 +167,13 @@ export const updateDetail = (field, newDetail) => {
 
   return obj
 }
+
+export const getTasks = (tasks) => {
+  return {
+    type: GET_TASKS,
+    tasks
+  };
+};
 
 /* single context instance to encapsulate app reducer */
 export const Context = createContext();

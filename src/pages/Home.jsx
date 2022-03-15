@@ -1,52 +1,32 @@
 import axios from "axios";
 /* react imports */
-import { useContext, useState, useEffect } from "react";
-import { Grid, Button } from "@mui/material";
-import { Context } from "./../store";
+import { useContext, useEffect } from "react";
+import { Grid } from "@mui/material";
+import { Context, getTasks } from "./../store";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 import TaskCardComponent from "../components/home/TaskCardComponent";
 
 export default function HomePage() {
-  const { store } = useContext(Context);
-  const { user, token } = store;
+  const { store, dispatch } = useContext(Context);
+  const { user, token, tasks } = store;
 
-  const [allTask, setAllTask] = useState(null);
-  const [loading, setLoading] = useState("false");
-
-  const userId = user.id
-
-  const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${userId}`;
-
+  const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${user.id}`;
 
   useEffect(() => {
        (async () => {
       const result = await axios.get(bckendUrl);
-      console.log(result);
-      setAllTask(result.data)
+      dispatch(getTasks(result.data));
     })();
   }, []);
 
-  console.log("setstate alltask", allTask);
+  console.log("This is store in home.jsx", store);
 
-  const getData = () => {
-    console.log('button click')
-    const getData = axios.get(bckendUrl)
-
-      .then((res) => {
-        setAllTask(res.data);
-        console.log("setstate alltask inside useEffect", allTask);
-      })
-      .catch(err => {
-        console.log('this is err', err)
-      });
-  };
-
-  const loadTasks = allTask.forEach((task) => {
-    <TaskCardComponent>
-      {task}
-    </TaskCardComponent>
-  })
+  // const loadTasks = allTask.forEach((task) => {
+  //   <TaskCardComponent>
+  //     {task}
+  //   </TaskCardComponent>
+  // })
 
   return (
     <DashboardContent>
@@ -61,11 +41,6 @@ export default function HomePage() {
           <br></br>
           {`This is token after signing in ${token}`}
           <TaskCardComponent />
-          <TaskCardComponent />
-          <TaskCardComponent />
-          <Button onClick={getData} >
-            Click Me
-          </Button>
         </Grid>
       </Grid>
     </DashboardContent>
