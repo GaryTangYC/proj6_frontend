@@ -1,5 +1,3 @@
-/* no need to use import * as React from "react" cos we r alr destructing stuff we need frm react in line 7 below */
-import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -23,7 +21,6 @@ export default function NameDetail() {
     };
 
     try {
-      console.log(auth);
       const result = await axios.put(bckendUrl, formData, auth);
       if (result.status === 200) {
         alert("Updated Success!");
@@ -60,8 +57,6 @@ export default function NameDetail() {
             focused
             value={name}
             onChange={(e) => dispatch(updateDetail("name", e.target.value))}
-
-            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when name is edited...
           />
         </Grid>
         <Grid item xs={12}>
