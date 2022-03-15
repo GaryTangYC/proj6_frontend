@@ -7,9 +7,9 @@ import { Context } from "./../../store";
 
 
 export default function TaskCardComponent() {
-  const { store } = useContext(Context);
-  const { user, token } = store
-  const [ allTask, setAllTask ] = useState([]);
+  // const { store } = useContext(Context);
+  // const { user, token } = store
+  // const [ allTask, setAllTask ] = useState([]);
 
 //   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask`;
 //   const id = user.id
