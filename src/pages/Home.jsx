@@ -7,6 +7,10 @@ import { Context, getOwnTasks, getPartnerTasks } from "./../store";
 import DashboardContent from "../layouts/DashBoard";
 import TaskCardComponent from "../components/home/TaskCardComponent";
 
+// Test date
+// import { parseJSON } from "date-fns"
+//       const date = parseJSON('2022-03-24T10:24:03.000+00:00')
+
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
@@ -18,19 +22,12 @@ export default function HomePage() {
     (async () => {
       const result = await axios.get(getOwnTasksbckendUrl);
       dispatch(getOwnTasks(result.data));
-
       const partnerTasks = await axios.get(getPartnerTasksBckendUrl);
       dispatch(getPartnerTasks(partnerTasks.data));
     })();
   }, []);
 
   console.log("This is store in home.jsx", store);
-
-  // const loadTasks = allTask.forEach((task) => {
-  //   <TaskCardComponent>
-  //     {task}
-  //   </TaskCardComponent>
-  // })
 
   return (
     <DashboardContent>
