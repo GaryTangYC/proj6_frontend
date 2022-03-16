@@ -13,6 +13,7 @@ import BiographyDetail from "./ProfileAccordionBiographyDetail";
 import PostalCodeDetail from "./ProfileAccordionPostalCodeDetail";
 import PaymentDetail from "./ProfileAccordionPaymentDetail";
 import HistoryDetail from "./ProfileAccordionHistoryDetail";
+import ProfilePicDetail from "./ProfileAccordionProfilePicDetail";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -54,6 +55,8 @@ export default function ProfileAccordions() {
   const [expanded, setExpanded] = useState();
 
   const handleChange = (panel) => (event, newExpanded) => {
+    console.log("panel", panel);
+    console.log("newExp", newExpanded);
     setExpanded(newExpanded ? panel : false);
   };
 
@@ -68,7 +71,7 @@ export default function ProfileAccordions() {
             <Typography>Name</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <NameDetail />
+            <NameDetail setExpanded={setExpanded} handleChange={handleChange} />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -135,6 +138,17 @@ export default function ProfileAccordions() {
           </AccordionSummary>
           <AccordionDetails>
             <HistoryDetail />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === "panel8"}
+          onChange={handleChange("panel8")}
+        >
+          <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
+            <Typography>Profile Picture</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ProfilePicDetail />
           </AccordionDetails>
         </Accordion>
       </Container>

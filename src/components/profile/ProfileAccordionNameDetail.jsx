@@ -36,6 +36,8 @@ export default function NameDetail() {
       }
       alert(msg);
     }
+
+    dispatch(updateDetail("name", name));
   };
 
   return (
@@ -55,8 +57,7 @@ export default function NameDetail() {
             color="grey"
             fullWidth
             focused
-            value={name}
-            onChange={(e) => dispatch(updateDetail("name", e.target.value))}
+            placeholder={name}
           />
         </Grid>
         <Grid item xs={12}>
