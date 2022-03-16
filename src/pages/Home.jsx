@@ -2,7 +2,8 @@ import axios from "axios";
 /* react imports */
 import { useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { Context, getOwnTasks, getPartnerTasks } from "./../store";
+import { Context, populateHome } from "./../store";
+import { useParams } from "react-router-dom";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 import TaskCardComponent from "../components/home/TaskCardComponent";
@@ -11,41 +12,53 @@ export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
   const auth = { headers: { Authorization: `Bearer ${token}` } };
+  const { userId } = useParams();
+  let validId
+  if(!userId){
+    validId=user._id
+  } else{
+    validId=userId
+  }
 
-  const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI 
+  const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
 
   useEffect(() => {
     (async () => {
-      const result = await axios.get(`${baseBckendUrl}/task/getAllTask/${user.id}`, auth);
-      dispatch(getOwnTasks(result.data));
+      const userDetails = await axios.get(
+        `${baseBckendUrl}/user/getUser/${validId}`,
+        auth
+      );
+      const userTasks = await axios.get(
+        `${baseBckendUrl}/task/getAllTask/${validId}`,
+        auth
+      );
+      const partnerTasks = await axios.get(
+        `${baseBckendUrl}/task/PartnerTasks/${validId}`,
+        auth
+      );
+      const allOtherUsers = await axios.get(
+        `${baseBckendUrl}/user/getAllUsers/${validId}`,
+        auth
+      );
+      dispatch(
+        populateHome(
+          userDetails.data,
+          userTasks.data,
+          partnerTasks.data,
+          allOtherUsers.data
+        )
+      );
 
-      const partnerTasks = await axios.get(`${baseBckendUrl}/task/PartnerTasks/${user.id}`, auth);
-      dispatch(getPartnerTasks(partnerTasks.data));
-
-      const allOtherUsers = await axios.get(`${baseBckendUrl}/user/${user.id}`, auth);
-      dispatch(getPartnerTasks(allOtherUsers.data));
     })();
   }, []);
 
-  console.log("This is store in home.jsx", store);
-
-  // const loadTasks = allTask.forEach((task) => {
-  //   <TaskCardComponent>
-  //     {task}
-  //   </TaskCardComponent>
-  // })
+   console.log("This is store in home.jsx", store);
 
   return (
     <DashboardContent>
       <h2>Outstanding Tasks</h2>
       <Grid container>
         <Grid item xs={12} sm={6} md={3}>
-          {`This is user name after signing in ${user.name}`}
-          <br></br>
-          {`This is user bio after signing in ${user.bio}`}
-          <br></br>
-          {`This is user id after signing in ${user.id}`}
-          <br></br>
           {`This is token after signing in ${token}`}
           <TaskCardComponent tasks={tasks} />
         </Grid>

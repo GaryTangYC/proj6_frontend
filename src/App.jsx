@@ -24,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/home/:userId" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/addtask" element={<AddTaskPage />} />
             <Route path="/addpartner/:taskId" element={<AddPartnerPage/>} />
@@ -39,4 +40,8 @@ function App() {
 
 export default App;
 
-/* testing to make sure unrelated branches not affected by git pull of a certain branch */
+/* 
+2 routes to HomePage above 
+- first route is for when first sign in, user not populated in store yet, so require userId in path
+- second route is used when user alr populated in store
+*/

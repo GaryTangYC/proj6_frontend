@@ -1,6 +1,6 @@
 /* react imports */
 import { useContext } from "react";
-import { Context, userSignUp } from "./../store";
+import { Context, userSignIn } from "./../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
 import { TextField, Grid, Link, Box, Typography } from "@mui/material";
@@ -33,25 +33,21 @@ export default function SignUp() {
     ) {
       return alert("dude u left a field empty or filled it out incorrectly");
     }
-    const user = await axios.post(bckendUrl, {
+    const result = await axios.post(bckendUrl, {
       name,
       email,
       postal,
       password,
     });
-    if (user.data.err) {
-      return alert(user.data.err);
+    if (result.data.err) {
+      return alert(result.data.err);
     }
     dispatch(
-      userSignUp(
-        user.data.id,
-        user.data.name,
-        user.data.email,
-        user.data.postal,
-        user.data.token
+      userSignIn(
+        result.data.token
       )
     );
-    navigate("/home");
+    navigate(`/home/${result.data.id}`);
   };
 
   const GridItem = ({ label, name, type, placeholder }) => {
