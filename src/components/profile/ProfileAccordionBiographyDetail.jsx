@@ -1,28 +1,32 @@
+/* react imports */
+import { useContext, useRef } from "react";
+import { Context, updateDetail } from "./../../store";
+/* mui imports */
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext } from "react";
-import { Context, updateDetail } from "./../../store";
+/* other imports */
 import axios from "axios";
 
 export default function BiographyDetail() {
   const { store, dispatch } = useContext(Context);
+  const formInput = useRef();
   const { user, token } = store;
-  const { bio } = user;
 
   const doUpdate = async () => {
     const auth = { headers: { Authorization: `Bearer ${token}` } };
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/bio`;
-
+    const bioFormInput = formInput.current.value.toLowerCase();
     const formData = {
       id: user.id,
-      bio: bio,
+      bio: bioFormInput,
     };
 
     try {
       const result = await axios.put(bckendUrl, formData, auth);
       if (result.status === 200) {
+        dispatch(updateDetail("bio", bioFormInput));
         alert("Updated Success!");
       } else {
         alert(result.status);
@@ -57,8 +61,8 @@ export default function BiographyDetail() {
             fullWidth
             focused
             multiline
-            value={bio}
-            onChange={(e) => dispatch(updateDetail("bio", e.target.value))}
+            inputRef={formInput}
+            placeholder={!user.bio?"pls enter your bio":user.bio}
           />
         </Grid>
         <Grid item xs={12}>
