@@ -81,7 +81,13 @@ export default function DashboardContent({ children }) {
 
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const title = location.pathname.substring(1);
+  const rawPath = location.pathname.substring(1);
+  let title;
+  if (rawPath.indexOf("/") > 0) {
+    title = rawPath.substring(0, rawPath.indexOf("/"));
+  } else {
+    title = rawPath;
+  }
   const toggleDrawer = () => {
     setOpen(!open);
   };

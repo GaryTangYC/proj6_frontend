@@ -10,8 +10,9 @@ import AddTaskPage from "./pages/AddTask";
 import ProfilePage from "./pages/Profile";
 import RequestPage from "./pages/Requests";
 import ChatsPage from "./pages/Chats";
+import AddPartnerPage from "./pages/AddPartner";
+/* react imports */
 import { AppProvider } from "./store";
-
 /* mui imports */
 import ThemeConfig from "./theme";
 
@@ -19,12 +20,13 @@ function App() {
   return (
     <Router>
       <ThemeConfig>
-        <AppProvider>
+        <AppProvider> 
           <Routes>
             <Route path="/" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/addtask" element={<AddTaskPage />} />
+            <Route path="/addpartner/:taskId" element={<AddPartnerPage/>} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/requests" element={<RequestPage />} />
             <Route path="/chats" element={<ChatsPage />} />

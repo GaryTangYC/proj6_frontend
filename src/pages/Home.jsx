@@ -1,6 +1,6 @@
 import axios from "axios";
 /* react imports */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { Context, getOwnTasks, getPartnerTasks } from "./../store";
 /* widget/component imports */
@@ -10,18 +10,20 @@ import TaskCardComponent from "../components/home/TaskCardComponent";
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
-  // const [addPartnerModal, setAddPartnerModal] = useState(false);
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
 
-  const getOwnTasksbckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${user.id}`;
-  const getPartnerTasksBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/PartnerTasks/${user.id}`;
+  const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI 
 
   useEffect(() => {
     (async () => {
-      const result = await axios.get(getOwnTasksbckendUrl);
+      const result = await axios.get(`${baseBckendUrl}/task/getAllTask/${user.id}`, auth);
       dispatch(getOwnTasks(result.data));
 
-      const partnerTasks = await axios.get(getPartnerTasksBckendUrl);
+      const partnerTasks = await axios.get(`${baseBckendUrl}/task/PartnerTasks/${user.id}`, auth);
       dispatch(getPartnerTasks(partnerTasks.data));
+
+      const allOtherUsers = await axios.get(`${baseBckendUrl}/user/${user.id}`, auth);
+      dispatch(getPartnerTasks(allOtherUsers.data));
     })();
   }, []);
 
