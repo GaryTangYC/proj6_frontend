@@ -22,7 +22,7 @@ const MyBox = styled(Box)(({ theme }) => ({
 
 
 
-const CreateDbUserModal = () => {
+const AddPartnerModal = () => {
   const [modal, setModal] = useState(true);
   const userNameInput = useRef();
 
@@ -50,4 +50,4 @@ const CreateDbUserModal = () => {
   );
 };
 
-export default CreateDbUserModal;
+export default AddPartnerModal;
