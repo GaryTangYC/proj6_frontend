@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-export default function TaskCardBtn({ text, color, icon }) {
+export default function TaskCardBtn({ text, color, icon, click }) {
   return (
     <Button
       type="submit"
@@ -8,6 +8,7 @@ export default function TaskCardBtn({ text, color, icon }) {
       variant="contained"
       startIcon={icon}
       color={color}
+      onClick={click}
     >
       {text}
     </Button>

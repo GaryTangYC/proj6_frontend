@@ -1,6 +1,6 @@
 import axios from "axios";
 /* react imports */
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { Context, getOwnTasks, getPartnerTasks } from "./../store";
 /* widget/component imports */
@@ -10,6 +10,7 @@ import TaskCardComponent from "../components/home/TaskCardComponent";
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
+  // const [addPartnerModal, setAddPartnerModal] = useState(false);
 
   const getOwnTasksbckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/getAllTask/${user.id}`;
   const getPartnerTasksBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/PartnerTasks/${user.id}`;

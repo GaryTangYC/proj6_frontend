@@ -1,7 +1,7 @@
 /* react imports */
 import { useState, useRef } from "react";
 /* mui imports */
-import { Box, Modal, TextField } from "@material-ui/core";
+import { Box, Modal, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
@@ -22,8 +22,8 @@ const MyBox = styled(Box)(({ theme }) => ({
 
 
 
-const AddPartnerModal = () => {
-  const [modal, setModal] = useState(true);
+const AddPartnerModal = ({addPartnerModal, setAddPartnerModal}) => {
+  
   const userNameInput = useRef();
 
   const doSubmit = (evt) => {
@@ -31,7 +31,7 @@ const AddPartnerModal = () => {
  
   };
   return (
-    <Modal open={modal} onClose={setModal(false)}>
+    <Modal open={addPartnerModal} onClose={setAddPartnerModal(false)}>
       <MyBox>
         <h3 >Provide user name</h3>
         <form noValidate autoComplete="off" onSubmit={doSubmit}>
