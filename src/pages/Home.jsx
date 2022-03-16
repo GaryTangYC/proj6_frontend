@@ -7,6 +7,10 @@ import { Context, getOwnTasks, getPartnerTasks } from "./../store";
 import DashboardContent from "../layouts/DashBoard";
 import TaskCardComponent from "../components/home/TaskCardComponent";
 
+// Test date
+import { parseJSON } from "date-fns"
+import { ConstructionOutlined } from "@mui/icons-material";
+
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
@@ -21,6 +25,8 @@ export default function HomePage() {
 
       const partnerTasks = await axios.get(getPartnerTasksBckendUrl);
       dispatch(getPartnerTasks(partnerTasks.data));
+      const date = parseJSON('2022-03-24T10:24:03.000+00:00')
+      console.log(date)
     })();
   }, []);
 
