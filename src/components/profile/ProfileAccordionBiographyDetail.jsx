@@ -4,10 +4,39 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { useContext } from "react";
 import { Context, updateDetail } from "./../../store";
+import axios from "axios";
 
 export default function BiographyDetail() {
   const { store, dispatch } = useContext(Context);
-  const { bio } = store.user;
+  const { user, token } = store;
+  const { bio } = user;
+
+  const doUpdate = async () => {
+    const auth = { headers: { Authorization: `Bearer ${token}` } };
+    const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/bio`;
+
+    const formData = {
+      id: user.id,
+      bio: bio,
+    };
+
+    try {
+      const result = await axios.put(bckendUrl, formData, auth);
+      if (result.status === 200) {
+        alert("Updated Success!");
+      } else {
+        alert(result.status);
+      }
+    } catch (err) {
+      let msg;
+      if (err.toString().includes("403")) {
+        msg = "You have to be logged in to do this";
+      } else {
+        msg = "Something went wrong with the update, pls try again";
+      }
+      alert(msg);
+    }
+  };
 
   return (
     <>
@@ -30,11 +59,15 @@ export default function BiographyDetail() {
             multiline
             value={bio}
             onChange={(e) => dispatch(updateDetail("bio", e.target.value))}
-            // justus: pls try to see if can make use of the dispatch function above to change global store state & also update db when bio is edited...
           />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" size="large" disableElevation>
+          <Button
+            variant="contained"
+            size="large"
+            disableElevation
+            onClick={doUpdate}
+          >
             Save
           </Button>
         </Grid>
