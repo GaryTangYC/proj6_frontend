@@ -1,9 +1,10 @@
 import { Card, CardContent, Stack, Grid } from "@mui/material";
 import { useContext } from "react";
 import { Context } from "./../../store";
-import CompleteBtn from "../../widgets/CompleteBtn";
-import ChatBtn from "../../widgets/ChatBtn";
-import AddPartnerBtn from "../../widgets/AddPartnerBtn";
+import TaskCardBtn from "../../widgets/TaskCardBtn";
+import DoneIcon from "@mui/icons-material/Done";
+import ChatIcon from "@mui/icons-material/Chat";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 export default function TaskCardComponent() {
   const { store } = useContext(Context);
@@ -18,10 +19,18 @@ export default function TaskCardComponent() {
               <h4>{task.description}</h4>
               <p>{task.endText}</p>
             </CardContent>
-             <Stack container spacing ={2}>
-            < CompleteBtn text="Complete" / >
-            < AddPartnerBtn text="Add Partner" / >
-            < ChatBtn text="Chat" / >
+            <Stack container spacing={2}>
+              <TaskCardBtn
+                text="Complete"
+                color="success"
+                icon={<DoneIcon />}
+              />
+              <TaskCardBtn
+                text="Add Partner"
+                color="info"
+                icon={<PersonAddIcon />}
+              />
+              <TaskCardBtn text="Chat" icon={<ChatIcon />} />
             </Stack>
           </Card>
         );
@@ -29,3 +38,5 @@ export default function TaskCardComponent() {
     </>
   );
 }
+
+/* color for info, success can be adjusted in palette.js */

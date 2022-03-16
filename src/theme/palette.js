@@ -5,6 +5,7 @@ const palette = {
   primary: { main: "#ffe66d" },
   secondary: { main: "#ff6b6b" },
   error: { main: "#fb8b24" },
+  info: {main: "#0570ea"},
   text: {
     primary: blueGrey[800],
     secondary: blueGrey[500],
