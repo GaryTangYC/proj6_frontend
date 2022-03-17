@@ -8,6 +8,10 @@ import { useParams } from "react-router-dom";
 import DashboardContent from "../layouts/DashBoard";
 import TaskCardComponent from "../components/home/TaskCardComponent";
 
+// Test date
+// import { parseJSON } from "date-fns"
+//       const date = parseJSON('2022-03-24T10:24:03.000+00:00')
+
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
@@ -24,6 +28,7 @@ export default function HomePage() {
 
   useEffect(() => {
     (async () => {
+
       const userDetails = await axios.get(
         `${baseBckendUrl}/user/getUser/${validId}`,
         auth

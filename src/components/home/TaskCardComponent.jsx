@@ -2,7 +2,7 @@
 import React from "react";
 import { useContext } from "react";
 import { Context } from "./../../store";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
 import { Card, CardContent, Stack, Link } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
@@ -10,10 +10,27 @@ import ChatIcon from "@mui/icons-material/Chat";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 /* widget/component imports */
 import TaskCardBtn from "../../widgets/TaskCardBtn";
+import axios from "axios";
 
 export default function TaskCardComponent() {
   const { store } = useContext(Context);
   const { tasks } = store;
+  const navigate = useNavigate();
+  const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
+
+  const CompleteFn = async (e) => {
+    e.preventDefault();
+    const taskId = e.currentTarget.value;
+    console.log("button clicked");
+    console.log("taskId", taskId);
+    const postCompleteTask = await axios.post(postCompleteBckendUrl, {taskId});
+    alert("Task Submitted as Complete")
+    if (postCompleteTask.data.err) {
+      return alert(postCompleteTask.data.err);
+    }
+    // Should we use useNavigate to reroute to home page which will re-update the task list?
+
+  };
 
   return (
     <>
@@ -30,6 +47,9 @@ export default function TaskCardComponent() {
                 text="Complete"
                 color="success"
                 icon={<DoneIcon />}
+                // dataTestId={taskIdMap}
+                onClick={CompleteFn}
+                value={task._id}
               />
               <Link
                 underline="none"
