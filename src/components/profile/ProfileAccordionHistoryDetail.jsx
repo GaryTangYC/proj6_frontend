@@ -28,7 +28,11 @@ export default function HistoryDetail() {
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 480 }} aria-label="simple table">
+            <Table
+              sx={{ minWidth: 480 }}
+              size="small"
+              aria-label="simple table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell>Description</TableCell>
