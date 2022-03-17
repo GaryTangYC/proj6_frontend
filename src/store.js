@@ -1,23 +1,22 @@
 import { createContext, useReducer } from "react";
 
 /* action type constants */
-const USER_SIGNED_UP = "USER_SIGNED_UP";
 const USER_SIGNED_IN = "USER_SIGNED_IN";
+const POPULATE_HOME = "POPULATE_HOME";
 const LOGOUT = "LOGOUT";
 const UPDATE_PIC = "UPDATE_PIC";
 const UPDATE_NAME = "UPDATE_NAME";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_BIO = "UPDATE_BIO";
 const UPDATE_POSTAL = "UPDATE_POSTAL";
-const GET_OWN_TASKS = "GET_OWN_TASKS";
-const GET_PARTNER_TASKS = "GET_PARTNER_TASKS";
 
 /* useReducer initial state  */
 const initialState = {
-  user: null,
+  user: {pic:null},
   token: null,
   tasks: [],
   partnerTasks: [],
+  otherUsers: null,
 };
 
 /* useReducer reducer function */
@@ -27,49 +26,25 @@ export const appReducer = (state, action) => {
     case USER_SIGNED_IN:
       newState = {
         ...state,
-        user: {
-          id: action.id,
-          name: action.name,
-          email: action.email,
-          postal: action.postal,
-          pic: action.pic,
-          bio: action.bio,
-          requests: action.requests,
-        },
         token: action.token,
       };
       return newState;
-    case USER_SIGNED_UP:
+    case LOGOUT:
+      newState = initialState;
+      return newState;
+    case POPULATE_HOME:
       newState = {
         ...state,
-        user: {
-          id: action.id,
-          name: action.name,
-          email: action.email,
-          postal: action.postal,
-        },
-        token: action.token,
+        user: action.user,
+        tasks: action.tasks,
+        partnerTasks: action.partnerTasks,
+        otherUsers: action.otherUsers,
       };
       return newState;
     case UPDATE_PIC:
       newState = {
         ...state,
         user: { ...state.user, pic: action.picPath },
-      };
-      return newState;
-    case LOGOUT:
-      newState = initialState;
-      return newState;
-    case GET_OWN_TASKS:
-      newState = {
-        ...state,
-        tasks: action.tasks,
-      };
-      return newState;
-    case GET_PARTNER_TASKS:
-      newState = {
-        ...state,
-        partnerTasks: action.tasks,
       };
       return newState;
     case UPDATE_NAME:
@@ -96,43 +71,16 @@ export const appReducer = (state, action) => {
         user: { ...state.user, postal: action.newDetail },
       };
       return newState;
-
     default:
       return state;
   }
 };
 
 /* functions to pass action object to useReducer dispatch function */
-export const userSignUp = (id, name, email, postal, token) => {
-  return {
-    type: USER_SIGNED_UP,
-    id,
-    name,
-    email,
-    postal,
-    token,
-  };
-};
 
-export const userSignIn = (
-  id,
-  name,
-  email,
-  postal,
-  pic,
-  bio,
-  requests,
-  token
-) => {
+export const userSignIn = (token) => {
   return {
     type: USER_SIGNED_IN,
-    id,
-    name,
-    email,
-    postal,
-    pic,
-    bio,
-    requests,
     token,
   };
 };
@@ -140,6 +88,16 @@ export const userSignIn = (
 export const userLogOut = () => {
   return {
     type: LOGOUT,
+  };
+};
+
+export const populateHome = (user, tasks, partnerTasks, otherUsers) => {
+  return {
+    type: POPULATE_HOME,
+    user,
+    tasks,
+    partnerTasks,
+    otherUsers,
   };
 };
 
@@ -177,20 +135,6 @@ export const updateDetail = (field, newDetail) => {
   }
 
   return obj;
-};
-
-export const getOwnTasks = (tasks) => {
-  return {
-    type: GET_OWN_TASKS,
-    tasks,
-  };
-};
-
-export const getPartnerTasks = (tasks) => {
-  return {
-    type: GET_PARTNER_TASKS,
-    tasks,
-  };
 };
 
 /* single context instance to encapsulate app reducer */
