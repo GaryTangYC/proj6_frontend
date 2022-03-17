@@ -1,6 +1,6 @@
 /* react imports */
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "./../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
@@ -12,11 +12,14 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskCardComponent() {
+export default function TaskCardComponent(filterTask) {
   const { store } = useContext(Context);
   const { tasks } = store;
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
+  const [ taskData, setTaskData] = useState()
+  setTaskData(filterTask)
+  console.log('this is task data', taskData)
 
   const CompleteFn = async (e) => {
     e.preventDefault();
