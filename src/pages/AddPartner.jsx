@@ -25,7 +25,7 @@ import axios from "axios";
 export default function AddPartnerPage() {
   /* get data from store */
   const { store } = useContext(Context);
-  const { user, otherUsers, token } = store;
+  const { otherUsers, token } = store;
   /* get taskId from url */
   const { taskId } = useParams();
   /* bckend urls + auth */
@@ -46,25 +46,30 @@ export default function AddPartnerPage() {
   */
   const requestPartner = async (evt, userId) => {
     evt.preventDefault();
-
-    try {
-      const updatedUser = await axios.put(
-        `${baseBckendUrl}/user/addRequest`,
-        { userId, taskId },
-        auth
-      );
-      const updatedTask = await axios.put(
-        `${baseBckendUrl}/task/partnerRequest`,
-        { taskId, userId },
-        auth
-      );
-      console.log(updatedUser, updatedTask);
-      navigate("/home");
-    } catch (err) {
-      console.log(err);
-    }
+    updateUser(userId);
+    updateTask(userId);
+    goHome();
   };
 
+  const updateUser = async (userId) => {
+    await axios.put(
+      `${baseBckendUrl}/user/addRequest`,
+      { userId, taskId },
+      auth
+    );
+  };
+
+  const updateTask = async (userId) => {
+    await axios.put(
+      `${baseBckendUrl}/task/partnerRequest`,
+      { taskId, userId },
+      auth
+    );
+  };
+
+  const goHome = () => {
+    navigate("/home");
+  };
   return (
     <DashboardContent>
       <Link underline="none" component={RouterLink} to="/home">
