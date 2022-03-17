@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context, updateDetail } from "./../../store";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ export default function PostalCodeDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
   const { postal } = user;
+  const [postalState, setPostalState] = useState(postal);
 
   const doUpdate = async () => {
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -17,11 +18,12 @@ export default function PostalCodeDetail() {
 
     const formData = {
       id: user.id,
-      postal: postal,
+      postal: postalState,
     };
 
     try {
       const result = await axios.put(bckendUrl, formData, auth);
+      dispatch(updateDetail("postal", postalState));
       if (result.status === 200) {
         alert("Updated Success!");
       } else {
@@ -56,8 +58,10 @@ export default function PostalCodeDetail() {
             type="number"
             fullWidth
             focused
-            value={postal}
-            onChange={(e) => dispatch(updateDetail("postal", e.target.value))}
+            value={postalState}
+            onChange={(e) => {
+              setPostalState(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={12}>

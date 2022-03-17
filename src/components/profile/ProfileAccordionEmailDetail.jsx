@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context, updateDetail } from "./../../store";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ export default function EmailDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
   const { email } = user;
+  const [emailState, setEmailState] = useState(email);
 
   const doUpdate = async () => {
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -17,11 +18,12 @@ export default function EmailDetail() {
 
     const formData = {
       id: user.id,
-      email: email,
+      email: emailState,
     };
 
     try {
       const result = await axios.put(bckendUrl, formData, auth);
+      dispatch(updateDetail("email", emailState));
       if (result.status === 200) {
         alert("Updated Success!");
       } else {
@@ -52,8 +54,10 @@ export default function EmailDetail() {
             color="grey"
             fullWidth
             focused
-            value={email}
-            onChange={(e) => dispatch(updateDetail("email", e.target.value))}
+            value={emailState}
+            onChange={(e) => {
+              setEmailState(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={12}>

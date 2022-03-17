@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context, updateDetail } from "./../../store";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ export default function BiographyDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
   const { bio } = user;
+  const [bioState, setBioState] = useState(bio);
 
   const doUpdate = async () => {
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -17,11 +18,12 @@ export default function BiographyDetail() {
 
     const formData = {
       id: user.id,
-      bio: bio,
+      bio: bioState,
     };
 
     try {
       const result = await axios.put(bckendUrl, formData, auth);
+      dispatch(updateDetail("bio", bioState));
       if (result.status === 200) {
         alert("Updated Success!");
       } else {
@@ -57,8 +59,10 @@ export default function BiographyDetail() {
             fullWidth
             focused
             multiline
-            value={bio}
-            onChange={(e) => dispatch(updateDetail("bio", e.target.value))}
+            value={bioState}
+            onChange={(e) => {
+              setBioState(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={12}>
