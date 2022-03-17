@@ -8,9 +8,9 @@ export default function TaskCardBtn({ text, color, icon, value, onClick }) {
       variant="contained"
       startIcon={icon}
       color={color}
-      value={value}
+value={value}
       onClick={onClick}      
-      >      
+      >
       {text}
     </Button>
   );
