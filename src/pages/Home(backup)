@@ -2,7 +2,7 @@ import axios from "axios";
 /* react imports */
 import { useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { Context, populateHome } from "./../store";
+import { Context, populateHome } from "../store";
 import { useParams } from "react-router-dom";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
@@ -17,11 +17,11 @@ export default function HomePage() {
   const { user, token, tasks } = store;
   const auth = { headers: { Authorization: `Bearer ${token}` } };
   const { userId } = useParams();
-  let validId
-  if(!userId){
-    validId=user._id
-  } else{
-    validId=userId
+  let validId;
+  if (!userId) {
+    validId = user._id;
+  } else {
+    validId = userId;
   }
 
   const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
@@ -52,11 +52,10 @@ export default function HomePage() {
           allOtherUsers.data
         )
       );
-
     })();
   }, []);
 
-   console.log("This is store in home.jsx", store);
+  console.log("This is store in home.jsx", store);
 
   return (
     <DashboardContent>

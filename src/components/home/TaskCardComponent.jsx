@@ -1,5 +1,5 @@
 /* react imports */
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import { Context } from "./../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -17,9 +17,11 @@ export default function TaskCardComponent(filterTask) {
   const { tasks } = store;
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
-  const [ taskData, setTaskData] = useState()
-  setTaskData(filterTask)
-  console.log('this is task data', taskData)
+  
+  // useEffect
+  // const [ taskData, setTaskData] = useState()
+  // setTaskData(filterTask)
+  // console.log('this is task data', taskData)
 
   const CompleteFn = async (e) => {
     e.preventDefault();
