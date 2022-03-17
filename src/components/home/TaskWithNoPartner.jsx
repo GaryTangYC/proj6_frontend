@@ -22,7 +22,7 @@ export default function TaskWithNoPartner() {
   useEffect(() => {
     let taskStorage = [...tasks];
     console.log("taskStorage", taskStorage);
-    let filteredTask = taskStorage.filter((task) => task.partner !== null);
+    let filteredTask = taskStorage.filter((task) => task.partner !== null && task.completed === false);
     setTaskFiltering(filteredTask);
   }, []);
   

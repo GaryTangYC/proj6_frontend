@@ -18,6 +18,7 @@ import ThemeConfig from "./theme";
 
 function App() {
   return (
+    <div>
     <Router>
       <ThemeConfig>
         <AppProvider> 
@@ -35,6 +36,7 @@ function App() {
         </AppProvider>
       </ThemeConfig>
     </Router>
+    </div>
   );
 }
 
