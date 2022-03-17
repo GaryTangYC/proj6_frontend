@@ -169,6 +169,13 @@ export default function DashboardContent({ children }) {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
+              <ListItemButton>
+                <ListItemText>
+                  <Typography variant="h5">{user.name}</Typography>
+                </ListItemText>
+              </ListItemButton>
+            </MenuItem>
+            <MenuItem>
               <Link component={RouterLink} to="/profile">
                 <ListItemButton>
                   <ListItemIcon>
