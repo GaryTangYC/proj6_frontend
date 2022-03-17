@@ -52,7 +52,7 @@ export default function AddTaskForm() {
     // const taskTagTest = getFormData.get("taskTag");
     
     const data = {
-      owner: user.id,
+      owner: user._id,
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
