@@ -64,7 +64,8 @@ export default function AddTaskForm() {
 
     const postTask = await axios.post(bckendUrl, data);
     console.log(postTask.data);
-    // navigate("/home");
+    alert("Task Added!")
+    navigate("/home");
     if (postTask.data.err) {
       return alert(postTask.data.err);
     }

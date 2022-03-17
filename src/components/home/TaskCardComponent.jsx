@@ -10,7 +10,6 @@ import ChatIcon from "@mui/icons-material/Chat";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 /* widget/component imports */
 import TaskCardBtn from "../../widgets/TaskCardBtn";
-/* other imports */
 import axios from "axios";
 
 export default function TaskCardComponent() {
