@@ -26,26 +26,19 @@ export default function SignIn() {
         "dude u either left a field empty or did not key in an email"
       );
     }
-    const user = await axios.post(bckendUrl, {
+    const result = await axios.post(bckendUrl, {
       email,
       password,
     });
-    if (user.data.err) {
-      return alert(user.data.err);
+    if (result.data.err) {
+      return alert(result.data.err);
     }
     dispatch(
       userSignIn(
-        user.data.id,
-        user.data.name,
-        user.data.email,
-        user.data.postal,
-        user.data.pic,
-        user.data.bio,
-        user.data.requests,
-        user.data.token
+        result.data.token
       )
     );
-    navigate("/home");
+    navigate(`/home/${result.data.id}`);
   };
 
   const MyTextField = ({ label, name, type }) => {

@@ -81,7 +81,13 @@ export default function DashboardContent({ children }) {
 
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const title = location.pathname.substring(1);
+  const rawPath = location.pathname.substring(1);
+  let title;
+  if (rawPath.indexOf("/") > 0) {
+    title = rawPath.substring(0, rawPath.indexOf("/"));
+  } else {
+    title = rawPath;
+  }
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -162,6 +168,13 @@ export default function DashboardContent({ children }) {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
+            <MenuItem>
+              <ListItemButton>
+                <ListItemText>
+                  <Typography variant="h5">{user.name}</Typography>
+                </ListItemText>
+              </ListItemButton>
+            </MenuItem>
             <MenuItem>
               <Link component={RouterLink} to="/profile">
                 <ListItemButton>
