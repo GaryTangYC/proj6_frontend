@@ -55,7 +55,7 @@ export default function ProfilePicDetail() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <Box component="form" onSubmit={doUpload} noValidate>
             <TextField
               required
@@ -63,6 +63,7 @@ export default function ProfilePicDetail() {
               color="secondary"
               placeholder="please upload profile file here"
               type="file"
+              fullWidth
             />
             <SubmitBtn text="Upload" />
           </Box>
