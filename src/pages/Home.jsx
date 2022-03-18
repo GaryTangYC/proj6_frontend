@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import DashboardContent from "../layouts/DashBoard";
 import TaskWithNoPartner from "../components/home/TaskWithNoPartner";
 import TaskWithPartner from "../components/home/TaskWithPartner";
-import TaskPendingPartner from "../components/home/TaskPendingPartner";
+import TaskPartnerStatus from "../components/home/TaskPartnerStatus";
 
 // Test date
 // import { parseJSON } from "date-fns"
@@ -112,7 +112,7 @@ export default function HomePage() {
           <MyTabs value={value} onChange={handleChange}>
             <MyTab label="Tasks - No Partner" />
             <MyTab label="Tasks - With Partner" />
-            <MyTab label="Tasks - Pending Partner" />
+            <MyTab label="Tasks - Partner Status" />
           </MyTabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -122,7 +122,7 @@ export default function HomePage() {
           <TaskWithPartner />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <TaskPendingPartner />
+          <TaskPartnerStatus />
         </TabPanel>
       </Box>
     );

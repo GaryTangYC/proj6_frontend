@@ -1,6 +1,8 @@
 /* react imports */
 import { useContext, useState } from "react";
 import { Context } from "../../store";
+/* mui imports */
+import { Typography}  from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 import { Grid } from "@mui/material";
@@ -18,7 +20,11 @@ export default function TaskWithPartner() {
   console.log('this is filter task with no partner',filteredTasks)
   return (
     <>
-      <TaskCardComponent tasks={filteredTasks} disabled={disabled} />
+      <h2>Ongoing Tasks</h2>
+      {filteredTasks.length>0 ? (
+      <TaskCardComponent tasks={filteredTasks} />
+      ): (<Typography variant="h3">No Ongoing Task</Typography>)}
+      <br />
     </>
   );
 }

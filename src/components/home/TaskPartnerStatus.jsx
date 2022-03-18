@@ -1,10 +1,12 @@
 /* react imports */
 import { useContext, useState } from "react";
 import { Context } from "../../store";
+/* mui imports */
+import { Typography}  from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 
-export default function TaskPendingPartner() {
+export default function TaskPartnerStatus() {
   const { store } = useContext(Context);
   const { tasks } = store;
 
@@ -27,10 +29,16 @@ export default function TaskPendingPartner() {
   return (
     <>
       <h2>Pending Partner Acceptance</h2>
+      {filteredTasks1.length>0 ? (
       <TaskCardComponent tasks={filteredTasks1} />
-      <hr />
-      <h2>Partner Rejected</h2>
-      <TaskCardComponent tasks={filteredTasks2} />
+      ): (<Typography variant="h3">No Request For Partner Acceptance</Typography>)}
+      <br />
+     <hr />
+     <h2>Partner Rejected</h2>
+     {filteredTasks2.length>0 ? (
+     <TaskCardComponent tasks={filteredTasks2} />
+     ): (<Typography variant="h3">No Request Currently Rejected By Partner</Typography>)}
+      <br />
     </>
   );
 }

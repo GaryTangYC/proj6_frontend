@@ -1,6 +1,8 @@
 /* react imports */
 import { useContext, useState } from "react";
 import { Context } from "../../store";
+/* mui imports */
+import { Typography}  from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 
@@ -21,10 +23,15 @@ export default function TaskWithPartner() {
   return (
     <>
       <h2>Ongoing Tasks</h2>
+      {filteredTasks1.length>0 ? (
       <TaskCardComponent tasks={filteredTasks1} />
-      <hr/ >
-      <h2>Pending Partner Acceptance of Completion</h2>
+      ): (<Typography variant="h3">No Ongoing Task</Typography>)}
+      <br />
+      < hr/>
+      <h2>Pending Acknowledgement For Completion</h2>
+      {filteredTasks2.length>0 ? (
       <TaskCardComponent tasks={filteredTasks2} />
+           ): (<Typography variant="h3">No Pending Task </Typography>)}
     </>
   );
 }
