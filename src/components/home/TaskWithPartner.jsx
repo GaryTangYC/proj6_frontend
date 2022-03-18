@@ -9,11 +9,11 @@ export default function TaskWithPartner() {
   const { tasks } = store;
 
   const [filteredTasks1, setFilteredTasks] = useState(
-    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true")
+    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true" && task.endIndicated === false )
   );
 
     const [filteredTasks2, setFilteredTasks2] = useState(
-    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true" && tasks.endIndicated === true)
+    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true" && task.endIndicated === true)
   );
       console.log('this is filter task with partner',filteredTasks1)
 

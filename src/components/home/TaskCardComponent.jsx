@@ -12,7 +12,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskCardComponent({ tasks }) {
+export default function TaskCardComponent({ tasks, disabled }) {
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
@@ -47,7 +47,8 @@ export default function TaskCardComponent({ tasks }) {
                 color="success"
                 icon={<DoneIcon />}
                 onClick={CompleteFn}
-                value={task._id}                
+                value={task._id}
+                {...disabled}                
               />
               <Link
                 underline="none"

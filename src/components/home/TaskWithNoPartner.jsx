@@ -13,10 +13,12 @@ export default function TaskWithPartner() {
     tasks.filter((task) => task.partner === null && task.completed === false)
   );
 
+  const disabled="disabled"
+
   console.log('this is filter task with no partner',filteredTasks)
   return (
     <>
-      <TaskCardComponent tasks={filteredTasks} />
+      <TaskCardComponent tasks={filteredTasks} disabled={disabled} />
     </>
   );
 }
