@@ -21,14 +21,14 @@ function App() {
     <div>
     <Router>
       <ThemeConfig>
-        <AppProvider> 
+        <AppProvider>
           <Routes>
             <Route path="/" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/home/:userId" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/addtask" element={<AddTaskPage />} />
-            <Route path="/addpartner/:taskId" element={<AddPartnerPage/>} />
+            <Route path="/addpartner/:taskId" element={<AddPartnerPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/requests" element={<RequestPage />} />
             <Route path="/chats" element={<ChatsPage />} />

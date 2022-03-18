@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context, updateDetail } from "./../../store";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ export default function NameDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
   const { name } = user;
+  const [nameState, setNameState] = useState(name);
 
   const doUpdate = async () => {
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -17,11 +18,12 @@ export default function NameDetail() {
 
     const formData = {
       id: user.id,
-      name: name,
+      name: nameState,
     };
 
     try {
       const result = await axios.put(bckendUrl, formData, auth);
+      dispatch(updateDetail("name", nameState));
       if (result.status === 200) {
         alert("Updated Success!");
       } else {
@@ -55,8 +57,10 @@ export default function NameDetail() {
             color="grey"
             fullWidth
             focused
-            value={name}
-            onChange={(e) => dispatch(updateDetail("name", e.target.value))}
+            value={nameState}
+            onChange={(e) => {
+              setNameState(e.target.value);
+            }}
           />
         </Grid>
         <Grid item xs={12}>
