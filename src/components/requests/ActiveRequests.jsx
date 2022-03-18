@@ -12,7 +12,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 /* other imports */
-import { format } from "date-fns";
+import { format, isPast } from "date-fns";
 import axios from "axios";
 
 export default function ActiveRequests() {
@@ -33,7 +33,7 @@ export default function ActiveRequests() {
     /* format date string returned from mongoose */
     let date = new Date(el.completion);
     date = format(date, "E,dd-MMM-yy");
-
+    
     /* agreeComplete onclick function */
     const agreeComplete = () => {
       updateAgreeComplete();
@@ -43,7 +43,7 @@ export default function ActiveRequests() {
     /* rejectComplete onclick function */
     const rejectComplete = async () => {
       updateRejectComplete();
-      removeTask();
+      updateTask();
     };
 
     /* change completed field to true */
@@ -55,11 +55,11 @@ export default function ActiveRequests() {
       );
     };
 
-    /* change completed field to ???? */
+    /* change endIndicated field to false */
     const updateRejectComplete = async () => {
       await axios.put(
-        `${baseBckendUrl}/task/partnerRequest`,
-        { taskId: el._id, userId: el.owner._id, status: "rejected" },
+        `${baseBckendUrl}/task/rejectCompletion`,
+        { taskId: el._id },
         auth
       );
     };
@@ -67,6 +67,18 @@ export default function ActiveRequests() {
     const removeTask = () => {
       setFilteredTasks(filteredTasks.filter((task) => task._id !== el._id));
     };
+
+    const updateTask = () => {
+      setFilteredTasks(
+        filteredTasks.map((task) => {
+          if (el._id === task._id) {
+            return { ...task, endIndicated: false };
+          }
+          return task;
+        })
+      );
+    };
+
     return (
       <List component="div" disablePadding>
         <ListItem>
@@ -79,12 +91,20 @@ export default function ActiveRequests() {
             <Typography>Financial Penalties: {el.financialPenalty}</Typography>
           </ListItemText>
           {el.endIndicated && (
-            <IconButton onClick={() => {agreeComplete()}}>
+            <IconButton
+              onClick={() => {
+                agreeComplete();
+              }}
+            >
               <CheckCircleOutlineIcon />
             </IconButton>
           )}
           {el.endIndicated && (
-            <IconButton onClick={() => {}}>
+            <IconButton
+              onClick={() => {
+                rejectComplete();
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           )}
@@ -105,27 +125,3 @@ export default function ActiveRequests() {
     </>
   );
 }
-
-/* old code... */
-// /* react imports */
-// import { useContext } from "react";
-// import { Context } from "./../../store";
-// /* mui imports */
-// import { Typography } from "@mui/material";
-// import RequestTaskCard from "../RequestsTaskCard";
-
-// export default function ActiveRequests() {
-//   const { store } = useContext(Context);
-//   const { partnerTasks } = store;
-//   const filterTasks = partnerTasks.filter(el => el.partnerAccepted === "true")
-
-//   return (
-//     <>
-//       {filterTasks.length > 0 ? (
-//         <RequestTaskCard tasks={filterTasks} />
-//       ) : (
-//         <Typography variant="h3">There are no active requests</Typography>
-//       )}
-//     </>
-//   );
-// }
