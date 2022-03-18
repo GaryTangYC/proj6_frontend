@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import DashboardContent from "../layouts/DashBoard";
 import TaskWithNoPartner from "../components/home/TaskWithNoPartner";
 import TaskWithPartner from "../components/home/TaskWithPartner";
-
+import TaskPendingPartner from "../components/home/TaskPendingPartner";
 
 // Test date
 // import { parseJSON } from "date-fns"
@@ -48,7 +48,7 @@ function TabPanel({ children, value, index }) {
 
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
-  const { user, token, tasks } = store;  
+  const { user, token, tasks } = store;
   const auth = { headers: { Authorization: `Bearer ${token}` } };
   const { userId } = useParams();
   let validId;
@@ -90,11 +90,10 @@ export default function HomePage() {
           allOtherUsers.data
         )
       );
-
     })();
   }, []);
 
-    console.log("This is store in home.jsx", store);
+  console.log("This is store in home.jsx", store);
 
   /**************
    * Function to change tabs
@@ -112,8 +111,8 @@ export default function HomePage() {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <MyTabs value={value} onChange={handleChange}>
             <MyTab label="Tasks - No Partner" />
-            <MyTab label="Tasks - Partner" />
-            {/* <MyTab label="Pending Requests" /> */}
+            <MyTab label="Tasks - With Partner" />
+            <MyTab label="Tasks - Pending Partner" />
           </MyTabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -122,9 +121,9 @@ export default function HomePage() {
         <TabPanel value={value} index={1}>
           <TaskWithPartner />
         </TabPanel>
-        {/* <TabPanel value={value} index={2}>
-          <TaskTest />
-        </TabPanel> */}
+        <TabPanel value={value} index={2}>
+          <TaskPendingPartner />
+        </TabPanel>
       </Box>
     );
   }
@@ -136,9 +135,9 @@ export default function HomePage() {
   return (
     <DashboardContent>
       {/* {`This is token after signing in ${token}`} */}
-      <Grid item xs={12} sm={6} md={3}>
-        <BasicTabs />
-      </Grid>
+      {/* <Grid item xs={12} sm={6} md={3}> */}
+      <BasicTabs />
+      {/* </Grid> */}
     </DashboardContent>
   );
 }

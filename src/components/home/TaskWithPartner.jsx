@@ -1,29 +1,30 @@
 /* react imports */
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../store";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-/* mui imports */
-import { Card, CardContent, Stack, Link, Typography } from "@mui/material";
-import DoneIcon from "@mui/icons-material/Done";
-import ChatIcon from "@mui/icons-material/Chat";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 /* widget/component imports */
-import TaskCardBtn from "../../widgets/TaskCardBtn";
-import axios from "axios";
-import TaskCardComponentRefactor from "./TaskCardComponent";
+import TaskCardComponent from "./TaskCardComponent";
 
 export default function TaskWithPartner() {
   const { store } = useContext(Context);
-  const { token, tasks } = store;
+  const { tasks } = store;
 
-  const [filteredTasks, setFilteredTasks] = useState(
-    tasks.filter((task) => task.partner !== null && task.completed === false)
+  const [filteredTasks1, setFilteredTasks] = useState(
+    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true")
   );
-  const navigate = useNavigate();
-      console.log('this is filter task with partner',filteredTasks)
+
+    const [filteredTasks2, setFilteredTasks2] = useState(
+    tasks.filter((task) => task.partner !== null && task.completed === false && task.partnerAccepted === "true" && tasks.endIndicated === true)
+  );
+      console.log('this is filter task with partner',filteredTasks1)
+
+      console.log('this is filter task with partner - pending AP complete',filteredTasks2)
   return (
     <>
-      <TaskCardComponentRefactor tasks={filteredTasks} />
+      <h2>Ongoing Tasks</h2>
+      <TaskCardComponent tasks={filteredTasks1} />
+      <hr/ >
+      <h2>Pending Partner Acceptance of Completion</h2>
+      <TaskCardComponent tasks={filteredTasks2} />
     </>
   );
 }
