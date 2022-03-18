@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import DashboardContent from "../layouts/DashBoard";
 import TaskWithPartner from "../components/home/TaskWithPartner";
 import TaskWithNoPartner from "../components/home/TaskWithNoPartner";
-
+import TaskTest from "../components/home/TaskTest";
 
 // Test date
 // import { parseJSON } from "date-fns"
@@ -49,6 +49,7 @@ function TabPanel({ children, value, index }) {
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
   const { user, token, tasks } = store;
+  const [taskFiltering, setTaskFiltering] = useState([]);
   const auth = { headers: { Authorization: `Bearer ${token}` } };
   const { userId } = useParams();
   let validId;
@@ -60,9 +61,9 @@ export default function HomePage() {
 
   const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
 
-/**************
- * Post login to fetch tasks from backend and store in global context 
- ****************/
+  /**************
+   * Post login to fetch tasks from backend and store in global context
+   ****************/
 
   useEffect(() => {
     (async () => {
@@ -90,14 +91,24 @@ export default function HomePage() {
           allOtherUsers.data
         )
       );
+
+      // filter and store different taskdata in home state for rendering
+      let taskStorage = [...tasks];
+      console.log("taskStorage", taskStorage);
+      let filteredTask = taskStorage.filter(
+        (task) => task.partner == null && task.completed === false
+      );
+      setTaskFiltering(filteredTask);
+
     })();
   }, []);
 
   console.log("This is store in home.jsx", store);
+    console.log("This is taskFiltering", taskFiltering);
 
-/**************
- * Function to change tabs
- ****************/
+  /**************
+   * Function to change tabs
+   ****************/
 
   function BasicTabs() {
     const [value, setValue] = useState(0);
@@ -116,26 +127,24 @@ export default function HomePage() {
           </MyTabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <TaskWithNoPartner/>
+          <TaskTest taskfiltering={taskFiltering} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <TaskWithPartner />
+          {/* <TaskWithPartner /> */}
         </TabPanel>
       </Box>
     );
   }
 
-/**************
- * Render Return Components
- ****************/
+  /**************
+   * Render Return Components
+   ****************/
 
   return (
     <DashboardContent>
-     {`This is token after signing in ${token}`}
-        <Grid item xs={12} sm={6} md={3}>
+      {`This is token after signing in ${token}`}
+      <Grid item xs={12} sm={6} md={3}>
         <BasicTabs />
-              <hr></hr>
-      <h2>Pending Accountability Tasks</h2>
       </Grid>
     </DashboardContent>
   );
