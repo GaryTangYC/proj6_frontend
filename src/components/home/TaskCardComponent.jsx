@@ -1,10 +1,10 @@
 /* react imports */
-import React from "react";
-import { useContext } from "react";
-import { Context } from "./../../store";
+import React, { useEffect } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
-import { Card, CardContent, Stack, Link } from "@mui/material";
+import { Card, CardContent, Stack, Link, Grid } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -12,9 +12,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskCardComponent() {
-  const { store } = useContext(Context);
-  const { tasks } = store;
+export default function TaskCardComponent({ tasks, disabled }) {
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
@@ -23,21 +21,22 @@ export default function TaskCardComponent() {
     const taskId = e.currentTarget.value;
     console.log("button clicked");
     console.log("taskId", taskId);
-    const postCompleteTask = await axios.post(postCompleteBckendUrl, {taskId});
-    alert("Task Submitted as Complete")
+    const postCompleteTask = await axios.post(postCompleteBckendUrl, {
+      taskId,
+    });
+    alert("Task Submitted");
     if (postCompleteTask.data.err) {
       return alert(postCompleteTask.data.err);
     }
-    // Should we use useNavigate to reroute to home page which will re-update the task list?
-
+    navigate("/home");
   };
 
   return (
     <>
       {tasks.map((task) => {
         return (
+          <Grid item xs={4}>
           <Card key={task._id}>
-            {/* <CardContent /> */}
             <CardContent>
               <h4>{task.description}</h4>
               <p>{task.endText}</p>
@@ -47,9 +46,9 @@ export default function TaskCardComponent() {
                 text="Complete"
                 color="success"
                 icon={<DoneIcon />}
-                // dataTestId={taskIdMap}
                 onClick={CompleteFn}
                 value={task._id}
+                {...disabled}                
               />
               <Link
                 underline="none"
@@ -65,9 +64,9 @@ export default function TaskCardComponent() {
               <TaskCardBtn text="Chat" icon={<ChatIcon />} />
             </Stack>
           </Card>
+          </Grid>
         );
       })}
     </>
   );
 }
-/* color for info, success can be adjusted in palette.js */
