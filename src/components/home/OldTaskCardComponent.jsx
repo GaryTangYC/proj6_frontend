@@ -12,21 +12,29 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskCardComponent({tasks}) {
-    const navigate = useNavigate();
+export default function TaskCardComponent(filterTask) {
+  const { store } = useContext(Context);
+  const { tasks } = store;
+  const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
   
+  // useEffect
+  // const [ taskData, setTaskData] = useState()
+  // setTaskData(filterTask)
+  // console.log('this is task data', taskData)
+
   const CompleteFn = async (e) => {
     e.preventDefault();
     const taskId = e.currentTarget.value;
     console.log("button clicked");
     console.log("taskId", taskId);
     const postCompleteTask = await axios.post(postCompleteBckendUrl, {taskId});
-    alert("Task Submitted")
+    alert("Task Submitted as Complete")
     if (postCompleteTask.data.err) {
       return alert(postCompleteTask.data.err);
     }
-    navigate('/home')
+    // Should we use useNavigate to reroute to home page which will re-update the task list?
+
   };
 
   return (
@@ -34,6 +42,7 @@ export default function TaskCardComponent({tasks}) {
       {tasks.map((task) => {
         return (
           <Card key={task._id}>
+            {/* <CardContent /> */}
             <CardContent>
               <h4>{task.description}</h4>
               <p>{task.endText}</p>
@@ -65,3 +74,4 @@ export default function TaskCardComponent({tasks}) {
     </>
   );
 }
+/* color for info, success can be adjusted in palette.js */

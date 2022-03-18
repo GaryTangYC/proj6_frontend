@@ -1,7 +1,7 @@
 /* react imports */
 import { useEffect } from "react";
 import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { Context } from "./../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
 import { Card, CardContent, Stack, Link, Typography } from "@mui/material";
@@ -12,15 +12,21 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskTest() {
+export default function TaskWithNoPartner() {
   const { store } = useContext(Context);
-
+  const { tasks } = store;
   const [taskFiltering, setTaskFiltering] = useState([]);
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
+  useEffect(() => {
+    let taskStorage = [...tasks];
+    console.log("taskStorage", taskStorage);
+    let filteredTask = taskStorage.filter((task) => task.partner !== null && task.completed === false);
+    setTaskFiltering(filteredTask);
+  }, []);
   
-  console.log("filtertask with partner", taskFiltering);
+  console.log("filtertask with no partner", taskFiltering);
 
   const CompleteFn = async (e) => {
     e.preventDefault();
