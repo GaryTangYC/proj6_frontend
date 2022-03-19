@@ -12,7 +12,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 /* other imports */
-import { format, isPast } from "date-fns";
+import { format } from "date-fns";
 import axios from "axios";
 
 export default function ActiveRequests() {
@@ -88,7 +88,7 @@ export default function ActiveRequests() {
             <Typography>Completion Date: {date}</Typography>
             <Typography>Description: {el.description}</Typography>
             <Typography>Penalties: {el.endText}</Typography>
-            <Typography>Financial Penalties: {el.financialPenalty}</Typography>
+            <Typography>Financial Penalties: {el.financialPenalty?"Yes":"None"}</Typography>
           </ListItemText>
           {el.endIndicated && (
             <IconButton
