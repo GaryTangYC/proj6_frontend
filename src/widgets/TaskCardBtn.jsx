@@ -1,10 +1,6 @@
 import { Button } from "@mui/material";
 
-export default function TaskCardBtn({ text, color, icon, value, onClick, disabled}) {
-  let checkDisabled = null
-    if (!disabled) {
-      checkDisabled = "disabled"
-    }
+export default function TaskCardBtn({ text, color, icon, value, onClick}) {
 
   return (
     <Button
@@ -14,8 +10,7 @@ export default function TaskCardBtn({ text, color, icon, value, onClick, disable
       startIcon={icon}
       color={color}
       value={value}
-      onClick={onClick}
-      {...checkDisabled}      
+      onClick={onClick}      
       >
       {text}
     </Button>

@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import { Context } from "../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
-import { Card, CardContent, Stack, Link, Grid } from "@mui/material";
+import './styles.css';
+import { Card, CardContent, Stack, Link, Grid, CardActions } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -12,7 +13,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 
-export default function TaskCardComponent({ tasks, disabled }) {
+export default function TaskCardComponent({ tasks }) {
   const navigate = useNavigate();
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
@@ -33,38 +34,46 @@ export default function TaskCardComponent({ tasks, disabled }) {
 
   return (
     <>
-      {tasks.map((task) => {
-        return (
-          <Grid item xs={4}>
-          <Card key={task._id}>
+      {tasks.map((task, index) => {
+        return (          
+          <Card key={task._id} sx={{ height: '100%', display: 'flex', flexDirection: 'column', minWidth: 300, maxWidth: 300, minHeight: 400, maxHeight: 400}}>
             <CardContent>
-              <h4>{task.description}</h4>
+              <h4><b>{task.description}</b></h4>
+              <hr></hr>
+              <p><b>Rewards / Penalty: </b></p>
               <p>{task.endText}</p>
-            </CardContent>
-            <Stack spacing={2}>
+              <p><b>To Complete:</b></p>
+              <p> {task.completion}</p>
+            </CardContent>            
+            <Stack >
+              <CardActions>
+              {/* Empty Link required to wrap TaskCardBtn to space button evenly */}
+              <Link> 
               <TaskCardBtn
-                text="Complete"
+                text="Done"
                 color="success"
                 icon={<DoneIcon />}
                 onClick={CompleteFn}
-                value={task._id}
-                {...disabled}                
+                value={task._id}                                
               />
+              </Link>
               <Link
                 underline="none"
                 component={RouterLink}
                 to={`/addpartner/${task._id}`}
               >
                 <TaskCardBtn
-                  text="Add Partner"
+                  text="Add"
                   color="info"
                   icon={<PersonAddIcon />}
                 />
               </Link>
+              <Link>
               <TaskCardBtn text="Chat" icon={<ChatIcon />} />
+              </Link>
+              </CardActions>
             </Stack>
-          </Card>
-          </Grid>
+          </Card>          
         );
       })}
     </>

@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../../store";
 /* mui imports */
-import { Typography}  from "@mui/material";
+import { Grid, Container, Typography}  from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 
@@ -30,14 +30,23 @@ export default function TaskPartnerStatus() {
     <>
       <h2>Pending Partner Acceptance</h2>
       {filteredTasks1.length>0 ? (
+      <Container sx={{ py: 2 }} maxWidth="xl">
+          <Grid container spacing={3} gap={6}>
       <TaskCardComponent tasks={filteredTasks1} />
+       </Grid>
+        </Container>
       ): (<Typography variant="h3">No Request For Partner Acceptance</Typography>)}
       <br />
      <hr />
      <h2>Partner Rejected</h2>
      {filteredTasks2.length>0 ? (
+             <Container sx={{ py: 2 }} maxWidth="xl">
+          <Grid container spacing={3} gap={6}>
      <TaskCardComponent tasks={filteredTasks2} />
+      </Grid>
+        </Container>
      ): (<Typography variant="h3">No Request Currently Rejected By Partner</Typography>)}
+     
       <br />
     </>
   );

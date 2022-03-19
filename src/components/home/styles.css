@@ -1,0 +1,6 @@
+/* Ensure that buttons on TaskCardComponent stick to bottom of card */
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
