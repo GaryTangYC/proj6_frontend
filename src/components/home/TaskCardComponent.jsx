@@ -1,5 +1,5 @@
 /* react imports */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useContext, useState } from "react";
 import { Context } from "../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -15,6 +15,8 @@ import axios from "axios";
 
 export default function TaskCardComponent({ tasks }) {
   const navigate = useNavigate();
+  // isTrue state to be passed to button components that needs to be disabled
+  const [ isTrue, setIsTrue ] = useState(true)
   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
   const CompleteFn = async (e) => {
@@ -54,7 +56,8 @@ export default function TaskCardComponent({ tasks }) {
                 color="success"
                 icon={<DoneIcon />}
                 onClick={CompleteFn}
-                value={task._id}                                
+                value={task._id}                
+                           
               />
               </Link>
               <Link
@@ -69,7 +72,7 @@ export default function TaskCardComponent({ tasks }) {
                 />
               </Link>
               <Link>
-              <TaskCardBtn text="Chat" icon={<ChatIcon />} />
+              <TaskCardBtn text="Chat" icon={<ChatIcon />} disabled={isTrue} />
               </Link>
               </CardActions>
             </Stack>
