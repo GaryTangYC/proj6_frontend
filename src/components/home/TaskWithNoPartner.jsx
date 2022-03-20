@@ -17,9 +17,9 @@ export default function TaskWithPartner() {
   const { store } = useContext(Context);
   const { tasks } = store;
 
-  const [filteredTasks, setFilteredTasks1] = useState(
-    tasks.filter((task) => task.partner === null && task.completed === false)
-  );
+  // const [filteredTasks, setFilteredTasks1] = useState(
+  //   tasks.filter((task) => task.partner === null && task.completed === false)
+  // );
 
   // Test Date Filtering on expired task
   // Store data in a const
@@ -28,10 +28,9 @@ export default function TaskWithPartner() {
     (task) => task.partner === null && task.completed === false
   );
 
-  console.log("noPartnerData stored data", noPartnerData);
-  let currentDateTime = new Date();
   let noPartnerExpiredData = [];
   let testSameDateData = [];
+
   // Run filtering using for loop and store expiry vs live data in separate array
   for (let i = noPartnerData.length - 1; i >= 0; i--) {
     // Parse string to ISO date format
@@ -41,33 +40,12 @@ export default function TaskWithPartner() {
       new Date()
     );
 
-    // Check if task completion date is past existing date and if date is same day to be moved to expired
-    const isDateBefore = isBefore(new Date(convertDate), new Date());
-    const isDateSameDay = isSameDay(new Date(convertDate), new Date());
+    // Check if task completion time is past existing time. If yes, to insert into array noPartnerExpiredData
     const isTaskTimeExpired = differenceInSeconds(
       new Date(convertDate),
       new Date());
-    // console.log("task noPartnerData", noPartnerData[i].description);
-    // console.log(
-    //   "🚀 ~ file: TaskWithNoPartner.jsx ~ line 32 ~ TaskWithPartner ~ convertDate ",
-    //   convertDate
-    // );
-    // console.log(
-    //   "🚀 ~ file: TaskWithNoPartner.jsx ~ line 35 ~ TaskWithPartner ~ isDateBefore ",
-    //   isDateBefore
-    // );
-    // console.log(
-    //   "🚀 ~ file: TaskWithNoPartner.jsx ~ line 36 ~ TaskWithPartner ~ isDateSameDay",
-    //   isDateSameDay
-    // );
-      console.log('istaskTimeexpired', isTaskTimeExpired)
-    
 
-    // if (isDateBefore === true && isDateSameDay === false) {
-    //   noPartnerExpiredData.push(noPartnerData[i]);
-    //   console.log("noPartnerExpiredData", noPartnerExpiredData);
-    //   noPartnerData.splice(i, 1);
-    // }
+      console.log('istaskTimeexpired', isTaskTimeExpired)
 
     if ( isTaskTimeExpired < 0) {
     noPartnerExpiredData.push(noPartnerData[i]);
@@ -75,33 +53,36 @@ export default function TaskWithPartner() {
     }
 
   }
-  console.log("noPartnerExpiredData", noPartnerExpiredData);
-  console.log(
-    "🚀 ~ file: TaskWithNoPartner.jsx ~ line 38 ~ TaskWithPartner ~ NonExpiredData",
-    noPartnerData
-  );
-  console.log(
-    "🚀 ~ file: TaskWithNoPartner.jsx ~ line 44 ~ TaskWithPartner ~ testSameDateData",
-    testSameDateData
-  );
-
+  
 
   //Load separate array data into the required field
-  console.log("this is filter task with no partner", filteredTasks);
+  console.log('tasks that has not expired', noPartnerData)
+  console.log('tasks that has expired', noPartnerExpiredData)
 
   return (
     <>
       <h2>Ongoing Tasks</h2>
-      {filteredTasks.length > 0 ? (
+      {noPartnerData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={filteredTasks} />
+            <TaskCardComponent tasks={noPartnerData} />
           </Grid>
         </Container>
       ) : (
         <Typography variant="h3">No Ongoing Task</Typography>
       )}
       <br />
+      <hr />
+      <h2>Expired Tasks</h2>
+      {noPartnerExpiredData.length > 0 ? (
+        <Container sx={{ py: 2 }} maxWidth="xl">
+          <Grid container spacing={3} gap={6}>
+            <TaskCardComponent tasks={noPartnerExpiredData} />
+          </Grid>
+        </Container>
+      ) : (
+        <Typography variant="h3">No Expired Task </Typography>
+      )}
     </>
   );
 }
