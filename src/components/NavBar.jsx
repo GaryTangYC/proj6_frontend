@@ -42,14 +42,14 @@ export const mainListItems = (
       </ListItemButton>
     </Link>
 
-    <Link underline="none" component={RouterLink} to="/chats">
+    {/* <Link underline="none" component={RouterLink} to="/chats">
       <ListItemButton>
         <ListItemIcon>
           <ChatIcon />
         </ListItemIcon>
         <ListItemText primary="Chat" />
       </ListItemButton>
-    </Link>
+    </Link> */}
   </>
 );
 

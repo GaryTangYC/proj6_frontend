@@ -1,6 +1,7 @@
 /* react imports */
 import { useContext, useState } from "react";
 import { Context } from "./../../store";
+import { useNavigate } from "react-router-dom";
 /* mui imports */
 import {
   Typography,
@@ -14,6 +15,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ChatIcon from "@mui/icons-material/Chat";
 /* other imports */
 import { format } from "date-fns";
 import axios from "axios";
@@ -27,6 +29,8 @@ export default function PendingRequests() {
   );
 
   function PendingTaskList({ el }) {
+    /* to link to chat page when click on chat btn */
+    const navigate = useNavigate();
     /* bckend urls + auth */
     const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -69,6 +73,14 @@ export default function PendingRequests() {
     const removeTask = () => {
       setFilteredTasks(filteredTasks.filter((task) => task._id !== el._id));
     };
+
+    /* chat onclick function */
+    const startChat = () => {
+      navigate("/chats", {
+        state: { taskInfo: el},
+      });
+    };
+
     return (
       <List>
         <ListItem
@@ -83,6 +95,9 @@ export default function PendingRequests() {
             </IconButton>
           }
         >
+          <IconButton onClick={() => startChat()}>
+            <ChatIcon />
+          </IconButton>
           <IconButton onClick={() => acceptPartner()}>
             <CheckCircleOutlineIcon />
           </IconButton>
