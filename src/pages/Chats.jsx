@@ -4,6 +4,7 @@ import { Context } from "./../store";
 import { useNavigate, useLocation } from "react-router-dom";
 /* mui imports */
 import {
+  Avatar,
   Container,
   Divider,
   Grid,
@@ -11,6 +12,7 @@ import {
   InputAdornment,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemText,
   TextField,
   Typography,
@@ -28,11 +30,16 @@ export default function ChatsPage() {
   const socket = io.connect(process.env.REACT_APP_BCKEND_BASE_URI);
   const { store } = useContext(Context);
   const { user, token } = store;
+  /* bckend urls + auth */
+  const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
+  const baseImageUrl = process.env.REACT_APP_IMAGE_BASE_URI;
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
   /* used to hold array of either senderChatText or receiverChatText so display can be udpated */
   const [conversation, setConversation] = useState([]);
   /* get info sent over in location.state when navigated to this page */
   const location = useLocation();
-  const { taskId, taskOwner, taskDescription, taskPartner } = location.state;
+  const { taskId, taskOwner, taskDescription, taskPartner, partnerPic } = location.state;
+  console.log("this is location.state", location.state)
   /* fig out who e receiver shld be */
   let receiver;
   if (user._id === taskOwner) {
@@ -70,7 +77,11 @@ export default function ChatsPage() {
 
   const SenderChatText = ({ msg }) => {
     return (
+      
       <ListItemText align="right" secondary="shld be current time">
+       <ListItemAvatar>
+          <Avatar src={`${baseImageUrl}${user.pic}`}/>
+        </ListItemAvatar>
         {msg}
       </ListItemText>
     );
@@ -79,15 +90,17 @@ export default function ChatsPage() {
   const ReceiverChatText = ({ msg }) => {
     return (
       <ListItem>
+        <ListItemAvatar>
+          <Avatar src={`${baseImageUrl}${partnerPic}`}/>
+        </ListItemAvatar>
         <ListItemText align="left" secondary="shld be current time">
-          Hey, I am Good! What about you ?
+          {msg}
         </ListItemText>
       </ListItem>
     );
   };
 
   socket.on("bdcast_msg", (data) => {
-    console.log("this is data rcved from bd_cast msg", data);
     /* setState MUST use format below or it will cont be overwritten (https://stackoverflow.com/questions/66648291/react-socket-io-socket-on-event-is-not-updating-state-properly) */
     setConversation((prevMsgs) => [
       ...prevMsgs,
@@ -95,7 +108,6 @@ export default function ChatsPage() {
     ]);
   });
   let chatList;
-  console.log("this is conversation", conversation);
   if (conversation.length > 0) {
     chatList = conversation.map((text, index) => {
       if (user._id === text.sender) {
@@ -150,3 +162,4 @@ export default function ChatsPage() {
 // </>
 // <>
 //   Person who started this chat is {user.name} with id {user._id}
+

@@ -78,7 +78,13 @@ export default function PendingRequests() {
     const startChat = () => {
       navigate("/chats", {
         /* need to standardize info sent thru here, so other pages can send in e same format */
-        state: { taskId: el._id, taskOwner: el.owner._id, taskDescription: el.description, taskPartner: el.partner},
+        state: {
+          taskId: el._id,
+          taskOwner: el.owner._id,
+          taskDescription: el.description,
+          taskPartner: el.partner,
+          partnerPic: el.owner.pic,
+        },
       });
     };
 
