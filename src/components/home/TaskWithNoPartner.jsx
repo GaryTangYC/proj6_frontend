@@ -13,11 +13,6 @@ export default function TaskWithPartner() {
   const { store } = useContext(Context);
   const { tasks } = store;
 
-  // const [filteredTasks, setFilteredTasks1] = useState(
-  //   tasks.filter((task) => task.partner === null && task.completed === false)
-  // );
-
-  // Test Date Filtering on expired task
   // Store data in a const
   const storeData = [...tasks];
   let noPartnerData = storeData.filter(
@@ -49,9 +44,14 @@ export default function TaskWithPartner() {
     }
   }
 
-  //Load separate array data into the required field
-  console.log("tasks that has not expired", noPartnerData);
-  console.log("tasks that has expired", noPartnerExpiredData);
+  // Sorting function to display task from earliest expiry first to latest expiry
+  noPartnerExpiredData.sort(function(a, b) {
+    return (a.completion < b.completion) ? -1 : ((a.completion> b.completion) ? 1 : 0);
+  });
+
+  noPartnerData.sort(function(a, b) {
+    return (a.completion < b.completion) ? -1 : ((a.completion> b.completion) ? 1 : 0);
+  });
 
   return (
     <>
