@@ -9,6 +9,7 @@ import axios from "axios";
 export default function EmailDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
+  console.log(store);
   const { email } = user;
   const [emailState, setEmailState] = useState(email);
 

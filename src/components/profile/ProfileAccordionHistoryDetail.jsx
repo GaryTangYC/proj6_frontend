@@ -42,7 +42,7 @@ export default function HistoryDetail() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tasks.map((row) => (
+                {completedTasks.map((row) => (
                   <TableRow
                     key={row._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

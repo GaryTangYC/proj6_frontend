@@ -17,7 +17,7 @@ export default function PostalCodeDetail() {
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/postal`;
 
     const formData = {
-      id: user.id,
+      id: user._id,
       postal: postalState,
     };
 
