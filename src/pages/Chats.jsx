@@ -1,25 +1,110 @@
 /* react imports */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "./../store";
 import { useNavigate, useLocation } from "react-router-dom";
 /* mui imports */
-import { IconButton } from "@mui/material";
+import {
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import CancelIcon from "@mui/icons-material/Cancel";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
 /* other imports */
 import io from "socket.io-client";
 
 export default function ChatsPage() {
+  /* create socket on entry into page so it can be used globally  */
+  const socket = io.connect(process.env.REACT_APP_BCKEND_BASE_URI);
   const { store } = useContext(Context);
   const { user, token } = store;
-  // const socket = io.connect(process.env.REACT_APP_BCKEND_BASE_URI)
-  // socket.emit("testing", {msg: "this is sent from front end socket emitting testing!"})
+  /* used to hold array of either senderChatText or receiverChatText so display can be udpated */
+  const [conversation, setConversation] = useState([]);
+  /* get info sent over in location.state when navigated to this page */
   const location = useLocation();
-
-  const {taskInfo} = location.state 
-  console.log(taskInfo)
+  const { taskId, taskOwner, taskDescription, taskPartner } = location.state;
+  /* fig out who e receiver shld be */
+  let receiver;
+  if (user._id === taskOwner) {
+    receiver = taskPartner;
+  } else {
+    receiver = taskOwner;
+  }
+  /* navigate back to previous page */
   const navigate = useNavigate();
+  /* ref to get input from textfield */
+  const textInput = useRef();
+
+  useEffect(() => {
+    socket.emit("start_chat", {
+      taskId,
+      sender: user._id,
+    });
+
+    /* disconnnect when page unmounts i.e. user navigates away from page */
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const sendMsg = () => {
+    const msg = textInput.current.value.toLowerCase();
+    if (msg === "") {
+      return alert(
+        "dude u need to actually type something before sending a msg"
+      );
+    }
+    socket.emit("send_msg", { msg, sender: user._id, receiver, taskId });
+    textInput.current.value = "";
+  };
+
+  const SenderChatText = ({ msg }) => {
+    return (
+      <ListItemText align="right" secondary="shld be current time">
+        {msg}
+      </ListItemText>
+    );
+  };
+
+  const ReceiverChatText = ({ msg }) => {
+    return (
+      <ListItem>
+        <ListItemText align="left" secondary="shld be current time">
+          Hey, I am Good! What about you ?
+        </ListItemText>
+      </ListItem>
+    );
+  };
+
+  socket.on("bdcast_msg", (data) => {
+    console.log("this is data rcved from bd_cast msg", data);
+    /* setState MUST use format below or it will cont be overwritten (https://stackoverflow.com/questions/66648291/react-socket-io-socket-on-event-is-not-updating-state-properly) */
+    setConversation((prevMsgs) => [
+      ...prevMsgs,
+      { msg: data.msg, sender: data.sender },
+    ]);
+  });
+  let chatList;
+  console.log("this is conversation", conversation);
+  if (conversation.length > 0) {
+    chatList = conversation.map((text, index) => {
+      if (user._id === text.sender) {
+        return <SenderChatText msg={text.msg} key={index} />;
+      }
+      return <ReceiverChatText msg={text.msg} key={index} />;
+    });
+  }
+
   return (
     <DashboardContent>
       <IconButton
@@ -27,12 +112,41 @@ export default function ChatsPage() {
           navigate(-1);
         }}
       >
-        <CancelIcon />
+        <ArrowBackIcon />
       </IconButton>
-      <>This chat belongs to {taskInfo._id} with description {taskInfo.description}</>
-      <>Owner of this task is  {taskInfo.owner.name} with id {taskInfo.owner._id}</>
-      <>Person who started this chat is {user.name} with id {user._id}</>
-      
+      <Typography align="center" variant="h5">
+        {taskDescription}'s chat
+      </Typography>
+      <Divider sx={{ mt: 1 }} />
+      <List>{chatList}</List>
+      <TextField
+        id="msg_input"
+        placeholder="write your msg here"
+        inputRef={textInput}
+        fullWidth
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => {
+                  sendMsg();
+                }}
+              >
+                <SendIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
     </DashboardContent>
   );
 }
+
+//   This chat belongs to {taskInfo._id} with description{" "}
+//   {taskInfo.description}
+// </>
+// <>
+//   Owner of this task is {taskInfo.owner.name} with id {taskInfo.owner._id}
+// </>
+// <>
+//   Person who started this chat is {user.name} with id {user._id}
