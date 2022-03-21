@@ -9,7 +9,6 @@ import axios from "axios";
 export default function EmailDetail() {
   const { store, dispatch } = useContext(Context);
   const { user, token } = store;
-  console.log(store);
   const { email } = user;
   const [emailState, setEmailState] = useState(email);
 
@@ -18,7 +17,7 @@ export default function EmailDetail() {
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/email`;
 
     const formData = {
-      id: user.id,
+      id: user._id,
       email: emailState,
     };
 
