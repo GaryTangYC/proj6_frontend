@@ -6,12 +6,8 @@ import { Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 import { Grid, Container } from "@mui/material";
-import {
-  parseISO,
-  isBefore,
-  isSameDay,
-  differenceInSeconds,
-} from "date-fns";
+import { parseISO, differenceInSeconds } from "date-fns";
+import "./styles.css";
 
 export default function TaskWithPartner() {
   const { store } = useContext(Context);
@@ -29,7 +25,6 @@ export default function TaskWithPartner() {
   );
 
   let noPartnerExpiredData = [];
-  let testSameDateData = [];
 
   // Run filtering using for loop and store expiry vs live data in separate array
   for (let i = noPartnerData.length - 1; i >= 0; i--) {
@@ -43,25 +38,26 @@ export default function TaskWithPartner() {
     // Check if task completion time is past existing time. If yes, to insert into array noPartnerExpiredData
     const isTaskTimeExpired = differenceInSeconds(
       new Date(convertDate),
-      new Date());
+      new Date()
+    );
 
-      console.log('istaskTimeexpired', isTaskTimeExpired)
+    console.log("istaskTimeexpired", isTaskTimeExpired);
 
-    if ( isTaskTimeExpired < 0) {
-    noPartnerExpiredData.push(noPartnerData[i]);
-    noPartnerData.splice(i, 1);
+    if (isTaskTimeExpired < 0) {
+      noPartnerExpiredData.push(noPartnerData[i]);
+      noPartnerData.splice(i, 1);
     }
-
   }
-  
 
   //Load separate array data into the required field
-  console.log('tasks that has not expired', noPartnerData)
-  console.log('tasks that has expired', noPartnerExpiredData)
+  console.log("tasks that has not expired", noPartnerData);
+  console.log("tasks that has expired", noPartnerExpiredData);
 
   return (
     <>
-      <h2>Ongoing Tasks</h2>
+      <div className="subHeader">
+        <h2>Ongoing Tasks</h2>
+      </div>
       {noPartnerData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>

@@ -36,7 +36,7 @@ export default function ProfilePicDetail() {
     );
     const formData = new FormData();
     formData.append("profilePic", newFile, newFile.name);
-    formData.append("id", user.id);
+    formData.append("id", user._id);
     try {
       const result = await axios.put(bckendUrl, formData, auth);
       console.log(result.data);

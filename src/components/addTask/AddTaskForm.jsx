@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "./../../store";
 import axios from "axios";
 /* mui imports */
@@ -41,7 +41,15 @@ export default function AddTaskForm() {
   // useContext to obtain user and partner
   const { store } = useContext(Context);
   const { user, token } = store;
-
+  // Prepare auth to ensure userID and data passes in to backend when page navigate to home
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
+  const { userId } = useParams();
+  let validId;
+  if (!userId) {
+    validId = user._id;
+  } else {
+    validId = userId;
+  }
   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/addNewTask`;
   const navigate = useNavigate();
 
@@ -62,7 +70,7 @@ export default function AddTaskForm() {
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);
 
-    const postTask = await axios.post(bckendUrl, data);
+    const postTask = await axios.post(bckendUrl, data, auth);
     console.log(postTask.data);
     alert("Task Added!")
     navigate("/home");

@@ -12,7 +12,7 @@ import {
   Link,
   Grid,
   CardActions,
-  CardHeader
+  CardHeader,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -46,7 +46,6 @@ export default function TaskCardComponent({ tasks }) {
   return (
     <>
       {tasks.map((task, index) => {
-
         let date = new Date(task.completion);
         date = format(date, "E,dd-MMM-yy, h:mm a");
 
@@ -60,14 +59,15 @@ export default function TaskCardComponent({ tasks }) {
               minWidth: 300,
               maxWidth: 300,
               minHeight: 450,
-              maxHeight: 450,            
+              maxHeight: 450,
             }}
           >
-            < CardHeader title={task.description} sx={{              minHeight: 100,
-              maxHeight: 100,}}
-              />              
-            <CardContent sx={{overflow: 'auto'}}>
-                            <p>
+            <CardHeader
+              title={task.description}
+              sx={{ minHeight: 100, maxHeight: 100,  overflow: "auto"  }}
+            />
+            <CardContent sx={{ overflow: "auto" }}>
+              <p>
                 <b>Task Tag: </b>
               </p>
               <p>{task.taskTag}</p>
