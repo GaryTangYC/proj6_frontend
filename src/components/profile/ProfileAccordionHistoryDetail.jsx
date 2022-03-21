@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { format } from "date-fns";
 
 export default function HistoryDetail() {
   const { store } = useContext(Context);
@@ -42,17 +43,22 @@ export default function HistoryDetail() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tasks.map((row) => (
-                  <TableRow
-                    key={row._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{row.description}</TableCell>
-                    <TableCell>{row.taskTag}</TableCell>
-                    <TableCell>{row.financialPenalty.toString()}</TableCell>
-                    <TableCell>{row.completion}</TableCell>
-                  </TableRow>
-                ))}
+                {completedTasks.map((row) => {
+                  let date = new Date(row.completion);
+                  date = format(date, "E,dd-MMM-yy, h:mm a");
+
+                  return (
+                    <TableRow
+                      key={row._id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{row.description}</TableCell>
+                      <TableCell>{row.taskTag}</TableCell>
+                      <TableCell>{row.financialPenalty.toString()}</TableCell>
+                      <TableCell>{date}</TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>

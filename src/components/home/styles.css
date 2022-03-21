@@ -1,0 +1,16 @@
+/* Ensure that buttons on TaskCardComponent stick to bottom of card */
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.MuiCardHeader-title {
+  color: #ff6b6b;
+}
+
+.MuiCardHeader-root {
+  background-color: #ffe66d;
+  min-height: 50;
+  max-height: 50;
+}
