@@ -17,7 +17,7 @@ export default function EmailDetail() {
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/email`;
 
     const formData = {
-      id: user.id,
+      id: user._id,
       email: emailState,
     };
 

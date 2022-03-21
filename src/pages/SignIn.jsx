@@ -33,11 +33,7 @@ export default function SignIn() {
     if (result.data.err) {
       return alert(result.data.err);
     }
-    dispatch(
-      userSignIn(
-        result.data.token
-      )
-    );
+    dispatch(userSignIn(result.data.token));
     navigate(`/home/${result.data.id}`);
   };
 
