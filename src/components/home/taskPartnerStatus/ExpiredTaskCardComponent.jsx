@@ -1,9 +1,9 @@
 /* react imports */
 import { useContext, useState, useEffect } from "react";
-import { Context, renderRefresh } from "../../store";
+import { Context, renderRefresh } from "../../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
-import "./styles.css";
+import "../styles.css";
 import {
   Card,
   CardContent,
@@ -17,12 +17,12 @@ import DoneIcon from "@mui/icons-material/Done";
 import ChatIcon from "@mui/icons-material/Chat";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 /* widget/component imports */
-import TaskCardBtn from "../../widgets/TaskCardBtn";
+import TaskCardBtn from "../../../widgets/TaskCardBtn";
 import axios from "axios";
 import { format } from "date-fns";
 
 
-export default function TaskCardComponent({ tasks }) {
+export default function ExpiredTaskCardComponent({ tasks }) {
   const { store, dispatch } = useContext(Context);
    const { user, token, refreshStatus} = store;
    const [refreshState, setRefreshState] = useState(refreshStatus)
@@ -99,7 +99,7 @@ export default function TaskCardComponent({ tasks }) {
               <CardActions>
                 {/* Empty Link required to wrap TaskCardBtn to space button evenly */}
                 <Link>
-                  <TaskCardBtn
+                  <TaskCardBtn disabled
                     text="Done"
                     color="success"
                     icon={<DoneIcon />}
@@ -112,14 +112,14 @@ export default function TaskCardComponent({ tasks }) {
                   component={RouterLink}
                   to={`/addpartner/${task._id}`}
                 >
-                  <TaskCardBtn
+                  <TaskCardBtn 
                     text="Add"
                     color="info"
                     icon={<PersonAddIcon />}
                   />
                 </Link>
                 <Link>
-                  <TaskCardBtn
+                  <TaskCardBtn 
                     text="Chat"
                     icon={<ChatIcon />}
                     onClick={() => {

@@ -1,10 +1,11 @@
 /* react imports */
 import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { Context } from "../../../store";
 /* mui imports */
 import { Grid, Container, Typography } from "@mui/material";
 /* widget/component imports */
-import TaskCardComponent from "./TaskCardComponent";
+import PendingTaskCardComponent from "./PendingTaskCardComponent";
+import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
 
 export default function TaskPartnerStatus() {
   const { store } = useContext(Context);
@@ -57,7 +58,7 @@ export default function TaskPartnerStatus() {
       {pendingPartnerAcceptData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={pendingPartnerAcceptData} />
+            <PendingTaskCardComponent tasks={pendingPartnerAcceptData} />
           </Grid>
         </Container>
       ) : (
@@ -69,7 +70,7 @@ export default function TaskPartnerStatus() {
       {pendingPartnerRejectData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={pendingPartnerRejectData} />
+            <ExpiredTaskCardComponent tasks={pendingPartnerRejectData} />
           </Grid>
         </Container>
       ) : (

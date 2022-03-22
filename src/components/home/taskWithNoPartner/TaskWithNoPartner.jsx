@@ -1,13 +1,13 @@
 /* react imports */
 import { useContext, useState} from "react";
-import { Context } from "../../store";
+import { Context } from "../../../store";
 /* mui imports */
 import { Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 /* other imports */
 import { parseISO, differenceInSeconds } from "date-fns";
-import "./styles.css";
+import "../styles.css";
 
 export default function TaskWithNoPartner() {
   const { store } = useContext(Context);

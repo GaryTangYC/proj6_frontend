@@ -1,13 +1,15 @@
 /* react imports */
 import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { Context } from "../../../store";
 /* mui imports */
 import { Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
+import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
+import PendingTaskCardComponent from "./PendingTaskCardComponent";
 /* other imports */
 import { parseISO, differenceInSeconds } from "date-fns";
-import "./styles.css";
+import "../styles.css";
 
 export default function TaskWithPartner() {
   const { store } = useContext(Context);
@@ -112,7 +114,7 @@ export default function TaskWithPartner() {
       {partnerPendingCompletionData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={partnerPendingCompletionData} />
+            <PendingTaskCardComponent tasks={partnerPendingCompletionData} />
           </Grid>
         </Container>
       ) : (
@@ -124,7 +126,7 @@ export default function TaskWithPartner() {
       {partnerExpiredData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={partnerExpiredData} />
+            <ExpiredTaskCardComponent tasks={partnerExpiredData} />
           </Grid>
         </Container>
       ) : (

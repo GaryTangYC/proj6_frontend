@@ -7,9 +7,9 @@ import { Context, populateHome, renderRefresh } from "./../store";
 import { useParams } from "react-router-dom";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
-import TaskWithNoPartner from "../components/home/TaskWithNoPartner";
-import TaskWithPartner from "../components/home/TaskWithPartner";
-import TaskPartnerStatus from "../components/home/TaskPartnerStatus";
+import TaskWithNoPartner from "../components/home/taskWithNoPartner/TaskWithNoPartner";
+import TaskWithPartner from "../components/home/taskWithPartner/TaskWithPartner";
+import TaskPartnerStatus from "../components/home/taskPartnerStatus/TaskPartnerStatus";
 
 /* change default Tabs css */
 const MyTabs = styled(Tabs)(({ theme }) => ({
