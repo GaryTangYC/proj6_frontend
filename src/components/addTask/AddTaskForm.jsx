@@ -139,7 +139,7 @@ export default function AddTaskForm() {
             />
           </FormControl>
           {/* Submit Button from Widget */}
-          <SubmitBtn color='secondary' text="Add Task" />
+          <SubmitBtn text="Add Task" />
         </Box>
       </Container>
     </>
