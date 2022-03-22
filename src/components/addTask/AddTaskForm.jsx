@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "./../../store";
 import axios from "axios";
 /* mui imports */
@@ -10,9 +10,11 @@ import {
   FormControl,
   Container,
   Autocomplete,
+  Grid
 } from "@mui/material";
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
+import TaskTitleComponent from "./TaskTitleComponent";
 import TaskFieldComponent from "./TaskFieldComponent";
 import FinancialPenaltyComponent from "./FinancialPenaltyComponent";
 import RewardsPenaltyComponent from "./RewardsPenaltyComponent";
@@ -24,6 +26,7 @@ import { LocalizationProvider, DesktopDateTimePicker } from "@mui/lab";
 export default function AddTaskForm() {
   // State to track form inputs
   const [dateTime, setDateTime] = useState(new Date());
+  const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
   const [rewardsPenalty, setRewardsPenalty] = useState();
   const [taskTag, setTaskTag] = useState("None");
@@ -41,7 +44,15 @@ export default function AddTaskForm() {
   // useContext to obtain user and partner
   const { store } = useContext(Context);
   const { user, token } = store;
-
+  // Prepare auth to ensure userID and data passes in to backend when page navigate to home
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
+  const { userId } = useParams();
+  let validId;
+  if (!userId) {
+    validId = user._id;
+  } else {
+    validId = userId;
+  }
   const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/addNewTask`;
   const navigate = useNavigate();
 
@@ -57,12 +68,13 @@ export default function AddTaskForm() {
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
+      taskTitle: getFormData.get("taskTitle"),
       rewardsPenalty: getFormData.get("rewardsPenalty"),
     };
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);
 
-    const postTask = await axios.post(bckendUrl, data);
+    const postTask = await axios.post(bckendUrl, data, auth);
     console.log(postTask.data);
     alert("Task Added!");
     navigate("/home");
@@ -78,15 +90,27 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" spacing={8}>
+        <Grid spacing={12} >
+           
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ my: 1 }}>
+            {/* Task Title Component */}
+            <Grid >
+            <TaskTitleComponent
+              onChange={(newValue) => {
+                setTaskTitle(newValue);
+              }}
+            />
+            </Grid>
             {/* Task Description Component */}
-            <TaskFieldComponent
+            <Grid item >
+            <TaskFieldComponent sx={{ }}
               onChange={(newValue) => {
                 setTaskDescription(newValue);
               }}
             />
+            </Grid>
             {/* Date Time Picker - to refactor */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
@@ -129,21 +153,11 @@ export default function AddTaskForm() {
                 setRewardsPenalty(newValue);
               }}
             />
-            {/* Accountability Partner Selection - Placeholder to be replaced with axios call later on  */}
-            {/* <TextField
-              margin="normal"
-              fullWidth
-              color="secondary"
-              label="Accountability Partner"
-              name="partner"
-              onChange={(newValue) => {
-                setPartner(newValue);
-              }}
-            /> */}
           </FormControl>
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
         </Box>
+        </Grid>
       </Container>
     </>
   );
