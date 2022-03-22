@@ -5,43 +5,102 @@ import { Context } from "../../store";
 import { Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
+/* other imports */
+import { parseISO, differenceInSeconds } from "date-fns";
+import "./styles.css";
 
 export default function TaskWithPartner() {
   const { store } = useContext(Context);
   const { tasks } = store;
 
-  const [filteredTasks1, setFilteredTasks] = useState(
-    tasks.filter(
-      (task) =>
-        task.partner !== null &&
-        task.completed === false &&
-        task.partnerAccepted === "true" &&
-        task.endIndicated === false
-    )
+  // Store data in a const
+  const storeData = [...tasks];
+
+  // Pending ongoing tasks with partner
+  let partnerData = storeData.filter(
+    (task) =>
+      task.partner !== null &&
+      task.completed === false &&
+      task.partnerAccepted === "true" &&
+      task.endIndicated === false
   );
 
-  const [filteredTasks2, setFilteredTasks2] = useState(
-    tasks.filter(
-      (task) =>
-        task.partner !== null &&
-        task.completed === false &&
-        task.partnerAccepted === "true" &&
-        task.endIndicated === true
-    )
+  let partnerExpiredData = [];
+
+  // Run filtering using for loop and store expiry vs live data in separate array
+  for (let i = partnerData.length - 1; i >= 0; i--) {
+    // Parse string to ISO date format
+    const convertDate = parseISO(
+      partnerData[i].completion,
+      "yyyy-MM-dd'T'HH:mm:ss.SSSxxx",
+      new Date()
+    );
+
+    // Check if task completion time is past existing time. If yes, to insert into array partnerExpiredData
+    const isTaskTimeExpired = differenceInSeconds(
+      new Date(convertDate),
+      new Date()
+    );
+
+    console.log("istaskTimeexpired", isTaskTimeExpired);
+
+    if (isTaskTimeExpired < 0) {
+      partnerExpiredData.push(partnerData[i]);
+      partnerData.splice(i, 1);
+    }
+  }
+
+  // Pending partner acknowledgement for completion tasks
+  let partnerPendingCompletionData = storeData.filter(
+    (task) =>
+      task.partner !== null &&
+      task.partner !== null &&
+      task.completed === false &&
+      task.partnerAccepted === "true" &&
+      task.endIndicated === true
   );
-  console.log("this is filter task with partner", filteredTasks1);
+
+  // Sorting function to display task from earliest expiry first to latest expiry
+  partnerExpiredData.sort(function (a, b) {
+    return a.completion < b.completion
+      ? -1
+      : a.completion > b.completion
+      ? 1
+      : 0;
+  });
+
+  partnerData.sort(function (a, b) {
+    return a.completion < b.completion
+      ? -1
+      : a.completion > b.completion
+      ? 1
+      : 0;
+  });
+
+  partnerPendingCompletionData.sort(function (a, b) {
+    return a.completion < b.completion
+      ? -1
+      : a.completion > b.completion
+      ? 1
+      : 0;
+  });
+
+  console.log("this is filter task with partner", partnerData);
 
   console.log(
     "this is filter task with partner - pending AP complete",
-    filteredTasks2
+    partnerPendingCompletionData
   );
+
+  console.log("this is filter expired task with partner", partnerExpiredData);
+
   return (
     <>
       <h2>Ongoing Tasks</h2>
-      {filteredTasks1.length > 0 ? (
+      {partnerData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={filteredTasks1} />
+            <TaskCardComponent tasks={partnerData} />
           </Grid>
         </Container>
       ) : (
@@ -50,10 +109,22 @@ export default function TaskWithPartner() {
       <br />
       <hr />
       <h2>Pending Acknowledgement For Completion</h2>
-      {filteredTasks2.length > 0 ? (
+      {partnerPendingCompletionData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={filteredTasks2} />
+            <TaskCardComponent tasks={partnerPendingCompletionData} />
+          </Grid>
+        </Container>
+      ) : (
+        <Typography variant="h3">No Pending Task </Typography>
+      )}
+      <br />
+      <hr />
+      <h2>Expired Tasks</h2>
+      {partnerExpiredData.length > 0 ? (
+        <Container sx={{ py: 2 }} maxWidth="xl">
+          <Grid container spacing={3} gap={6}>
+            <TaskCardComponent tasks={partnerExpiredData} />
           </Grid>
         </Container>
       ) : (
