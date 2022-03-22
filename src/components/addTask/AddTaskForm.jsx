@@ -122,7 +122,7 @@ export default function AddTaskForm() {
                 label="Date & Time For Completion"
                 name="dateTime"
                 renderInput={(props) => (
-                  <TextField {...props} color="secondary" />
+                  <TextField {...props} color="secondary" sx={{ my: 1 }} />
                 )}
               />
             </LocalizationProvider>
@@ -135,7 +135,12 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <TextField {...params} label="Task Tag" />
+                <TextField
+                  {...params}
+                  label="Task Tag"
+                  color="secondary"
+                  sx={{ my: 1 }}
+                />
               )}
             />
             {/* Financial Penalty Selection */}

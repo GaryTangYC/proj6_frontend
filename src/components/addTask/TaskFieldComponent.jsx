@@ -1,19 +1,19 @@
-import { TextField } from "@mui/material"
+import { TextField } from "@mui/material";
 
 export default function TaskFieldComponent() {
- 
   return (
-    <>      
- <TextField
-              margin="dense"
-              required
-              fullWidth
-              color="secondary"
-              label="Task Description"
-              name="taskDescription"
-              multiline
-              maxRows={7}              
-            /> 
+    <>
+      <TextField
+        sx={{ mt: 1, mb: 2 }}
+        required
+        fullWidth
+        color="secondary"
+        label="Task Description"
+        name="taskDescription"
+        multiline
+        maxRows={7}
+      />
+
     </>
   );
 }

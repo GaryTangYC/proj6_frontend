@@ -5,8 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 /* mui imports */
 import {
   Avatar,
-  Box,
-  CircularProgress,
   Divider,
   IconButton,
   InputAdornment,
@@ -25,6 +23,7 @@ import DashboardContent from "../layouts/DashBoard";
 import io from "socket.io-client";
 import { format } from "date-fns";
 import axios from "axios";
+import "./Chat.css";
 
 export default function ChatsPage() {
   /* create socket on entry into page so it can be used globally  */
@@ -153,54 +152,42 @@ export default function ChatsPage() {
 
   return (
     <DashboardContent>
-      {conversation.length === 0 ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <>
-          <IconButton
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography align="center" variant="h5">
-            {taskDescription}'s chat
-          </Typography>
-          <Divider sx={{ mt: 1 }} />
-          <List>{chatList}</List>
-          <TextField
-            id="msg_input"
-            placeholder="write your msg here"
-            inputRef={textInput}
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => {
-                      sendMsg();
-                    }}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </>
-      )}
+      <Typography align="center" variant="h5">
+        <IconButton
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <ArrowBackIcon />
+        </IconButton>
+        {taskDescription}'s chat
+      </Typography>
+      <Divider sx={{ mt: 1 }} />
+      <div id="chatarea">
+        <List>{chatList}</List>
+      </div>
+      <div id="bottom">
+        <TextField
+          id="msg_input"
+          placeholder="write your msg here"
+          inputRef={textInput}
+          fullWidth
+          color="secondary"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => {
+                    sendMsg();
+                  }}
+                >
+                  <SendIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
     </DashboardContent>
   );
 }
-
-//   This chat belongs to {taskInfo._id} with description{" "}
-//   {taskInfo.description}
-// </>
-// <>
-//   Owner of this task is {taskInfo.owner.name} with id {taskInfo.owner._id}
-// </>
-// <>
-//   Person who started this chat is {user.name} with id {user._id}
