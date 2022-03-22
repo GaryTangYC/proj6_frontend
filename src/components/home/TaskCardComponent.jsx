@@ -47,7 +47,7 @@ export default function TaskCardComponent({ tasks }) {
     <>
       {tasks.map((task, index) => {
         let date = new Date(task.completion);
-        date = format(date, "E,dd-MMM-yy, h:mm a");
+        date = format(date, "E, dd-MMM-yy, h:mm a");
 
         return (
           <Card
@@ -64,11 +64,11 @@ export default function TaskCardComponent({ tasks }) {
           >
             <CardHeader
               title={task.title}
-              sx={{ minHeight: 20, maxHeight: 20,  overflow: "auto"  }}
+              sx={{ minHeight: 20, maxHeight: 20 }}
             />
             <CardContent sx={{ overflow: "auto" }}>
-                              <b>Description: </b>
-                            <p>{task.description}</p>
+              <b>Description: </b>
+              <p>{task.description}</p>
               <p></p>
               <p>
                 <b>Task Tag: </b>
