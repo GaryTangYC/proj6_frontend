@@ -5,8 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 /* mui imports */
 import {
   Avatar,
-  Box,
-  CircularProgress,
   Divider,
   IconButton,
   InputAdornment,
@@ -153,47 +151,45 @@ export default function ChatsPage() {
 
   return (
     <DashboardContent>
-      {conversation.length === 0 ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <>
-          <IconButton
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography align="center" variant="h5">
-            {taskDescription}'s chat
-          </Typography>
-          <Divider sx={{ mt: 1 }} />
-          <List>{chatList}</List>
-          <TextField
-            id="msg_input"
-            placeholder="write your msg here"
-            inputRef={textInput}
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => {
-                      sendMsg();
-                    }}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </>
-      )}
+      <IconButton
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <ArrowBackIcon />
+      </IconButton>
+      <Typography align="center" variant="h5">
+        {taskDescription}'s chat
+      </Typography>
+      <Divider sx={{ mt: 1 }} />
+      <List>{chatList}</List>
+      <TextField
+        id="msg_input"
+        placeholder="write your msg here"
+        inputRef={textInput}
+        fullWidth
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => {
+                  sendMsg();
+                }}
+              >
+                <SendIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
     </DashboardContent>
   );
+}
+
+{
+  /* <Box sx={{ display: "flex" }}>
+  <CircularProgress />
+</Box>; */
 }
 
 //   This chat belongs to {taskInfo._id} with description{" "}

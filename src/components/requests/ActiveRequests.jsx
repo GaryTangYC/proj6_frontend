@@ -1,6 +1,7 @@
 /* react imports */
 import { useContext, useState } from "react";
 import { Context } from "./../../store";
+import { useNavigate } from "react-router-dom";
 /* mui imports */
 import {
   Typography,
@@ -11,6 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ChatIcon from "@mui/icons-material/Chat";
 /* other imports */
 import { format } from "date-fns";
 import axios from "axios";
@@ -27,13 +29,15 @@ export default function ActiveRequests() {
   );
 
   function PendingTaskList({ el }) {
+    /* to link to chat page when click on chat btn */
+    const navigate = useNavigate();
     /* bckend urls + auth */
     const baseBckendUrl = process.env.REACT_APP_BCKEND_BASE_URI;
     const auth = { headers: { Authorization: `Bearer ${token}` } };
     /* format date string returned from mongoose */
     let date = new Date(el.completion);
     date = format(date, "E,dd-MMM-yy");
-    
+
     /* agreeComplete onclick function */
     const agreeComplete = () => {
       updateAgreeComplete();
@@ -79,6 +83,20 @@ export default function ActiveRequests() {
       );
     };
 
+      /* chat onclick function */
+    const startChat = () => {
+      navigate("/chats", {
+        /* need to standardize info sent thru here, so other pages can send in e same format */
+        state: {
+          taskId: el._id,
+          taskOwner: el.owner._id,
+          taskDescription: el.description,
+          taskPartner: el.partner,
+          partnerPic: el.owner.pic,
+        },
+      });
+    };
+
     return (
       <List component="div" disablePadding>
         <ListItem>
@@ -88,8 +106,13 @@ export default function ActiveRequests() {
             <Typography>Completion Date: {date}</Typography>
             <Typography>Description: {el.description}</Typography>
             <Typography>Penalties: {el.endText}</Typography>
-            <Typography>Financial Penalties: {el.financialPenalty?"Yes":"None"}</Typography>
+            <Typography>
+              Financial Penalties: {el.financialPenalty ? "Yes" : "None"}
+            </Typography>
           </ListItemText>
+          <IconButton onClick={() => startChat()}>
+            <ChatIcon />
+          </IconButton>
           {el.endIndicated && (
             <IconButton
               onClick={() => {
