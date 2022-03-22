@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "./../../store";
 import axios from "axios";
+import "./styles.css";
 /* mui imports */
 import {
   TextField,
@@ -12,6 +13,7 @@ import {
   Autocomplete,
   Grid
 } from "@mui/material";
+import { styled } from '@mui/material/styles'
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
 import TaskTitleComponent from "./TaskTitleComponent";
@@ -93,12 +95,12 @@ export default function AddTaskForm() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <FormControl fullWidth sx={{ my: 1 }}>
             {/* Task Description Component */}
-            <TaskFieldComponent sx={{ }}
+            <TaskFieldComponent 
               onChange={(newValue) => {
                 setTaskDescription(newValue);
               }}
             />
-            {/* Date Time Picker - to refactor */}
+            {/* Date Time Picker */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
                 value={dateTime}
@@ -122,7 +124,7 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <TextField {...params} label="Task Tag" />
+                <TextField {...params} color="secondary" label="Task Tag" />
               )}
             />
             {/* Financial Penalty Selection */}
@@ -137,7 +139,7 @@ export default function AddTaskForm() {
             />
           </FormControl>
           {/* Submit Button from Widget */}
-          <SubmitBtn text="Add Task" />
+          <SubmitBtn color='secondary' text="Add Task" />
         </Box>
       </Container>
     </>
