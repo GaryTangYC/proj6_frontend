@@ -1,0 +1,11 @@
+#chatarea {
+  min-height: 68vh;
+  max-height: 68vh;
+  overflow-y: auto;
+}
+
+#bottom {
+  position: fixed;
+  z-index: 10;
+  width: 90%;
+}

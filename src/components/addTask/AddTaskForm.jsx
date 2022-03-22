@@ -25,7 +25,7 @@ export default function AddTaskForm() {
   // State to track form inputs
   const [dateTime, setDateTime] = useState(new Date());
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState();  
+  const [rewardsPenalty, setRewardsPenalty] = useState();
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -50,7 +50,7 @@ export default function AddTaskForm() {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
     // const taskTagTest = getFormData.get("taskTag");
-    
+
     const data = {
       owner: user._id,
       dateTime,
@@ -64,7 +64,7 @@ export default function AddTaskForm() {
 
     const postTask = await axios.post(bckendUrl, data);
     console.log(postTask.data);
-    alert("Task Added!")
+    alert("Task Added!");
     navigate("/home");
     if (postTask.data.err) {
       return alert(postTask.data.err);
@@ -80,7 +80,7 @@ export default function AddTaskForm() {
     <>
       <Container maxWidth="xl">
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <FormControl fullWidth sx={{ my: 1 }}>
+          <FormControl fullWidth>
             {/* Task Description Component */}
             <TaskFieldComponent
               onChange={(newValue) => {
@@ -98,7 +98,7 @@ export default function AddTaskForm() {
                 label="Date & Time For Completion"
                 name="dateTime"
                 renderInput={(props) => (
-                  <TextField {...props} color="secondary" />
+                  <TextField {...props} color="secondary" sx={{ my: 1 }} />
                 )}
               />
             </LocalizationProvider>
@@ -111,7 +111,12 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <TextField {...params} label="Task Tag" />
+                <TextField
+                  {...params}
+                  label="Task Tag"
+                  color="secondary"
+                  sx={{ my: 1 }}
+                />
               )}
             />
             {/* Financial Penalty Selection */}

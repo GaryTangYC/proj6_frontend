@@ -7,6 +7,8 @@ import { styled } from "@mui/material/styles";
 import DashboardContent from "../layouts/DashBoard";
 import ActiveRequests from "../components/requests/ActiveRequests";
 import PendingRequests from "../components/requests/PendingRequests";
+/* other imports */
+import "./Requests.css";
 
 /* change default Tabs css */
 const MyTabs = styled(Tabs)(({ theme }) => ({
@@ -30,11 +32,7 @@ const MyTab = styled(Tab)(({ theme }) => ({
 function TabPanel({ children, value, index }) {
   return (
     <div hidden={value !== index}>
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -48,20 +46,22 @@ export default function RequestPage() {
     };
 
     return (
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <div id="overall">
+        <div id="top">
           <MyTabs value={value} onChange={handleChange}>
             <MyTab label="Active Requests" />
             <MyTab label="Pending Requests" />
           </MyTabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          <ActiveRequests />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <PendingRequests />
-        </TabPanel>
-      </Box>
+        </div>
+        <div id="list_area">
+          <TabPanel value={value} index={0}>
+            <ActiveRequests />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <PendingRequests />
+          </TabPanel>
+        </div>
+      </div>
     );
   }
 
@@ -70,4 +70,9 @@ export default function RequestPage() {
       <BasicTabs />
     </DashboardContent>
   );
+}
+
+{
+  /* <Box sx={{ borderBottom: 1, borderColor: "divider" }}></Box>
+     </Box> */
 }
