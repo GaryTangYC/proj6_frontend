@@ -10,9 +10,11 @@ import {
   FormControl,
   Container,
   Autocomplete,
+  Grid
 } from "@mui/material";
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
+import TaskTitleComponent from "./TaskTitleComponent";
 import TaskFieldComponent from "./TaskFieldComponent";
 import FinancialPenaltyComponent from "./FinancialPenaltyComponent";
 import RewardsPenaltyComponent from "./RewardsPenaltyComponent";
@@ -24,8 +26,9 @@ import { LocalizationProvider, DesktopDateTimePicker } from "@mui/lab";
 export default function AddTaskForm() {
   // State to track form inputs
   const [dateTime, setDateTime] = useState(new Date());
+  const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState();  
+  const [rewardsPenalty, setRewardsPenalty] = useState();
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -58,13 +61,14 @@ export default function AddTaskForm() {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
     // const taskTagTest = getFormData.get("taskTag");
-    
+
     const data = {
       owner: user._id,
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
+      taskTitle: getFormData.get("taskTitle"),
       rewardsPenalty: getFormData.get("rewardsPenalty"),
     };
     console.log("this is getformdata", getFormData);
@@ -72,7 +76,7 @@ export default function AddTaskForm() {
 
     const postTask = await axios.post(bckendUrl, data, auth);
     console.log(postTask.data);
-    alert("Task Added!")
+    alert("Task Added!");
     navigate("/home");
     if (postTask.data.err) {
       return alert(postTask.data.err);
@@ -86,15 +90,27 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" spacing={8}>
+        <Grid spacing={12} >
+           
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <FormControl fullWidth sx={{ my: 1 }}>
+            {/* Task Title Component */}
+            <Grid >
+            <TaskTitleComponent
+              onChange={(newValue) => {
+                setTaskTitle(newValue);
+              }}
+            />
+            </Grid>
             {/* Task Description Component */}
-            <TaskFieldComponent
+            <Grid item >
+            <TaskFieldComponent sx={{ }}
               onChange={(newValue) => {
                 setTaskDescription(newValue);
               }}
             />
+            </Grid>
             {/* Date Time Picker - to refactor */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
@@ -132,21 +148,11 @@ export default function AddTaskForm() {
                 setRewardsPenalty(newValue);
               }}
             />
-            {/* Accountability Partner Selection - Placeholder to be replaced with axios call later on  */}
-            {/* <TextField
-              margin="normal"
-              fullWidth
-              color="secondary"
-              label="Accountability Partner"
-              name="partner"
-              onChange={(newValue) => {
-                setPartner(newValue);
-              }}
-            /> */}
           </FormControl>
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
         </Box>
+        </Grid>
       </Container>
     </>
   );

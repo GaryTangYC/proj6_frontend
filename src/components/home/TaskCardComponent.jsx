@@ -63,10 +63,13 @@ export default function TaskCardComponent({ tasks }) {
             }}
           >
             <CardHeader
-              title={task.description}
-              sx={{ minHeight: 100, maxHeight: 100,  overflow: "auto"  }}
+              title={task.title}
+              sx={{ minHeight: 20, maxHeight: 20,  overflow: "auto"  }}
             />
             <CardContent sx={{ overflow: "auto" }}>
+                              <b>Description: </b>
+                            <p>{task.description}</p>
+              <p></p>
               <p>
                 <b>Task Tag: </b>
               </p>
@@ -107,7 +110,18 @@ export default function TaskCardComponent({ tasks }) {
                   <TaskCardBtn
                     text="Chat"
                     icon={<ChatIcon />}
-                    disabled={isTrue}
+                    onClick={() => {
+                      navigate("/chats", {
+                        /* need to standardize info sent thru here, so other pages can send in e same format */
+                        state: {
+                          taskId: task._id,
+                          taskOwner: task.owner,
+                          taskDescription: task.description,
+                          taskPartner: task.partner._id,
+                          partnerPic: task.partner.pic,
+                        },
+                      });
+                    }}
                   />
                 </Link>
               </CardActions>

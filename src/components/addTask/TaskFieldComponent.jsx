@@ -5,7 +5,7 @@ export default function TaskFieldComponent() {
   return (
     <>      
  <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               color="secondary"
