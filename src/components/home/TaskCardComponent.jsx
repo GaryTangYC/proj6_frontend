@@ -1,7 +1,6 @@
 /* react imports */
-import { useEffect } from "react";
-import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { useContext, useState, useEffect } from "react";
+import { Context, renderRefresh } from "../../store";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 /* mui imports */
 import "./styles.css";
@@ -22,26 +21,40 @@ import TaskCardBtn from "../../widgets/TaskCardBtn";
 import axios from "axios";
 import { format } from "date-fns";
 
+
 export default function TaskCardComponent({ tasks }) {
-  const navigate = useNavigate();
+  const { store, dispatch } = useContext(Context);
+   const { user, token, refreshStatus} = store;
+   const [refreshState, setRefreshState] = useState(refreshStatus)
+   const navigate = useNavigate();
+   const auth = { headers: { Authorization: `Bearer ${token}` } };
+   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
+
   // isTrue state to be passed to button components that needs to be disabled
   const [isTrue, setIsTrue] = useState(true);
-  const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
+  
   const CompleteFn = async (e) => {
     e.preventDefault();
     const taskId = e.currentTarget.value;
     console.log("button clicked");
     console.log("taskId", taskId);
     const postCompleteTask = await axios.post(postCompleteBckendUrl, {
-      taskId,
-    });
+      taskId
+    }, auth);
     alert("Task Submitted");
     if (postCompleteTask.data.err) {
       return alert(postCompleteTask.data.err);
     }
+    const updateState = !refreshState
+    dispatch(renderRefresh(updateState));
     navigate("/home");
   };
+  
+//   useEffect(() => {
+//   console.log('refreshstate in useEffect', refreshState);
+// }, [refreshState]);
+
 
   return (
     <>
@@ -62,8 +75,7 @@ export default function TaskCardComponent({ tasks }) {
               maxHeight: 450,
             }}
           >
-            <CardHeader
-              title={task.title}
+            <CardHeader              
               sx={{ minHeight: 20, maxHeight: 20 }}
             />
             <CardContent sx={{ overflow: "auto" }}>

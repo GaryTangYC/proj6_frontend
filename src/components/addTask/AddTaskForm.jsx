@@ -28,7 +28,7 @@ export default function AddTaskForm() {
   const [dateTime, setDateTime] = useState(new Date());
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState();
+  const [rewardsPenalty, setRewardsPenalty] = useState('Nil');
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -67,8 +67,7 @@ export default function AddTaskForm() {
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
-      taskTag,
-      taskTitle: getFormData.get("taskTitle"),
+      taskTag,      
       rewardsPenalty: getFormData.get("rewardsPenalty"),
     };
     console.log("this is getformdata", getFormData);
@@ -90,27 +89,15 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl" spacing={8}>
-        <Grid spacing={12} >
-           
+      <Container maxWidth="xl" spacing={8}>           
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <FormControl fullWidth sx={{ my: 1 }}>
-            {/* Task Title Component */}
-            <Grid >
-            <TaskTitleComponent
-              onChange={(newValue) => {
-                setTaskTitle(newValue);
-              }}
-            />
-            </Grid>
             {/* Task Description Component */}
-            <Grid item >
             <TaskFieldComponent sx={{ }}
               onChange={(newValue) => {
                 setTaskDescription(newValue);
               }}
             />
-            </Grid>
             {/* Date Time Picker - to refactor */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
@@ -152,7 +139,6 @@ export default function AddTaskForm() {
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
         </Box>
-        </Grid>
       </Container>
     </>
   );
