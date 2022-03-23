@@ -54,6 +54,7 @@ export default function TaskPartnerStatus() {
 
   return (
     <>
+    <Container>
       <h2>Pending Partner Acceptance</h2>
       {pendingPartnerAcceptData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
@@ -65,7 +66,10 @@ export default function TaskPartnerStatus() {
         <Typography variant="h3">No Request For Partner Acceptance</Typography>
       )}
       <br />
+
+    </Container>
       <hr />
+      <Container>
       <h2>Partner Rejected</h2>
       {pendingPartnerRejectData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
@@ -78,8 +82,9 @@ export default function TaskPartnerStatus() {
           No Request Currently Rejected By Partner
         </Typography>
       )}
-
       <br />
+
+      </Container>
     </>
   );
 }

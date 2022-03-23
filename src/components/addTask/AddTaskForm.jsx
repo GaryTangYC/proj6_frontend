@@ -91,9 +91,11 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl" spacing={8}>           
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <FormControl fullWidth sx={{ my: 1 }}>
+      <Container maxWidth="xl" spacing={8} >
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} style={{ minHeight: '75vh'  }}>           
+        <Box component="form" onSubmit={handleSubmit} noValidate display='flex'
+justifyContent='center' sx={{ mt: 1, }}>
+          <FormControl sx={{ my: 1, minWidth: '75vw' }}>
             {/* Task Description Component */}
             <TaskFieldComponent 
               onChange={(newValue) => {
@@ -124,7 +126,7 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <TextField {...params} color="secondary" label="Task Tag" />
+                <TextField {...params}  sx={{ mt: 1, mb: 2 }}color="secondary" label="Task Tag" />
               )}
             />
             {/* Financial Penalty Selection */}
@@ -137,9 +139,10 @@ export default function AddTaskForm() {
                 setRewardsPenalty(newValue);
               }}
             />
-          </FormControl>
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
+          </FormControl>
+        </Box>
         </Box>
       </Container>
     </>
