@@ -11,6 +11,7 @@ import ProfilePage from "./pages/Profile";
 import RequestPage from "./pages/Requests";
 import ChatsPage from "./pages/Chats";
 import AddPartnerPage from "./pages/AddPartner";
+import Penalty from "./pages/Penalty";
 /* react imports */
 import { AppProvider } from "./store";
 /* mui imports */
@@ -32,6 +33,7 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/requests" element={<RequestPage />} />
               <Route path="/chats" element={<ChatsPage />} />
+              <Route path="/penalty" element={<Penalty />} />
             </Routes>
           </AppProvider>
         </ThemeConfig>

@@ -44,6 +44,8 @@ export default function PaymentDetail() {
       // site first to authorize the payment, then redirected to the `return_url`.
     }
 
+    alert("stripe account being created. Please relogin");
+
     await dispatch(userLogOut());
   };
 

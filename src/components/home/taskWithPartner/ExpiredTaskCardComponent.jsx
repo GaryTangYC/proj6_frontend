@@ -22,40 +22,61 @@ import TaskCardBtn from "../../../widgets/TaskCardBtn";
 import axios from "axios";
 import { format } from "date-fns";
 
-
 export default function ExpiredTaskCardComponent({ tasks }) {
   const { store, dispatch } = useContext(Context);
-   const { user, token, refreshStatus} = store;
-   const [refreshState, setRefreshState] = useState(refreshStatus)
-   const navigate = useNavigate();
-   const auth = { headers: { Authorization: `Bearer ${token}` } };
-   const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
+  const { user, token, refreshStatus } = store;
+  const { payment: customerId } = user;
+  const [refreshState, setRefreshState] = useState(refreshStatus);
+  const navigate = useNavigate();
+  const auth = { headers: { Authorization: `Bearer ${token}` } };
+  const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
   // isTrue state to be passed to button components that needs to be disabled
   const [isTrue, setIsTrue] = useState(true);
+  const [options, setOptions] = useState({});
 
-  
   const CompleteFn = async (e) => {
     e.preventDefault();
-    const taskId = e.currentTarget.value;
-    console.log("button clicked");
-    console.log("taskId", taskId);
-    const postCompleteTask = await axios.post(postCompleteBckendUrl, {
-      taskId
-    }, auth);
-    alert("Task Submitted");
-    if (postCompleteTask.data.err) {
-      return alert(postCompleteTask.data.err);
-    }
-    const updateState = !refreshState
-    dispatch(renderRefresh(updateState));
-    
-  };
-  
-//   useEffect(() => {
-//   console.log('refreshstate in useEffect', refreshState);
-// }, [refreshState]);
 
+    const auth = { headers: { Authorization: `Bearer ${token}` } };
+    const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/payment-methods`;
+
+    const formData = {
+      customerId: customerId,
+    };
+
+    let paymentList;
+
+    try {
+      const result = await axios.post(bckendUrl, formData, auth);
+      const { paymentMethods } = result.data;
+      console.log(paymentMethods);
+      paymentList = paymentMethods;
+    } catch (err) {
+      console.log(err);
+    }
+
+    navigate("/penalty", {
+      state: { paymentList },
+    });
+
+    // const taskId = e.currentTarget.value;
+    // console.log("button clicked");
+    // console.log("taskId", taskId);
+    // const postCompleteTask = await axios.post(postCompleteBckendUrl, {
+    //   taskId
+    // }, auth);
+    // alert("Task Submitted");
+    // if (postCompleteTask.data.err) {
+    //   return alert(postCompleteTask.data.err);
+    // }
+    // const updateState = !refreshState
+    // dispatch(renderRefresh(updateState));
+  };
+
+  // useEffect(() => {
+  //   console.log("refreshstate in useEffect", options);
+  // }, [options]);
 
   return (
     <>
@@ -76,9 +97,7 @@ export default function ExpiredTaskCardComponent({ tasks }) {
               maxHeight: 450,
             }}
           >
-            <CardHeader              
-              sx={{ minHeight: 20, maxHeight: 20 }}
-            />
+            <CardHeader sx={{ minHeight: 20, maxHeight: 20 }} />
             <CardContent sx={{ overflow: "auto" }}>
               <b>Description: </b>
               <p>{task.description}</p>
@@ -113,14 +132,15 @@ export default function ExpiredTaskCardComponent({ tasks }) {
                   component={RouterLink}
                   to={`/addpartner/${task._id}`}
                 >
-                  <TaskCardBtn disabled
+                  <TaskCardBtn
+                    disabled
                     text="Add"
                     color="info"
                     icon={<PersonAddIcon />}
                   />
                 </Link>
                 <Link>
-                  <TaskCardBtn 
+                  <TaskCardBtn
                     text="Chat"
                     icon={<ChatIcon />}
                     onClick={() => {
