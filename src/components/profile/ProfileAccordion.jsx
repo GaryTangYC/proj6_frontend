@@ -15,6 +15,12 @@ import PaymentDetail from "./ProfileAccordionPaymentDetail";
 import HistoryDetail from "./ProfileAccordionHistoryDetail";
 import ProfilePicDetail from "./ProfileAccordionProfilePicDetail";
 
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const publishableKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = loadStripe(publishableKey);
+
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -51,107 +57,134 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export default function ProfileAccordions() {
+export default function ProfileAccordions({ options }) {
   const [expanded, setExpanded] = useState();
 
   const handleChange = (panel) => (event, newExpanded) => {
-    console.log("panel", panel);
-    console.log("newExp", newExpanded);
     setExpanded(newExpanded ? panel : false);
   };
 
   return (
     <div>
-      <Container maxWidth="xl">
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>Name</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <NameDetail setExpanded={setExpanded} handleChange={handleChange} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>Email</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <EmailDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography>Password</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <PasswordDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}
-        >
-          <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography>Biography</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <BiographyDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel5"}
-          onChange={handleChange("panel5")}
-        >
-          <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-            <Typography>Payment</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <PaymentDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel6"}
-          onChange={handleChange("panel6")}
-        >
-          <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-            <Typography>Postal Code</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <PostalCodeDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel7"}
-          onChange={handleChange("panel7")}
-        >
-          <AccordionSummary aria-controls="panel7d-content" id="panel7d-header">
-            <Typography>History</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <HistoryDetail />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel8"}
-          onChange={handleChange("panel8")}
-        >
-          <AccordionSummary aria-controls="panel8d-content" id="panel8d-header">
-            <Typography>Profile Picture</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ProfilePicDetail />
-          </AccordionDetails>
-        </Accordion>
-      </Container>
+      <Elements stripe={stripePromise} options={options}>
+        <Container maxWidth="xl">
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              aria-controls="panel1d-content"
+              id="panel1d-header"
+            >
+              <Typography>Name</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <NameDetail
+                setExpanded={setExpanded}
+                handleChange={handleChange}
+              />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary
+              aria-controls="panel2d-content"
+              id="panel2d-header"
+            >
+              <Typography>Email</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <EmailDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              aria-controls="panel3d-content"
+              id="panel3d-header"
+            >
+              <Typography>Password</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <PasswordDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel4"}
+            onChange={handleChange("panel4")}
+          >
+            <AccordionSummary
+              aria-controls="panel4d-content"
+              id="panel4d-header"
+            >
+              <Typography>Biography</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <BiographyDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel5"}
+            onChange={handleChange("panel5")}
+          >
+            <AccordionSummary
+              aria-controls="panel5d-content"
+              id="panel5d-header"
+            >
+              <Typography>Payment</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <PaymentDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel6"}
+            onChange={handleChange("panel6")}
+          >
+            <AccordionSummary
+              aria-controls="panel6d-content"
+              id="panel6d-header"
+            >
+              <Typography>Postal Code</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <PostalCodeDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel7"}
+            onChange={handleChange("panel7")}
+          >
+            <AccordionSummary
+              aria-controls="panel7d-content"
+              id="panel7d-header"
+            >
+              <Typography>History</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <HistoryDetail />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel8"}
+            onChange={handleChange("panel8")}
+          >
+            <AccordionSummary
+              aria-controls="panel8d-content"
+              id="panel8d-header"
+            >
+              <Typography>Profile Picture</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <ProfilePicDetail />
+            </AccordionDetails>
+          </Accordion>
+        </Container>
+      </Elements>
     </div>
   );
 }
