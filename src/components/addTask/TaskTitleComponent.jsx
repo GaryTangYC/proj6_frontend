@@ -13,7 +13,7 @@ export default function TaskTitleComponent() {
         multiline
         maxRows={2}
         inputProps={{
-          maxLength: 60,
+          maxLength: 100,
         }}
       />
     </>

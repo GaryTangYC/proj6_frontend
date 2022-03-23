@@ -1,13 +1,15 @@
 /* react imports */
 import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { Context } from "../../../store";
 /* mui imports */
 import { Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
+import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
+import PendingTaskCardComponent from "./PendingTaskCardComponent";
 /* other imports */
 import { parseISO, differenceInSeconds } from "date-fns";
-import "./styles.css";
+import "../styles.css";
 
 export default function TaskWithPartner() {
   const { store } = useContext(Context);
@@ -96,40 +98,48 @@ export default function TaskWithPartner() {
 
   return (
     <>
-      <h2>Ongoing Tasks</h2>
-      {partnerData.length > 0 ? (
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={partnerData} />
-          </Grid>
-        </Container>
-      ) : (
-        <Typography variant="h3">No Ongoing Task</Typography>
-      )}
-      <br />
+    <Container>
+        <div className="subHeader">
+        <h2>Ongoing Tasks</h2>
+          </div>
+        {partnerData.length > 0 ? (
+          <Container sx={{ py: 2 }} maxWidth="xl">
+            <Grid container spacing={3} gap={6}>
+              <TaskCardComponent tasks={partnerData} />
+            </Grid>
+          </Container>
+        ) : (
+          <Typography variant="h3">No Ongoing Task</Typography>
+        )}
+        <br />
+    </Container>
       <hr />
-      <h2>Pending Acknowledgement For Completion</h2>
-      {partnerPendingCompletionData.length > 0 ? (
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={partnerPendingCompletionData} />
-          </Grid>
-        </Container>
-      ) : (
-        <Typography variant="h3">No Pending Task </Typography>
-      )}
-      <br />
+      <Container>
+        <h2>Pending Acknowledgement For Completion</h2>
+        {partnerPendingCompletionData.length > 0 ? (
+          <Container sx={{ py: 2 }} maxWidth="xl">
+            <Grid container spacing={3} gap={6}>
+              <PendingTaskCardComponent tasks={partnerPendingCompletionData} />
+            </Grid>
+          </Container>
+        ) : (
+          <Typography variant="h3">No Pending Task </Typography>
+        )}        
+      </Container>
+
       <hr />
-      <h2>Expired Tasks</h2>
-      {partnerExpiredData.length > 0 ? (
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={partnerExpiredData} />
-          </Grid>
-        </Container>
-      ) : (
-        <Typography variant="h3">No Pending Task </Typography>
-      )}
+      <Container>
+        <h2>Expired Tasks</h2>
+        {partnerExpiredData.length > 0 ? (
+          <Container sx={{ py: 2 }} maxWidth="xl">
+            <Grid container spacing={3} gap={6}>
+              <ExpiredTaskCardComponent tasks={partnerExpiredData} />
+            </Grid>
+          </Container>
+        ) : (
+          <Typography variant="h3">No Pending Task </Typography>
+        )}
+      </Container>
     </>
   );
 }

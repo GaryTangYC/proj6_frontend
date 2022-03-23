@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "./../../store";
 import axios from "axios";
+import "./styles.css";
 /* mui imports */
 import {
   TextField,
@@ -12,6 +13,7 @@ import {
   Autocomplete,
   Grid
 } from "@mui/material";
+import { styled } from '@mui/material/styles'
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
 import TaskTitleComponent from "./TaskTitleComponent";
@@ -28,7 +30,7 @@ export default function AddTaskForm() {
   const [dateTime, setDateTime] = useState(new Date());
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState();
+  const [rewardsPenalty, setRewardsPenalty] = useState('Nil');
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -67,8 +69,7 @@ export default function AddTaskForm() {
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
-      taskTag,
-      taskTitle: getFormData.get("taskTitle"),
+      taskTag,      
       rewardsPenalty: getFormData.get("rewardsPenalty"),
     };
     console.log("this is getformdata", getFormData);
@@ -90,28 +91,18 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl" spacing={8}>
-        <Grid spacing={12} >
-           
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <FormControl fullWidth sx={{ my: 1 }}>
-            {/* Task Title Component */}
-            <Grid >
-            <TaskTitleComponent
-              onChange={(newValue) => {
-                setTaskTitle(newValue);
-              }}
-            />
-            </Grid>
+      <Container maxWidth="xl" spacing={8} >
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} style={{ minHeight: '75vh'  }}>           
+        <Box component="form" onSubmit={handleSubmit} noValidate display='flex'
+justifyContent='center' sx={{ mt: 1, }}>
+          <FormControl sx={{ my: 1, minWidth: '75vw' }}>
             {/* Task Description Component */}
-            <Grid item >
-            <TaskFieldComponent sx={{ }}
+            <TaskFieldComponent 
               onChange={(newValue) => {
                 setTaskDescription(newValue);
               }}
             />
-            </Grid>
-            {/* Date Time Picker - to refactor */}
+            {/* Date Time Picker */}
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDateTimePicker
                 value={dateTime}
@@ -122,7 +113,7 @@ export default function AddTaskForm() {
                 label="Date & Time For Completion"
                 name="dateTime"
                 renderInput={(props) => (
-                  <TextField {...props} color="secondary" sx={{ my: 1 }} />
+                  <TextField {...props} color="secondary" />
                 )}
               />
             </LocalizationProvider>
@@ -135,12 +126,7 @@ export default function AddTaskForm() {
               // taskTagList array is mapped into options and rendered
               options={taskTagList.map((option) => option)}
               renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Task Tag"
-                  color="secondary"
-                  sx={{ my: 1 }}
-                />
+                <TextField {...params}  sx={{ mt: 1, mb: 2 }}color="secondary" label="Task Tag" />
               )}
             />
             {/* Financial Penalty Selection */}
@@ -153,11 +139,11 @@ export default function AddTaskForm() {
                 setRewardsPenalty(newValue);
               }}
             />
-          </FormControl>
           {/* Submit Button from Widget */}
           <SubmitBtn text="Add Task" />
+          </FormControl>
         </Box>
-        </Grid>
+        </Box>
       </Container>
     </>
   );

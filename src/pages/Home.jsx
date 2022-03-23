@@ -3,17 +3,13 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Grid, Tabs, Tab, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Context, populateHome } from "./../store";
+import { Context, populateHome, renderRefresh } from "./../store";
 import { useParams } from "react-router-dom";
 /* widget/component imports */
 import DashboardContent from "../layouts/DashBoard";
-import TaskWithNoPartner from "../components/home/TaskWithNoPartner";
-import TaskWithPartner from "../components/home/TaskWithPartner";
-import TaskPartnerStatus from "../components/home/TaskPartnerStatus";
-
-// Test date
-// import { parseJSON } from "date-fns"
-//       const date = parseJSON('2022-03-24T10:24:03.000+00:00')
+import TaskWithNoPartner from "../components/home/taskWithNoPartner/TaskWithNoPartner";
+import TaskWithPartner from "../components/home/taskWithPartner/TaskWithPartner";
+import TaskPartnerStatus from "../components/home/taskPartnerStatus/TaskPartnerStatus";
 
 /* change default Tabs css */
 const MyTabs = styled(Tabs)(({ theme }) => ({
@@ -44,7 +40,9 @@ function TabPanel({ children, value, index }) {
 
 export default function HomePage() {
   const { store, dispatch } = useContext(Context);
-  const { user, token, tasks } = store;
+  const { user, token, refreshStatus  } = store;
+  // const [renderStatus, setRenderStatus] = useState(refreshStatus)
+
   const auth = { headers: { Authorization: `Bearer ${token}` } };
   const { userId } = useParams();
   let validId;
@@ -86,8 +84,11 @@ export default function HomePage() {
           allOtherUsers.data
         )
       );
-    })();
-  }, []);
+    })
+    ();
+    
+  }, [refreshStatus]);
+  
 
   console.log("This is store in home.jsx", store);
 
@@ -97,6 +98,7 @@ export default function HomePage() {
 
   function BasicTabs() {
     const [value, setValue] = useState(0);
+
 
     const handleChange = (evt, newValue) => {
       setValue(newValue);
