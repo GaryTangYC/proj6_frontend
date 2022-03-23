@@ -48,7 +48,7 @@ export default function TaskCardComponent({ tasks }) {
     }
     const updateState = !refreshState
     dispatch(renderRefresh(updateState));
-    navigate("/home");
+    
   };
   
 //   useEffect(() => {

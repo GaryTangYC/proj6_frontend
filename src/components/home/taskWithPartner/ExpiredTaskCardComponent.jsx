@@ -49,7 +49,7 @@ export default function ExpiredTaskCardComponent({ tasks }) {
     }
     const updateState = !refreshState
     dispatch(renderRefresh(updateState));
-    navigate("/home");
+    
   };
   
 //   useEffect(() => {
