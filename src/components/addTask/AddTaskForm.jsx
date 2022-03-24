@@ -7,16 +7,13 @@ import "./styles.css";
 import {
   TextField,
   Box,
-  Typography,
   FormControl,
   Container,
   Autocomplete,
-  Grid
+
 } from "@mui/material";
-import { styled } from '@mui/material/styles'
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
-import TaskTitleComponent from "./TaskTitleComponent";
 import TaskFieldComponent from "./TaskFieldComponent";
 import FinancialPenaltyComponent from "./FinancialPenaltyComponent";
 import RewardsPenaltyComponent from "./RewardsPenaltyComponent";
@@ -30,7 +27,7 @@ export default function AddTaskForm() {
   const [dateTime, setDateTime] = useState(new Date());
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
-  const [rewardsPenalty, setRewardsPenalty] = useState('Nil');
+  const [rewardsPenalty, setRewardsPenalty] = useState("Nil");
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
     "None",
@@ -69,7 +66,7 @@ export default function AddTaskForm() {
       dateTime,
       financialPenalty: getFormData.get("financialPenalty"),
       taskDescription: getFormData.get("taskDescription"),
-      taskTag,      
+      taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
     };
     console.log("this is getformdata", getFormData);
@@ -91,58 +88,78 @@ export default function AddTaskForm() {
 
   return (
     <>
-      <Container maxWidth="xl" spacing={8} >
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} style={{ minHeight: '75vh'  }}>           
-        <Box component="form" onSubmit={handleSubmit} noValidate display='flex'
-justifyContent='center' sx={{ mt: 1, }}>
-          <FormControl sx={{ my: 1, minWidth: '75vw' }}>
-            {/* Task Description Component */}
-            <TaskFieldComponent 
-              onChange={(newValue) => {
-                setTaskDescription(newValue);
-              }}
-            />
-            {/* Date Time Picker */}
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DesktopDateTimePicker
-                value={dateTime}
-                minDateTime={new Date()}
+      <Container maxWidth="xl" spacing={8}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          style={{ minHeight: "55vh" }}
+          bgcolor="primary"
+        >
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            display="flex"
+            alignItems='center'
+            justifyContent="center"
+            sx={{ mt: 1 }}
+          >
+            <FormControl sx={{ my: 1, minWidth: "60vw" }}>
+              {/* Task Description Component */}
+              <TaskFieldComponent
                 onChange={(newValue) => {
-                  setDateTime(newValue);
+                  setTaskDescription(newValue);
                 }}
-                label="Date & Time For Completion"
-                name="dateTime"
-                renderInput={(props) => (
-                  <TextField {...props} color="secondary" />
+              />
+              {/* Date Time Picker */}
+              <LocalizationProvider  dateAdapter={AdapterDateFns}>
+                <DesktopDateTimePicker 
+                  value={dateTime}                  
+                  minDateTime={new Date()}
+                  onChange={(newValue) => {
+                    setDateTime(newValue);
+                  }}
+                  label="Date & Time For Completion"
+                  name="dateTime"
+                  renderInput={(props) => (
+                    <TextField {...props} color="secondary" />
+                  )}
+                />
+              </LocalizationProvider>
+              {/* Task Tag Selection */}
+              <Autocomplete
+                id="task-tag-autocomplete"
+                sx={{ mt: 2, mb: 1 }}
+                defaultValue="None"
+                onChange={handleChange}
+                // taskTagList array is mapped into options and rendered
+                options={taskTagList.map((option) => option)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    sx={{ mt: 1, mb: 2 }}
+                    color="secondary"
+                    label="Task Tag"
+                  />
                 )}
               />
-            </LocalizationProvider>
-            {/* Task Tag Selection */}
-            <Autocomplete
-              id="task-tag-autocomplete"
-              sx={{ my: 1 }}
-              defaultValue="None"
-              onChange={handleChange}
-              // taskTagList array is mapped into options and rendered
-              options={taskTagList.map((option) => option)}
-              renderInput={(params) => (
-                <TextField {...params}  sx={{ mt: 1, mb: 2 }}color="secondary" label="Task Tag" />
-              )}
-            />
-            {/* Financial Penalty Selection */}
-            <FinancialPenaltyComponent />
+              {/* Financial Penalty Selection */}
+              <FinancialPenaltyComponent />
 
-            {/* Rewards/Penalty Description */}
-            <RewardsPenaltyComponent
-              onInputChange={(newValue) => {
-                console.log(newValue);
-                setRewardsPenalty(newValue);
-              }}
-            />
-          {/* Submit Button from Widget */}
-          <SubmitBtn text="Add Task" />
-          </FormControl>
-        </Box>
+              {/* Rewards/Penalty Description */}
+              <RewardsPenaltyComponent 
+                onInputChange={(newValue) => {
+                  console.log(newValue);
+                  setRewardsPenalty(newValue);
+                }}
+              />
+              {/* Submit Button from Widget */}
+              <SubmitBtn text="Add Task" />
+            </FormControl>
+          </Box>
         </Box>
       </Container>
     </>
