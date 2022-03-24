@@ -2,8 +2,8 @@ import { TextField } from "@mui/material";
 
 export default function TaskFieldComponent() {
   return (
-    <>      
- {/* <TextField
+    <>
+      {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -13,9 +13,8 @@ export default function TaskFieldComponent() {
               multiline
               maxRows={7}              
             />  */}
-    {/* Boon Wee Changes*/}
-   
-    
+      {/* Boon Wee Changes*/}
+
       <TextField
         sx={{ mt: 1, mb: 2 }}
         required
@@ -26,8 +25,6 @@ export default function TaskFieldComponent() {
         multiline
         maxRows={7}
       />
-
-   
-    </> 
+    </>
   );
 }

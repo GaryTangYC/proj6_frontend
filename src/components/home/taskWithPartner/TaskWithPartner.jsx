@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../../../store";
 /* mui imports */
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
@@ -98,10 +98,10 @@ export default function TaskWithPartner() {
 
   return (
     <>
-    <Container>
+      <Box m={3}>
         <div className="subHeader">
-        <h2>Ongoing Tasks</h2>
-          </div>
+          <h2>Ongoing Tasks</h2>
+        </div>
         {partnerData.length > 0 ? (
           <Container sx={{ py: 2 }} maxWidth="xl">
             <Grid container spacing={3} gap={6}>
@@ -112,9 +112,9 @@ export default function TaskWithPartner() {
           <Typography variant="h3">No Ongoing Task</Typography>
         )}
         <br />
-    </Container>
+      </Box>
       <hr />
-      <Container>
+      <Box m={3}>
         <h2>Pending Acknowledgement For Completion</h2>
         {partnerPendingCompletionData.length > 0 ? (
           <Container sx={{ py: 2 }} maxWidth="xl">
@@ -124,11 +124,11 @@ export default function TaskWithPartner() {
           </Container>
         ) : (
           <Typography variant="h3">No Pending Task </Typography>
-        )}        
-      </Container>
+        )}
+      </Box>
 
       <hr />
-      <Container>
+      <Box m={3}>
         <h2>Expired Tasks</h2>
         {partnerExpiredData.length > 0 ? (
           <Container sx={{ py: 2 }} maxWidth="xl">
@@ -139,7 +139,7 @@ export default function TaskWithPartner() {
         ) : (
           <Typography variant="h3">No Pending Task </Typography>
         )}
-      </Container>
+      </Box>
     </>
   );
 }

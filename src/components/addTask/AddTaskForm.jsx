@@ -14,6 +14,7 @@ import {
   FormLabel,
   FormControlLabel,
   Radio,
+  Grid,
 } from "@mui/material";
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
@@ -29,7 +30,7 @@ export default function AddTaskForm() {
   const [dateTime, setDateTime] = useState(new Date());
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
-  const [penaltyAmount, setPenaltyAmount] = useState()
+  const [penaltyAmount, setPenaltyAmount] = useState();
   const [rewardsPenalty, setRewardsPenalty] = useState("Nil");
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
@@ -65,7 +66,7 @@ export default function AddTaskForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
-    
+
     //Data check penalty amount
 
     const data = {
@@ -75,11 +76,16 @@ export default function AddTaskForm() {
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
-      penaltyAmount: getFormData.get("penaltyAmount")
+      penaltyAmount: getFormData.get("penaltyAmount"),
     };
     console.log("this is getFinAmount", getFormData.get("penaltyAmount"));
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);
+
+    if (!getFormData.get("taskDescription")) {
+      alert("please enter a task description!");
+      return;
+    }
 
     const postTask = await axios.post(bckendUrl, data, auth);
     console.log(postTask.data);
@@ -179,21 +185,24 @@ export default function AddTaskForm() {
                   label="No"
                 />
 
-                  <TextField
-                  disabled={isRadioDisabled}                  
+                <TextField
+                  InputProps={{
+                    inputProps: {
+                      min: 1,
+                    },
+                  }}
+                  disabled={isRadioDisabled}
                   label="Penalty Value (S$)"
-                  defaultValue="0"
+                  defaultValue="1"
                   color="secondary"
                   name="penaltyAmount"
                   onChange={(event) => {
-                  const {value } = event.target                    
-                  setPenaltyAmount(value);                  
-                }}
-                type='number'
-
+                    const { value } = event.target;
+                    setPenaltyAmount(value);
+                  }}
+                  type="number"
                 />
               </RadioGroup>
-
 
               {/* Rewards/Penalty Description */}
               <RewardsPenaltyComponent

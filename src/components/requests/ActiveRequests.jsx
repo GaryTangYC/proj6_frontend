@@ -9,6 +9,7 @@ import {
   ListItem,
   IconButton,
   ListItemText,
+  Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -83,7 +84,7 @@ export default function ActiveRequests() {
       );
     };
 
-      /* chat onclick function */
+    /* chat onclick function */
     const startChat = () => {
       navigate("/chats", {
         /* need to standardize info sent thru here, so other pages can send in e same format */
@@ -98,41 +99,43 @@ export default function ActiveRequests() {
     };
 
     return (
-      <List component="div" disablePadding>
-        <ListItem>
-          <ListItemText>
-            <Typography variant="h5">Owner: {el.owner.name}</Typography>
-            <Typography>Tag: {el.taskTag}</Typography>
-            <Typography>Completion Date: {date}</Typography>
-            <Typography>Description: {el.description}</Typography>
-            <Typography>Penalties: {el.endText}</Typography>
-            <Typography>
-              Financial Penalties: {el.financialPenalty ? "Yes" : "None"}
-            </Typography>
-          </ListItemText>
-          <IconButton onClick={() => startChat()}>
-            <ChatIcon />
-          </IconButton>
-          {el.endIndicated && (
-            <IconButton
-              onClick={() => {
-                agreeComplete();
-              }}
-            >
-              <CheckCircleOutlineIcon />
+      <Box m={3}>
+        <List component="div" disablePadding>
+          <ListItem>
+            <ListItemText>
+              <Typography variant="h5">Owner: {el.owner.name}</Typography>
+              <Typography>Tag: {el.taskTag}</Typography>
+              <Typography>Completion Date: {date}</Typography>
+              <Typography>Description: {el.description}</Typography>
+              <Typography>Penalties: {el.endText}</Typography>
+              <Typography>
+                Financial Penalties: {el.financialPenalty ? "Yes" : "None"}
+              </Typography>
+            </ListItemText>
+            <IconButton onClick={() => startChat()}>
+              <ChatIcon />
             </IconButton>
-          )}
-          {el.endIndicated && (
-            <IconButton
-              onClick={() => {
-                rejectComplete();
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          )}
-        </ListItem>
-      </List>
+            {el.endIndicated && (
+              <IconButton
+                onClick={() => {
+                  agreeComplete();
+                }}
+              >
+                <CheckCircleOutlineIcon />
+              </IconButton>
+            )}
+            {el.endIndicated && (
+              <IconButton
+                onClick={() => {
+                  rejectComplete();
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )}
+          </ListItem>
+        </List>
+      </Box>
     );
   }
 
@@ -143,7 +146,9 @@ export default function ActiveRequests() {
           <PendingTaskList el={el} key={index} />
         ))
       ) : (
-        <Typography variant="h3">There are no pending requests</Typography>
+        <Box m={3}>
+          <Typography variant="h3">There are no pending requests</Typography>
+        </Box>
       )}
     </>
   );

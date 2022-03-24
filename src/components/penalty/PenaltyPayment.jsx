@@ -6,32 +6,22 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Paper, Stack } from "@mui/material";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Container from "@mui/material/Container";
-
 import "./styles.css";
-
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
-import ListItemButton from "@mui/material/ListItemButton";
 import Typography from "@mui/material/Typography";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function PenaltyPayment({ paymentList, taskId }) {
   const { store } = useContext(Context);
-  const { user, token } = store;
+  const { user, token, tasks } = store;
   const { payment: customerId } = user;
   const navigate = useNavigate();
 
+  const taskData = [...tasks];
+  let taskToPay = taskData.filter((task) => task._id === taskId);
+
   const handleClick = async (event) => {
     event.preventDefault();
-    console.log(event.target.value);
+    // please use currentTarget and not target because target is specific to element clicked not the onlick element
+    console.log("line 37", event.currentTarget.value);
 
     const auth = { headers: { Authorization: `Bearer ${token}` } };
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/payment-intent`;
@@ -39,9 +29,11 @@ export default function PenaltyPayment({ paymentList, taskId }) {
 
     const formData = {
       customerId: customerId,
-      methodId: event.target.value,
-      centsAmount: 100,
+      methodId: event.currentTarget.value,
+      centsAmount: taskToPay[0].penaltyAmount * 100,
     };
+
+    console.log("line 49", formData);
 
     try {
       const result = await axios.post(bckendUrl, formData, auth);
@@ -87,13 +79,11 @@ export default function PenaltyPayment({ paymentList, taskId }) {
                   <Stack spacing={1}>
                     {paymentList.map((method) => {
                       const methodId = method.id;
+                      console.log("in map", methodId);
                       const cardBrand = method.card.brand;
                       const expMth = method.card.exp_month;
                       const expYr = method.card.exp_year;
                       const lastFour = method.card.last4;
-
-                      console.log(cardBrand);
-                      console.log(typeof cardBrand);
 
                       if (cardBrand === "visa") {
                         return (

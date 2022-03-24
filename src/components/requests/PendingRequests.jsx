@@ -10,6 +10,8 @@ import {
   Collapse,
   IconButton,
   ListItemText,
+  Box,
+  Grid,
 } from "@mui/material";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -89,42 +91,66 @@ export default function PendingRequests() {
     };
 
     return (
-      <List>
-        <ListItem
-          secondaryAction={
-            <IconButton
-              edge="end"
-              onClick={() => {
-                setOpen(!open);
-              }}
-            >
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
-          }
-        >
-          <IconButton onClick={() => startChat()}>
-            <ChatIcon />
-          </IconButton>
-          <IconButton onClick={() => acceptPartner()}>
-            <CheckCircleOutlineIcon />
-          </IconButton>
-          <IconButton onClick={() => rejectPartner()}>
-            <DeleteIcon />
-          </IconButton>
-          <ListItemText>Owner: {el.owner.name}</ListItemText>
-          <ListItemText>Tag: {el.taskTag}</ListItemText>
-          <ListItemText>Completion Date: {date} </ListItemText>
-        </ListItem>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemText>Description: {el.description}</ListItemText>
-            <ListItemText>Penalties: {el.endText}</ListItemText>
-            <ListItemText>
-              Financial Penalties: {el.financialPenalty}
-            </ListItemText>
-          </List>
-        </Collapse>
-      </List>
+      <Box m={3}>
+        <List>
+          <ListItem
+            secondaryAction={
+              <IconButton
+                edge="end"
+                onClick={() => {
+                  setOpen(!open);
+                }}
+              >
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+            }
+          >
+            <Grid container>
+              <Grid item xs={2}>
+                <Box mt={1}>
+                  <IconButton onClick={() => startChat()}>
+                    <ChatIcon />
+                  </IconButton>
+                  <IconButton onClick={() => acceptPartner()}>
+                    <CheckCircleOutlineIcon />
+                  </IconButton>
+                  <IconButton onClick={() => rejectPartner()}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              </Grid>
+              <Grid item xs={2}>
+                <Box mt={2} sx={{ textAlign: "center" }}>
+                  <ListItemText>Owner: {el.owner.name}</ListItemText>
+                </Box>
+              </Grid>
+              <Grid item xs={2}>
+                <Box mt={2} sx={{ textAlign: "center" }}>
+                  <ListItemText>Tag: {el.taskTag}</ListItemText>
+                </Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box mt={2} sx={{ textAlign: "center" }}>
+                  <ListItemText>Completion Date: {date} </ListItemText>
+                </Box>
+              </Grid>
+              <Grid item xs={3}>
+                <Box mt={1} ml={2}>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      <ListItemText>Description: {el.description}</ListItemText>
+                      <ListItemText>Penalties: {el.endText}</ListItemText>
+                      <ListItemText>
+                        Financial Penalties: {el.financialPenalty}
+                      </ListItemText>
+                    </List>
+                  </Collapse>
+                </Box>
+              </Grid>
+            </Grid>
+          </ListItem>
+        </List>
+      </Box>
     );
   }
 
@@ -135,7 +161,9 @@ export default function PendingRequests() {
           <PendingTaskList el={el} key={index} />
         ))
       ) : (
-        <Typography variant="h3">There are no pending requests</Typography>
+        <Box m={3}>
+          <Typography variant="h3">There are no pending requests</Typography>
+        </Box>
       )}
     </>
   );

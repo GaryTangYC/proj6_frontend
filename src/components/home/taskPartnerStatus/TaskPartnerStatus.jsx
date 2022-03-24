@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import { Context } from "../../../store";
 /* mui imports */
-import { Grid, Container, Typography } from "@mui/material";
+import { Box, Grid, Container, Typography } from "@mui/material";
 /* widget/component imports */
 import PendingTaskCardComponent from "./PendingTaskCardComponent";
 import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
@@ -29,9 +29,9 @@ export default function TaskPartnerStatus() {
    */
   let pendingPartnerRejectData = storeData.filter(
     (task) =>
-        task.partner !== null &&
-        task.partnerAccepted === "rejected" &&
-        task.completed === false
+      task.partner !== null &&
+      task.partnerAccepted === "rejected" &&
+      task.completed === false
   );
 
   // Sorting function to display task from earliest expiry first to latest expiry
@@ -51,40 +51,39 @@ export default function TaskPartnerStatus() {
       : 0;
   });
 
-
   return (
     <>
-    <Container>
-      <h2>Pending Partner Acceptance</h2>
-      {pendingPartnerAcceptData.length > 0 ? (
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Grid container spacing={3} gap={6}>
-            <PendingTaskCardComponent tasks={pendingPartnerAcceptData} />
-          </Grid>
-        </Container>
-      ) : (
-        <Typography variant="h3">No Request For Partner Acceptance</Typography>
-      )}
-      <br />
-
-    </Container>
+      <Box m={3}>
+        <h2>Pending Partner Acceptance</h2>
+        {pendingPartnerAcceptData.length > 0 ? (
+          <Container sx={{ py: 2 }} maxWidth="xl">
+            <Grid container spacing={3} gap={6}>
+              <PendingTaskCardComponent tasks={pendingPartnerAcceptData} />
+            </Grid>
+          </Container>
+        ) : (
+          <Typography variant="h3">
+            No Request For Partner Acceptance
+          </Typography>
+        )}
+        <br />
+      </Box>
       <hr />
-      <Container>
-      <h2>Partner Rejected</h2>
-      {pendingPartnerRejectData.length > 0 ? (
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Grid container spacing={3} gap={6}>
-            <ExpiredTaskCardComponent tasks={pendingPartnerRejectData} />
-          </Grid>
-        </Container>
-      ) : (
-        <Typography variant="h3">
-          No Request Currently Rejected By Partner
-        </Typography>
-      )}
-      <br />
-
-      </Container>
+      <Box m={3}>
+        <h2>Partner Rejected</h2>
+        {pendingPartnerRejectData.length > 0 ? (
+          <Container sx={{ py: 2 }} maxWidth="xl">
+            <Grid container spacing={3} gap={6}>
+              <ExpiredTaskCardComponent tasks={pendingPartnerRejectData} />
+            </Grid>
+          </Container>
+        ) : (
+          <Typography variant="h3">
+            No Request Currently Rejected By Partner
+          </Typography>
+        )}
+        <br />
+      </Box>
     </>
   );
 }
