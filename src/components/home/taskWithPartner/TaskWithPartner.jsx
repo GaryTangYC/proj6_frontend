@@ -99,15 +99,15 @@ export default function TaskWithPartner() {
   return (
     <>
       <Box m={3}>
-        <div className="subHeader">
+        <Box my={3}>
           <h2>Ongoing Tasks</h2>
-        </div>
+        </Box>
         {partnerData.length > 0 ? (
-          <Container sx={{ py: 2 }} maxWidth="xl">
+          <Box m={3}>
             <Grid container spacing={3} gap={6}>
               <TaskCardComponent tasks={partnerData} />
             </Grid>
-          </Container>
+          </Box>
         ) : (
           <Typography variant="h3">No Ongoing Task</Typography>
         )}
@@ -115,13 +115,15 @@ export default function TaskWithPartner() {
       </Box>
       <hr />
       <Box m={3}>
-        <h2>Pending Acknowledgement For Completion</h2>
+        <Box my={3}>
+          <h2>Pending Acknowledgement For Completion</h2>
+        </Box>
         {partnerPendingCompletionData.length > 0 ? (
-          <Container sx={{ py: 2 }} maxWidth="xl">
+          <Box m={3}>
             <Grid container spacing={3} gap={6}>
               <PendingTaskCardComponent tasks={partnerPendingCompletionData} />
             </Grid>
-          </Container>
+          </Box>
         ) : (
           <Typography variant="h3">No Pending Task </Typography>
         )}
@@ -129,13 +131,15 @@ export default function TaskWithPartner() {
 
       <hr />
       <Box m={3}>
-        <h2>Expired Tasks</h2>
+        <Box my={3}>
+          <h2>Expired Tasks</h2>
+        </Box>
         {partnerExpiredData.length > 0 ? (
-          <Container sx={{ py: 2 }} maxWidth="xl">
+          <Box m={3}>
             <Grid container spacing={3} gap={6}>
               <ExpiredTaskCardComponent tasks={partnerExpiredData} />
             </Grid>
-          </Container>
+          </Box>
         ) : (
           <Typography variant="h3">No Pending Task </Typography>
         )}

@@ -54,13 +54,15 @@ export default function TaskPartnerStatus() {
   return (
     <>
       <Box m={3}>
-        <h2>Pending Partner Acceptance</h2>
+        <Box my={3}>
+          <h2>Pending Partner Acceptance</h2>
+        </Box>
         {pendingPartnerAcceptData.length > 0 ? (
-          <Container sx={{ py: 2 }} maxWidth="xl">
+          <Box m={3}>
             <Grid container spacing={3} gap={6}>
               <PendingTaskCardComponent tasks={pendingPartnerAcceptData} />
             </Grid>
-          </Container>
+          </Box>
         ) : (
           <Typography variant="h3">
             No Request For Partner Acceptance
@@ -70,13 +72,15 @@ export default function TaskPartnerStatus() {
       </Box>
       <hr />
       <Box m={3}>
-        <h2>Partner Rejected</h2>
+        <Box my={3}>
+          <h2>Partner Rejected</h2>
+        </Box>
         {pendingPartnerRejectData.length > 0 ? (
-          <Container sx={{ py: 2 }} maxWidth="xl">
+          <Box m={3}>
             <Grid container spacing={3} gap={6}>
               <ExpiredTaskCardComponent tasks={pendingPartnerRejectData} />
             </Grid>
-          </Container>
+          </Box>
         ) : (
           <Typography variant="h3">
             No Request Currently Rejected By Partner

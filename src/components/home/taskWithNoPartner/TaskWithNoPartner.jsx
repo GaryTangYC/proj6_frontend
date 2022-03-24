@@ -64,9 +64,9 @@ export default function TaskWithNoPartner() {
   return (
     <>
       <Box m={3}>
-        <div className="subHeader">
+        <Box my={3}>
           <h2>Ongoing Tasks</h2>
-        </div>
+        </Box>
 
         {noPartnerData.length > 0 ? (
           <Box m={3}>
@@ -81,7 +81,9 @@ export default function TaskWithNoPartner() {
       <br />
       <hr />
       <Box m={3}>
-        <h2>Expired Tasks</h2>
+        <Box my={3}>
+          <h2>Expired Tasks</h2>
+        </Box>
         {noPartnerExpiredData.length > 0 ? (
           <Box m={3}>
             <Grid container spacing={3} gap={6}>
@@ -92,8 +94,6 @@ export default function TaskWithNoPartner() {
           <Typography variant="h3">No Expired Task </Typography>
         )}
       </Box>
-      {/* <Container sx={{ py: 2 }} maxWidth="xl"></Container> */}
-      {/* <Container sx={{ py: 2 }} maxWidth="xl"></Container> */}
     </>
   );
 }
