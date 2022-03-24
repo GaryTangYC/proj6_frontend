@@ -1,10 +1,11 @@
 /* react imports */
 import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { Context } from "../../../store";
 /* mui imports */
 import { Grid, Container, Typography } from "@mui/material";
 /* widget/component imports */
-import TaskCardComponent from "./TaskCardComponent";
+import PendingTaskCardComponent from "./PendingTaskCardComponent";
+import ExpiredTaskCardComponent from "./ExpiredTaskCardComponent";
 
 export default function TaskPartnerStatus() {
   const { store } = useContext(Context);
@@ -53,23 +54,27 @@ export default function TaskPartnerStatus() {
 
   return (
     <>
+    <Container>
       <h2>Pending Partner Acceptance</h2>
       {pendingPartnerAcceptData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={pendingPartnerAcceptData} />
+            <PendingTaskCardComponent tasks={pendingPartnerAcceptData} />
           </Grid>
         </Container>
       ) : (
         <Typography variant="h3">No Request For Partner Acceptance</Typography>
       )}
       <br />
+
+    </Container>
       <hr />
+      <Container>
       <h2>Partner Rejected</h2>
       {pendingPartnerRejectData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
-            <TaskCardComponent tasks={pendingPartnerRejectData} />
+            <ExpiredTaskCardComponent tasks={pendingPartnerRejectData} />
           </Grid>
         </Container>
       ) : (
@@ -77,8 +82,9 @@ export default function TaskPartnerStatus() {
           No Request Currently Rejected By Partner
         </Typography>
       )}
-
       <br />
+
+      </Container>
     </>
   );
 }

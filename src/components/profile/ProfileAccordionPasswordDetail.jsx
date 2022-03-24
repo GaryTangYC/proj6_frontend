@@ -8,12 +8,16 @@ import axios from "axios";
 
 export default function PasswordDetail() {
   const { store } = useContext(Context);
-  const { token } = store;
+  const { user, token } = store;
+  const { _id } = user;
+
   const initState = {
+    id: _id,
     currentPswd: "",
     newPswd: "",
     confirmPswd: "",
   };
+
   const [passwordState, setPasswordState] = useState(initState);
 
   const doUpdate = async () => {

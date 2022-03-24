@@ -9,14 +9,16 @@ const UPDATE_NAME = "UPDATE_NAME";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_BIO = "UPDATE_BIO";
 const UPDATE_POSTAL = "UPDATE_POSTAL";
+const RENDER_REFRESH = "RENDER_REFRESH";
 
 /* useReducer initial state  */
 const initialState = {
-  user: {pic:null},
+  user: { pic: null },
   token: null,
   tasks: [],
   partnerTasks: [],
   otherUsers: null,
+  refreshStatus: false
 };
 
 /* useReducer reducer function */
@@ -71,12 +73,24 @@ export const appReducer = (state, action) => {
         user: { ...state.user, postal: action.newDetail },
       };
       return newState;
+    case RENDER_REFRESH:
+      newState = {
+        ...state,
+        refreshStatus: action.refreshStatus,
+      };
+      return newState;
     default:
       return state;
   }
 };
 
 /* functions to pass action object to useReducer dispatch function */
+export const renderRefresh = (refreshStatus) => {
+  return {
+    type: RENDER_REFRESH,
+    refreshStatus,
+  }
+}
 
 export const userSignIn = (token) => {
   return {

@@ -1,13 +1,13 @@
 /* react imports */
-import { useContext, useState } from "react";
-import { Context } from "../../store";
+import { useContext, useState} from "react";
+import { Context } from "../../../store";
 /* mui imports */
 import { Container, Grid, Typography } from "@mui/material";
 /* widget/component imports */
 import TaskCardComponent from "./TaskCardComponent";
 /* other imports */
 import { parseISO, differenceInSeconds } from "date-fns";
-import "./styles.css";
+import "../styles.css";
 
 export default function TaskWithNoPartner() {
   const { store } = useContext(Context);
@@ -38,6 +38,7 @@ export default function TaskWithNoPartner() {
 
     console.log("istaskTimeexpired", isTaskTimeExpired);
 
+ 
     if (isTaskTimeExpired < 0) {
       noPartnerExpiredData.push(noPartnerData[i]);
       noPartnerData.splice(i, 1);
@@ -55,9 +56,11 @@ export default function TaskWithNoPartner() {
 
   return (
     <>
+    <Container>
       <div className="subHeader">
         <h2>Ongoing Tasks</h2>
       </div>
+ 
       {noPartnerData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
           <Grid container spacing={3} gap={6}>
@@ -67,8 +70,11 @@ export default function TaskWithNoPartner() {
       ) : (
         <Typography variant="h3">No Ongoing Task</Typography>
       )}
+      </Container>
       <br />
       <hr />
+      <Container>
+
       <h2>Expired Tasks</h2>
       {noPartnerExpiredData.length > 0 ? (
         <Container sx={{ py: 2 }} maxWidth="xl">
@@ -79,6 +85,7 @@ export default function TaskWithNoPartner() {
       ) : (
         <Typography variant="h3">No Expired Task </Typography>
       )}
+      </Container>
     </>
   );
 }

@@ -1,0 +1,49 @@
+/* MUi TextField Margin overwrite*/
+.MuiTextField-root {
+  margin-top: 15px;
+}
+
+.MuiButton-root {
+  margin-top: 10px;
+}
+
+.MuiRadio-colorSecondary {
+  color: #ff6b6b;
+}
+
+/* .MuiAutocomplete-inputRoot {
+  color: #ff6b6b;
+}
+
+.MuiAutocomplete-root {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.Mui-focused {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.MuiAutocomplete-input {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.MuiAutocomplete-inputFocused {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.MuiAutocomplete-listbox {
+  color: #ff6b6b;
+  border-color: #ff6b6b;
+}
+
+.Mui-focused fieldset {
+  border-color: #ff6b6b;
+} */
+
+/* #task-tag-autocomplete {
+  border-color: #ff6b6b;
+} */
