@@ -37,7 +37,7 @@ export default function ExpiredTaskCardComponent({ tasks }) {
 
   const CompleteFn = async (e) => {
     e.preventDefault();
-
+    const taskId = e.target.value
     const auth = { headers: { Authorization: `Bearer ${token}` } };
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/payment-methods`;
 
@@ -57,7 +57,7 @@ export default function ExpiredTaskCardComponent({ tasks }) {
     }
 
     navigate("/penalty", {
-      state: { paymentList },
+      state: { paymentList, taskId },
     });
 
     // const taskId = e.currentTarget.value;

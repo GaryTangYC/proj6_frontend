@@ -3,18 +3,21 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Context } from "./../../store";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function PenaltyPayment({ paymentList }) {
+export default function PenaltyPayment({ paymentList, taskId }) {
   const { store } = useContext(Context);
   const { user, token } = store;
   const { payment: customerId } = user;
+  const navigate = useNavigate();
 
   const handleClick = async (event) => {
     event.preventDefault();
-    console.log(event.target.value);
+    console.log(event.target.value);    
 
     const auth = { headers: { Authorization: `Bearer ${token}` } };
     const bckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/user/payment-intent`;
+    const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`
 
     const formData = {
       customerId: customerId,
@@ -26,7 +29,21 @@ export default function PenaltyPayment({ paymentList }) {
       console.log(result);
 
       // if result.status == 200 then manipulate task db as completed
-      // else alert and renavigate to home
+      if (result.statusCode === 200) {
+        const postCompleteTask = await axios.post(
+          postCompleteBckendUrl,
+          {
+            taskId,
+          },
+          auth
+        );
+        alert("Payment Received. Task will be removed in Home Page");
+        navigate("/home")
+      } else {
+        // else alert and renavigate to home
+        alert("Error with Payment. Please re-try");
+        navigate("/home")
+      }
     } catch (err) {
       console.log(err);
     }

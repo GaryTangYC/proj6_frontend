@@ -12,13 +12,13 @@ import PenaltyPayment from "../components/penalty/PenaltyPayment";
 
 export default function Penalty() {
   const location = useLocation();
-  const { paymentList } = location.state;
+  const { paymentList, taskId } = location.state;
 
   console.log(paymentList);
   return (
     <>
       <DashboardContent title="Penalty">
-        <PenaltyPayment paymentList={paymentList} />
+        <PenaltyPayment paymentList={paymentList} taskId={taskId} />
       </DashboardContent>
     </>
   );
