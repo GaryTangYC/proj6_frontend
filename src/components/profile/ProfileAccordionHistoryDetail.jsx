@@ -28,40 +28,46 @@ export default function HistoryDetail() {
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
-            <Table
-              sx={{ minWidth: 480 }}
-              size="small"
-              aria-label="simple table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Penalty</TableCell>
-                  <TableCell>Completion Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {completedTasks.map((row) => {
-                  let date = new Date(row.completion);
-                  date = format(date, "E,dd-MMM-yy, h:mm a");
+          {completedTasks.length < 1 ? (
+            <Typography>There are no completed tasks.</Typography>
+          ) : (
+            <TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 480 }}
+                size="small"
+                aria-label="simple table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Description</TableCell>
+                    <TableCell>Category</TableCell>
+                    <TableCell>Penalty</TableCell>
+                    <TableCell>Completion Date</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {completedTasks.map((row) => {
+                    let date = new Date(row.completion);
+                    date = format(date, "E,dd-MMM-yy, h:mm a");
 
-                  return (
-                    <TableRow
-                      key={row._id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell>{row.description}</TableCell>
-                      <TableCell>{row.taskTag}</TableCell>
-                      <TableCell>{row.financialPenalty.toString()}</TableCell>
-                      <TableCell>{date}</TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                    return (
+                      <TableRow
+                        key={row._id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>{row.description}</TableCell>
+                        <TableCell>{row.taskTag}</TableCell>
+                        <TableCell>{row.financialPenalty.toString()}</TableCell>
+                        <TableCell>{date}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </Grid>
       </Grid>
     </>
