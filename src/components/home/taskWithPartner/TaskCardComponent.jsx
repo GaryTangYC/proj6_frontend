@@ -98,10 +98,7 @@ export default function TaskCardComponent({ tasks }) {
                     value={task._id}
                   />
                 </Link>
-                <Link
-                  underline="none"
-                  component={RouterLink}
-                  to={`/addpartner/${task._id}`}
+               <Link
                 >
                   <TaskCardBtn disabled
                     text="Add"

@@ -128,12 +128,8 @@ export default function ExpiredTaskCardComponent({ tasks }) {
                   />
                 </Link>
                 <Link
-                  underline="none"
-                  component={RouterLink}
-                  to={`/addpartner/${task._id}`}
                 >
-                  <TaskCardBtn
-                    disabled
+                  <TaskCardBtn disabled
                     text="Add"
                     color="info"
                     icon={<PersonAddIcon />}
