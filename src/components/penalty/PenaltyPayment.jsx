@@ -71,159 +71,165 @@ export default function PenaltyPayment({ paymentList, taskId }) {
   return (
     <>
       <Box m={3}>
-        <Grid container>
-          <Grid item xs={3}>
-            <Paper variant="outlined">
-              <Box m={1} sx={{ textAlign: "center" }}>
-                <Typography variant="h2" component="h2">
-                  Choose a payment method:
-                </Typography>
-                <br />
-                <Stack spacing={1}>
-                  {paymentList.map((method) => {
-                    const methodId = method.id;
-                    const cardBrand = method.card.brand;
-                    const expMth = method.card.exp_month;
-                    const expYr = method.card.exp_year;
-                    const lastFour = method.card.last4;
+        {paymentList.length < 1 ? (
+          <Typography>
+            Please add a payment method at profile before continuing.
+          </Typography>
+        ) : (
+          <Grid container>
+            <Grid item xs={3}>
+              <Paper variant="outlined">
+                <Box m={1} sx={{ textAlign: "center" }}>
+                  <Typography variant="h2" component="h2">
+                    Choose a payment method:
+                  </Typography>
+                  <br />
+                  <Stack spacing={1}>
+                    {paymentList.map((method) => {
+                      const methodId = method.id;
+                      const cardBrand = method.card.brand;
+                      const expMth = method.card.exp_month;
+                      const expYr = method.card.exp_year;
+                      const lastFour = method.card.last4;
 
-                    console.log(cardBrand);
-                    console.log(typeof cardBrand);
+                      console.log(cardBrand);
+                      console.log(typeof cardBrand);
 
-                    if (cardBrand === "visa") {
-                      return (
-                        <Button
-                          color="info"
-                          key={methodId}
-                          variant="contained"
-                          size="large"
-                          disableElevation
-                          onClick={handleClick}
-                          value={methodId}
-                        >
-                          <Grid container alignItems="center">
-                            <Grid item xs={4}>
-                              <Box sx={{ mt: 1 }}>
-                                <img
-                                  src="/cc-visa-brands.svg"
-                                  alt="visa"
-                                  width="42"
-                                />
-                              </Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                              <Grid item xs={12}>
-                                **** {lastFour}
+                      if (cardBrand === "visa") {
+                        return (
+                          <Button
+                            color="info"
+                            key={methodId}
+                            variant="contained"
+                            size="large"
+                            disableElevation
+                            onClick={handleClick}
+                            value={methodId}
+                          >
+                            <Grid container alignItems="center">
+                              <Grid item xs={4}>
+                                <Box sx={{ mt: 1 }}>
+                                  <img
+                                    src="/cc-visa-brands.svg"
+                                    alt="visa"
+                                    width="42"
+                                  />
+                                </Box>
                               </Grid>
-                              <Grid item xs={12}>
-                                Exp {expMth}/{expYr}
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Button>
-                      );
-                    } else if (cardBrand === "mastercard") {
-                      return (
-                        <Button
-                          color="warning"
-                          key={methodId}
-                          variant="contained"
-                          size="large"
-                          disableElevation
-                          onClick={handleClick}
-                          value={methodId}
-                        >
-                          <Grid container alignItems="center">
-                            <Grid item xs={4}>
-                              <Box sx={{ mt: 1 }}>
-                                <img
-                                  src="/cc-mastercard-brands.svg"
-                                  alt="master"
-                                  width="42"
-                                />
-                              </Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                              <Grid item xs={12}>
-                                **** {lastFour}
-                              </Grid>
-                              <Grid item xs={12}>
-                                Exp {expMth}/{expYr}
+                              <Grid item xs={8}>
+                                <Grid item xs={12}>
+                                  **** {lastFour}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  Exp {expMth}/{expYr}
+                                </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>
-                        </Button>
-                      );
-                    } else if (cardBrand === "amex") {
-                      return (
-                        <Button
-                          color="success"
-                          key={methodId}
-                          variant="contained"
-                          size="large"
-                          disableElevation
-                          onClick={handleClick}
-                          value={methodId}
-                        >
-                          <Grid container alignItems="center">
-                            <Grid item xs={4}>
-                              <Box sx={{ mt: 1 }}>
-                                <img
-                                  src="/cc-amex-brands.svg"
-                                  alt="visa"
-                                  width="42"
-                                />
-                              </Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                              <Grid item xs={12}>
-                                **** {lastFour}
+                          </Button>
+                        );
+                      } else if (cardBrand === "mastercard") {
+                        return (
+                          <Button
+                            color="warning"
+                            key={methodId}
+                            variant="contained"
+                            size="large"
+                            disableElevation
+                            onClick={handleClick}
+                            value={methodId}
+                          >
+                            <Grid container alignItems="center">
+                              <Grid item xs={4}>
+                                <Box sx={{ mt: 1 }}>
+                                  <img
+                                    src="/cc-mastercard-brands.svg"
+                                    alt="master"
+                                    width="42"
+                                  />
+                                </Box>
                               </Grid>
-                              <Grid item xs={12}>
-                                Exp {expMth}/{expYr}
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Button>
-                      );
-                    } else {
-                      return (
-                        <Button
-                          key={methodId}
-                          variant="contained"
-                          size="large"
-                          disableElevation
-                          onClick={handleClick}
-                          value={methodId}
-                        >
-                          <Grid container alignItems="center">
-                            <Grid item xs={4}>
-                              <Box sx={{ mt: 1 }}>
-                                <img
-                                  src="/cc-stripe-brands.svg"
-                                  alt="visa"
-                                  width="42"
-                                />
-                              </Box>
-                            </Grid>
-                            <Grid item xs={8}>
-                              <Grid item xs={12}>
-                                **** {lastFour}
-                              </Grid>
-                              <Grid item xs={12}>
-                                Exp {expMth}/{expYr}
+                              <Grid item xs={8}>
+                                <Grid item xs={12}>
+                                  **** {lastFour}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  Exp {expMth}/{expYr}
+                                </Grid>
                               </Grid>
                             </Grid>
-                          </Grid>
-                        </Button>
-                      );
-                    }
-                  })}
-                </Stack>
-              </Box>
-            </Paper>
+                          </Button>
+                        );
+                      } else if (cardBrand === "amex") {
+                        return (
+                          <Button
+                            color="success"
+                            key={methodId}
+                            variant="contained"
+                            size="large"
+                            disableElevation
+                            onClick={handleClick}
+                            value={methodId}
+                          >
+                            <Grid container alignItems="center">
+                              <Grid item xs={4}>
+                                <Box sx={{ mt: 1 }}>
+                                  <img
+                                    src="/cc-amex-brands.svg"
+                                    alt="visa"
+                                    width="42"
+                                  />
+                                </Box>
+                              </Grid>
+                              <Grid item xs={8}>
+                                <Grid item xs={12}>
+                                  **** {lastFour}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  Exp {expMth}/{expYr}
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Button>
+                        );
+                      } else {
+                        return (
+                          <Button
+                            key={methodId}
+                            variant="contained"
+                            size="large"
+                            disableElevation
+                            onClick={handleClick}
+                            value={methodId}
+                          >
+                            <Grid container alignItems="center">
+                              <Grid item xs={4}>
+                                <Box sx={{ mt: 1 }}>
+                                  <img
+                                    src="/cc-stripe-brands.svg"
+                                    alt="visa"
+                                    width="42"
+                                  />
+                                </Box>
+                              </Grid>
+                              <Grid item xs={8}>
+                                <Grid item xs={12}>
+                                  **** {lastFour}
+                                </Grid>
+                                <Grid item xs={12}>
+                                  Exp {expMth}/{expYr}
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Button>
+                        );
+                      }
+                    })}
+                  </Stack>
+                </Box>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Box>
     </>
   );
