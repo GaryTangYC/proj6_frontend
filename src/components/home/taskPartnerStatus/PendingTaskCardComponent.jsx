@@ -108,9 +108,6 @@ export default function PendingTaskCardComponent({ tasks }) {
                   />
                 </Link>
                 <Link
-                  underline="none"
-                  component={RouterLink}
-                  to={`/addpartner/${task._id}`}
                 >
                   <TaskCardBtn disabled
                     text="Add"
