@@ -5,7 +5,7 @@ import ProfileAccordions from "../components/profile/ProfileAccordion";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "./../store";
 import axios from "axios";
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 export default function ProfilePage() {
   const { store } = useContext(Context);
@@ -43,7 +43,9 @@ export default function ProfilePage() {
       {options.clientSecret ? (
         <ProfileAccordions options={options} />
       ) : (
-        <Typography>Unable to get client secret.</Typography>
+        <Box m={3}>
+          <Typography>Unable to get client secret.</Typography>
+        </Box>
       )}
     </DashboardContent>
   );
