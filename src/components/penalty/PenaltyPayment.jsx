@@ -29,7 +29,7 @@ export default function PenaltyPayment({ paymentList, taskId }) {
       console.log(result);
 
       // if result.status == 200 then manipulate task db as completed
-      if (result.statusCode === 200) {
+      if (result.status === 200) {
         const postCompleteTask = await axios.post(
           postCompleteBckendUrl,
           {
