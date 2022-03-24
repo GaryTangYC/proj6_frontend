@@ -10,12 +10,14 @@ import {
   FormControl,
   Container,
   Autocomplete,
-
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 /* widget/component imports */
 import SubmitBtn from "../../widgets/SubmitBtn";
 import TaskFieldComponent from "./TaskFieldComponent";
-import FinancialPenaltyComponent from "./FinancialPenaltyComponent";
 import RewardsPenaltyComponent from "./RewardsPenaltyComponent";
 
 /* date/time Imports - to be moved to widgets once OK */
@@ -27,6 +29,7 @@ export default function AddTaskForm() {
   const [dateTime, setDateTime] = useState(new Date());
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
+  const [penaltyAmount, setPenaltyAmount] = useState()
   const [rewardsPenalty, setRewardsPenalty] = useState("Nil");
   const [taskTag, setTaskTag] = useState("None");
   const taskTagList = [
@@ -39,7 +42,10 @@ export default function AddTaskForm() {
     "Health & Wellness",
     "Creativity",
   ];
-
+  const [isRadioDisabled, setIsRadioDisabled] = useState(true);
+  const handleRadio = (e) => {
+    setIsRadioDisabled(!isRadioDisabled);
+  };
   // useContext to obtain user and partner
   const { store } = useContext(Context);
   const { user, token } = store;
@@ -59,7 +65,8 @@ export default function AddTaskForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const getFormData = new FormData(event.currentTarget);
-    // const taskTagTest = getFormData.get("taskTag");
+    
+    //Data check penalty amount
 
     const data = {
       owner: user._id,
@@ -68,7 +75,9 @@ export default function AddTaskForm() {
       taskDescription: getFormData.get("taskDescription"),
       taskTag,
       rewardsPenalty: getFormData.get("rewardsPenalty"),
+      penaltyAmount: getFormData.get("penaltyAmount")
     };
+    console.log("this is getFinAmount", getFormData.get("penaltyAmount"));
     console.log("this is getformdata", getFormData);
     console.log("this is data", data);
 
@@ -103,7 +112,7 @@ export default function AddTaskForm() {
             onSubmit={handleSubmit}
             noValidate
             display="flex"
-            alignItems='center'
+            alignItems="center"
             justifyContent="center"
             sx={{ mt: 1 }}
           >
@@ -115,9 +124,9 @@ export default function AddTaskForm() {
                 }}
               />
               {/* Date Time Picker */}
-              <LocalizationProvider  dateAdapter={AdapterDateFns}>
-                <DesktopDateTimePicker 
-                  value={dateTime}                  
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDateTimePicker
+                  value={dateTime}
                   minDateTime={new Date()}
                   onChange={(newValue) => {
                     setDateTime(newValue);
@@ -147,10 +156,47 @@ export default function AddTaskForm() {
                 )}
               />
               {/* Financial Penalty Selection */}
-              <FinancialPenaltyComponent />
+              <FormLabel
+                color="secondary"
+                id="financial-penalty-radio-buttons-group"
+              >
+                Financial Penalty
+              </FormLabel>
+              <RadioGroup
+                row
+                name="financialPenalty"
+                defaultValue={false}
+                onChange={handleRadio}
+              >
+                <FormControlLabel
+                  value="true"
+                  control={<Radio color="secondary" />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio color="secondary" />}
+                  label="No"
+                />
+
+                  <TextField
+                  disabled={isRadioDisabled}                  
+                  label="Penalty Value (S$)"
+                  defaultValue="0"
+                  color="secondary"
+                  name="penaltyAmount"
+                  onChange={(event) => {
+                  const {value } = event.target                    
+                  setPenaltyAmount(value);                  
+                }}
+                type='number'
+
+                />
+              </RadioGroup>
+
 
               {/* Rewards/Penalty Description */}
-              <RewardsPenaltyComponent 
+              <RewardsPenaltyComponent
                 onInputChange={(newValue) => {
                   console.log(newValue);
                   setRewardsPenalty(newValue);
