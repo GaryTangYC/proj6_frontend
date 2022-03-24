@@ -30,10 +30,6 @@ export default function TaskCardComponent({ tasks }) {
    const auth = { headers: { Authorization: `Bearer ${token}` } };
    const postCompleteBckendUrl = `${process.env.REACT_APP_BCKEND_BASE_URI}/task/completeTask`;
 
-  // isTrue state to be passed to button components that needs to be disabled
-  const [isTrue, setIsTrue] = useState(true);
-
-  
   const CompleteFn = async (e) => {
     e.preventDefault();
     const taskId = e.currentTarget.value;
@@ -49,12 +45,7 @@ export default function TaskCardComponent({ tasks }) {
     const updateState = !refreshState
     dispatch(renderRefresh(updateState));
     
-  };
-  
-//   useEffect(() => {
-//   console.log('refreshstate in useEffect', refreshState);
-// }, [refreshState]);
-
+  };  
 
   return (
     <>
